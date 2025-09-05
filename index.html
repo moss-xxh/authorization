@@ -502,6 +502,13 @@
                     <label class="label-apple" for="batteryBrand">
                         <span class="lang-text" data-lang="en">Brand</span>
                         <span class="lang-text" data-lang="zh">品牌</span>
+                        <button type="button" class="hint-icon ml-2" onclick="openHintModal('brand')" title="查看示例图片">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="#6B7280" stroke-width="2"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="17" r="1" fill="#6B7280"/>
+                            </svg>
+                        </button>
                     </label>
                     <select id="batteryBrand" name="batteryBrand" class="input-apple">
                         <option value="" selected></option>
@@ -524,6 +531,13 @@
                     <label class="label-apple" for="inverterSN">
                         <span class="lang-text" data-lang="en">Inverter SN</span>
                         <span class="lang-text" data-lang="zh">逆变器SN</span>
+                        <button type="button" class="hint-icon ml-2" onclick="openHintModal('inverterSN')" title="查看示例图片">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="#6B7280" stroke-width="2"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="17" r="1" fill="#6B7280"/>
+                            </svg>
+                        </button>
                     </label>
                     <input type="text" id="inverterSN" name="inverterSN" class="input-apple" 
                            data-placeholder-en="Enter inverter serial number" 
@@ -544,6 +558,13 @@
                     <label class="label-apple" for="batterySize">
                         <span class="lang-text" data-lang="en">Battery Capacity (Ah)</span>
                         <span class="lang-text" data-lang="zh">电池容量 (Ah)</span>
+                        <button type="button" class="hint-icon ml-2" onclick="openHintModal('batteryCapacity')" title="查看示例图片">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="#6B7280" stroke-width="2"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="17" r="1" fill="#6B7280"/>
+                            </svg>
+                        </button>
                     </label>
                     <input type="text" id="batterySize" name="batterySize" class="input-apple" 
                            data-placeholder-en="e.g., 100Ah" 
@@ -2912,6 +2933,66 @@
             // 跳转到第一步进行重新提交
             editRecord(recordId);
         }
+
+        // 打开提示模态框
+        function openHintModal(type) {
+            const modal = document.getElementById('hintModal');
+            const modalImage = document.getElementById('modalImage');
+            
+            // 根据类型设置图片路径和标题
+            const imageMap = {
+                'brand': {
+                    src: '品牌.jpg',
+                    title: { 
+                        en: 'Brand Location Example', 
+                        zh: '品牌位置示例' 
+                    }
+                },
+                'inverterSN': {
+                    src: '逆变器SN.jpg',
+                    title: { 
+                        en: 'Inverter SN Location Example', 
+                        zh: '逆变器SN位置示例' 
+                    }
+                },
+                'batteryCapacity': {
+                    src: '电池容量.jpg',
+                    title: { 
+                        en: 'Battery Capacity Location Example', 
+                        zh: '电池容量位置示例' 
+                    }
+                }
+            };
+            
+            if (imageMap[type]) {
+                modalImage.src = imageMap[type].src;
+                
+                // 更新标题
+                const titleEn = document.querySelector('#modalTitle .lang-text[data-lang="en"]');
+                const titleZh = document.querySelector('#modalTitle .lang-text[data-lang="zh"]');
+                
+                if (titleEn) titleEn.textContent = imageMap[type].title.en;
+                if (titleZh) titleZh.textContent = imageMap[type].title.zh;
+                
+                // 显示模态框
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // 防止背景滚动
+            }
+        }
+
+        // 关闭提示模态框
+        function closeHintModal() {
+            const modal = document.getElementById('hintModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = ''; // 恢复滚动
+        }
+
+        // ESC键关闭模态框
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeHintModal();
+            }
+        });
     </script>
 
     <!-- 查询页面（初始隐藏） -->
@@ -3027,5 +3108,126 @@
             <p>&copy; 2023 <span class="lang-text" data-lang="en">VPP Authorization System All Rights Reserved</span><span class="lang-text" data-lang="zh">VPP 授权管理系统 版权所有</span></p>
         </div>
     </footer>
+
+    <!-- 图片预览模态框 -->
+    <div id="hintModal" class="modal-overlay hidden" onclick="closeHintModal()">
+        <div class="modal-container" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 id="modalTitle" class="modal-title">
+                    <span class="lang-text" data-lang="en">Preview Image</span>
+                    <span class="lang-text" data-lang="zh">预览图片</span>
+                </h3>
+                <button class="modal-close-btn" onclick="closeHintModal()" title="关闭">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="预览图片" class="modal-image">
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .hint-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 2px;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+        
+        .hint-icon:hover {
+            background-color: #F3F4F6;
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .modal-overlay.hidden {
+            display: none;
+        }
+        
+        .modal-container {
+            background: white;
+            border-radius: 12px;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0;
+        }
+        
+        .modal-close-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+        }
+        
+        .modal-close-btn:hover {
+            background-color: #F3F4F6;
+        }
+        
+        .modal-body {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .modal-image {
+            max-width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 640px) {
+            .modal-container {
+                margin: 16px;
+                max-width: calc(100vw - 32px);
+            }
+            
+            .modal-body {
+                padding: 16px;
+            }
+            
+            .modal-image {
+                max-height: 60vh;
+            }
+        }
+    </style>
+
 </body>
 </html>
