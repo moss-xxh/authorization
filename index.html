@@ -548,6 +548,13 @@
                     <label class="label-apple" for="batterySN">
                         <span class="lang-text" data-lang="en">Battery SN</span>
                         <span class="lang-text" data-lang="zh">电池SN</span>
+                        <button type="button" class="hint-icon ml-2" onclick="openHintModal('batterySN')" title="查看示例图片">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="#6B7280" stroke-width="2"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="17" r="1" fill="#6B7280"/>
+                            </svg>
+                        </button>
                     </label>
                     <input type="text" id="batterySN" name="batterySN" class="input-apple" 
                            data-placeholder-en="Enter battery serial number" 
@@ -2953,6 +2960,13 @@
                     title: { 
                         en: 'Inverter SN Location Example', 
                         zh: '逆变器SN位置示例' 
+                    }
+                },
+                'batterySN': {
+                    src: '电池SN.jpg',
+                    title: { 
+                        en: 'Battery SN Location Example', 
+                        zh: '电池SN位置示例' 
                     }
                 },
                 'batteryCapacity': {
