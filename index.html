@@ -1279,6 +1279,16 @@
                 window.updateAddressOptions(lang);
             }
             
+            // Update query condition dropdown options
+            const queryConditionSelect = document.getElementById('query-condition');
+            if (queryConditionSelect) {
+                const options = queryConditionSelect.querySelectorAll('option[data-text-en][data-text-zh]');
+                options.forEach(option => {
+                    const textKey = lang === 'zh' ? 'data-text-zh' : 'data-text-en';
+                    option.textContent = option.getAttribute(textKey);
+                });
+            }
+            
             // Save language preference
             localStorage.setItem('preferred-language', lang);
         }
@@ -1286,9 +1296,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Load saved language preference
             const savedLang = localStorage.getItem('preferred-language') || 'en';
-            if (savedLang !== 'en') {
-                switchLanguage(savedLang);
-            }
+            
+            // Always call switchLanguage to ensure all elements are properly initialized
+            switchLanguage(savedLang);
             
             // Initialize customer signature pad
             const customerCanvas = document.getElementById('customerSignature');
@@ -2918,22 +2928,10 @@
                     </label>
                     <div class="relative">
                         <select id="query-condition" name="query-condition" class="input-apple appearance-none pr-10">
-                            <option value="email">
-                                <span class="lang-text" data-lang="en">Email</span>
-                                <span class="lang-text" data-lang="zh">邮箱</span>
-                            </option>
-                            <option value="customerName">
-                                <span class="lang-text" data-lang="en">Customer Name</span>
-                                <span class="lang-text" data-lang="zh">客户姓名</span>
-                            </option>
-                            <option value="mobile">
-                                <span class="lang-text" data-lang="en">Mobile</span>
-                                <span class="lang-text" data-lang="zh">手机号码</span>
-                            </option>
-                            <option value="nmi">
-                                <span class="lang-text" data-lang="en">NMI</span>
-                                <span class="lang-text" data-lang="zh">NMI编号</span>
-                            </option>
+                            <option value="email" data-text-en="Email" data-text-zh="邮箱">Email</option>
+                            <option value="customerName" data-text-en="Customer Name" data-text-zh="客户姓名">Customer Name</option>
+                            <option value="mobile" data-text-en="Mobile" data-text-zh="手机号码">Mobile</option>
+                            <option value="nmi" data-text-en="NMI" data-text-zh="NMI编号">NMI</option>
                         </select>
                         <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-tertiary pointer-events-none">
                             <i class="fa fa-chevron-down"></i>
