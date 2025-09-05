@@ -2948,10 +2948,27 @@
             editRecord(recordId);
         }
 
+        // 图片预加载缓存
+        const imageCache = new Map();
+        
+        // 预加载所有提示图片
+        function preloadHintImages() {
+            const imagesToPreload = ['品牌.jpg', '账号.jpg', '逆变器SN.jpg', '电池SN.jpg', '电池容量.jpg'];
+            imagesToPreload.forEach(src => {
+                if (!imageCache.has(src)) {
+                    const img = new Image();
+                    img.onload = () => imageCache.set(src, img);
+                    img.onerror = () => console.warn(`Failed to preload image: ${src}`);
+                    img.src = src;
+                }
+            });
+        }
+        
         // 打开提示模态框
         function openHintModal(type) {
             const modal = document.getElementById('hintModal');
             const modalImage = document.getElementById('modalImage');
+            const imageLoader = document.getElementById('imageLoader');
             
             // 根据类型设置图片路径和标题
             const imageMap = {
@@ -2993,7 +3010,7 @@
             };
             
             if (imageMap[type]) {
-                modalImage.src = imageMap[type].src;
+                const imageSrc = imageMap[type].src;
                 
                 // 更新标题
                 const titleEn = document.querySelector('#modalTitle .lang-text[data-lang="en"]');
@@ -3005,6 +3022,32 @@
                 // 显示模态框
                 modal.classList.remove('hidden');
                 document.body.style.overflow = 'hidden'; // 防止背景滚动
+                
+                // 优化图片加载
+                if (imageCache.has(imageSrc)) {
+                    // 使用缓存的图片
+                    modalImage.src = imageSrc;
+                    modalImage.style.display = 'block';
+                    imageLoader.classList.add('hidden');
+                } else {
+                    // 显示加载指示器
+                    modalImage.style.display = 'none';
+                    imageLoader.classList.remove('hidden');
+                    
+                    // 加载图片
+                    const img = new Image();
+                    img.onload = () => {
+                        imageCache.set(imageSrc, img);
+                        modalImage.src = imageSrc;
+                        modalImage.style.display = 'block';
+                        imageLoader.classList.add('hidden');
+                    };
+                    img.onerror = () => {
+                        imageLoader.classList.add('hidden');
+                        console.error(`Failed to load image: ${imageSrc}`);
+                    };
+                    img.src = imageSrc;
+                }
             }
         }
 
@@ -3020,6 +3063,14 @@
             if (event.key === 'Escape') {
                 closeHintModal();
             }
+        });
+        
+        // 页面加载完成后预加载图片
+        document.addEventListener('DOMContentLoaded', function() {
+            // 延迟1秒后开始预加载，避免阻塞关键资源
+            setTimeout(() => {
+                preloadHintImages();
+            }, 1000);
         });
     </script>
 
@@ -3152,7 +3203,18 @@
                 </button>
             </div>
             <div class="modal-body">
-                <img id="modalImage" src="" alt="预览图片" class="modal-image">
+                <div id="modalImageContainer" class="relative">
+                    <div id="imageLoader" class="absolute inset-0 flex items-center justify-center bg-gray-50 rounded-lg hidden">
+                        <div class="flex flex-col items-center">
+                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-2"></div>
+                            <span class="text-sm text-gray-600">
+                                <span class="lang-text" data-lang="en">Loading...</span>
+                                <span class="lang-text" data-lang="zh">加载中...</span>
+                            </span>
+                        </div>
+                    </div>
+                    <img id="modalImage" src="" alt="预览图片" class="modal-image">
+                </div>
             </div>
         </div>
     </div>
