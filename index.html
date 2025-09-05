@@ -542,13 +542,13 @@
                 </div>
                 <div>
                     <label class="label-apple" for="batterySize">
-                        <span class="lang-text" data-lang="en">Battery Capacity</span>
-                        <span class="lang-text" data-lang="zh">电池容量</span>
+                        <span class="lang-text" data-lang="en">Battery Capacity (Ah)</span>
+                        <span class="lang-text" data-lang="zh">电池容量 (Ah)</span>
                     </label>
                     <input type="text" id="batterySize" name="batterySize" class="input-apple" 
-                           data-placeholder-en="Enter battery capacity" 
-                           data-placeholder-zh="请输入电池容量"
-                           placeholder="Enter battery capacity">
+                           data-placeholder-en="e.g., 100Ah" 
+                           data-placeholder-zh="如: 100Ah"
+                           placeholder="e.g., 100Ah">
                 </div>
             </div>
 
@@ -941,8 +941,8 @@
                         </div>
                         <div>
                             <label class="label-apple">
-                                <span class="lang-text" data-lang="en">Battery Capacity</span>
-                                <span class="lang-text" data-lang="zh">电池容量</span>
+                                <span class="lang-text" data-lang="en">Battery Capacity (Ah)</span>
+                                <span class="lang-text" data-lang="zh">电池容量 (Ah)</span>
                             </label>
                             <div id="display-battery-size" class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">--</div>
                         </div>
@@ -2504,7 +2504,7 @@
                     nmi: 'NMI123456',
                     supplyAddress: 'Sydney, NSW, Australia',
                     batteryBrand: 'Tesla Powerwall',
-                    batterySize: '13.5kWh',
+                    batterySize: '100Ah',
                     batteryAccount: 'BAT001',
                     inverterSN: 'SE12345',
                     batterySN: 'BAT_SE001',
@@ -2528,7 +2528,7 @@
                     nmi: 'NMI654321',
                     supplyAddress: 'Melbourne, VIC, Australia',
                     batteryBrand: 'LG Chem',
-                    batterySize: '10kWh',
+                    batterySize: '80Ah',
                     batteryAccount: 'BAT002',
                     inverterSN: 'FR67890',
                     batterySN: 'BAT_LG002',
@@ -2553,7 +2553,7 @@
                         nmi: 'NMI789012',
                         supplyAddress: 'Brisbane, QLD, Australia',
                         batteryBrand: 'Enphase',
-                        batterySize: '5kWh',
+                        batterySize: '50Ah',
                         batteryAccount: 'BAT003',
                         inverterSN: 'SMA11111',
                         batterySN: 'BAT_ENP003',
@@ -2575,7 +2575,7 @@
                         nmi: 'NMI789013',
                         supplyAddress: 'Brisbane, QLD, Australia',
                         batteryBrand: 'BYD',
-                        batterySize: '8kWh',
+                        batterySize: '75Ah',
                         batteryAccount: 'BAT004',
                         inverterSN: 'HW22222',
                         batterySN: 'BAT_BYD004',
@@ -2600,7 +2600,7 @@
                     nmi: 'NMI345678',
                     supplyAddress: 'Perth, WA, Australia',
                     batteryBrand: 'Sonnen',
-                    batterySize: '15kWh',
+                    batterySize: '120Ah',
                     batteryAccount: 'BAT005',
                     inverterSN: 'GW33333',
                     batterySN: 'BAT_SON005',
@@ -2625,7 +2625,7 @@
                     nmi: 'NMI567890',
                     supplyAddress: 'Adelaide, SA, Australia',
                     batteryBrand: 'Alpha ESS',
-                    batterySize: '12kWh',
+                    batterySize: '90Ah',
                     batteryAccount: 'BAT006',
                     inverterSN: 'GR44444',
                     batterySN: 'BAT_ALP006',
@@ -2774,8 +2774,8 @@
                             </div>
                             <div>
                                 <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Battery Capacity</span>
-                                    <span class="lang-text" data-lang="zh">电池容量</span>
+                                    <span class="lang-text" data-lang="en">Battery Capacity (Ah)</span>
+                                    <span class="lang-text" data-lang="zh">电池容量 (Ah)</span>
                                 </label>
                                 <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batterySize || '--'}</div>
                             </div>
