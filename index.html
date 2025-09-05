@@ -521,6 +521,13 @@
                     <label class="label-apple" for="batteryAccount">
                         <span class="lang-text" data-lang="en">Account</span>
                         <span class="lang-text" data-lang="zh">账号</span>
+                        <button type="button" class="hint-icon ml-2" onclick="openHintModal('account')" title="查看示例图片">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="#6B7280" stroke-width="2"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="17" r="1" fill="#6B7280"/>
+                            </svg>
+                        </button>
                     </label>
                     <input type="text" id="batteryAccount" name="batteryAccount" class="input-apple" 
                            data-placeholder-en="Enter account" 
@@ -2953,6 +2960,13 @@
                     title: { 
                         en: 'Brand Location Example', 
                         zh: '品牌位置示例' 
+                    }
+                },
+                'account': {
+                    src: '账号.jpg',
+                    title: { 
+                        en: 'Account Location Example', 
+                        zh: '账号位置示例' 
                     }
                 },
                 'inverterSN': {
