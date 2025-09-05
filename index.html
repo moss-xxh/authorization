@@ -500,8 +500,8 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label class="label-apple" for="batteryBrand">
-                        <span class="lang-text" data-lang="en">Battery Brand</span>
-                        <span class="lang-text" data-lang="zh">电池品牌</span>
+                        <span class="lang-text" data-lang="en">Brand</span>
+                        <span class="lang-text" data-lang="zh">品牌</span>
                     </label>
                     <select id="batteryBrand" name="batteryBrand" class="input-apple">
                         <option value="" selected></option>
@@ -509,6 +509,26 @@
                         <option value="FOX ESS">FOX ESS</option>
                         <option value="weiheng">weiheng</option>
                     </select>
+                </div>
+                <div>
+                    <label class="label-apple" for="batteryAccount">
+                        <span class="lang-text" data-lang="en">Account</span>
+                        <span class="lang-text" data-lang="zh">账号</span>
+                    </label>
+                    <input type="text" id="batteryAccount" name="batteryAccount" class="input-apple" 
+                           data-placeholder-en="Enter account" 
+                           data-placeholder-zh="请输入账号"
+                           placeholder="Enter account">
+                </div>
+                <div>
+                    <label class="label-apple" for="inverterSN">
+                        <span class="lang-text" data-lang="en">Serial Number</span>
+                        <span class="lang-text" data-lang="zh">序列号</span>
+                    </label>
+                    <input type="text" id="inverterSN" name="inverterSN" class="input-apple" 
+                           data-placeholder-en="Enter serial number" 
+                           data-placeholder-zh="请输入序列号"
+                           placeholder="Enter serial number">
                 </div>
                 <div>
                     <label class="label-apple" for="batterySize">
@@ -519,48 +539,6 @@
                            data-placeholder-en="Enter battery capacity" 
                            data-placeholder-zh="请输入电池容量"
                            placeholder="Enter battery capacity">
-                </div>
-                <div>
-                    <label class="label-apple" for="batteryAccount">
-                        <span class="lang-text" data-lang="en">Battery Account</span>
-                        <span class="lang-text" data-lang="zh">电池账户</span>
-                    </label>
-                    <input type="text" id="batteryAccount" name="batteryAccount" class="input-apple" 
-                           data-placeholder-en="Enter battery account" 
-                           data-placeholder-zh="请输入电池账户"
-                           placeholder="Enter battery account">
-                </div>
-                <div>
-                    <label class="label-apple" for="inverterBrand">
-                        <span class="lang-text" data-lang="en">Inverter Brand</span>
-                        <span class="lang-text" data-lang="zh">逆变器品牌</span>
-                    </label>
-                    <select id="inverterBrand" name="inverterBrand" class="input-apple">
-                        <option value="" selected></option>
-                        <option value="ipotisedge">ipotisedge</option>
-                        <option value="FOX ESS">FOX ESS</option>
-                        <option value="weiheng">weiheng</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="label-apple" for="inverterSN">
-                        <span class="lang-text" data-lang="en">Inverter Serial Number</span>
-                        <span class="lang-text" data-lang="zh">逆变器序列号</span>
-                    </label>
-                    <input type="text" id="inverterSN" name="inverterSN" class="input-apple" 
-                           data-placeholder-en="Enter inverter serial number" 
-                           data-placeholder-zh="请输入逆变器序列号"
-                           placeholder="Enter inverter serial number">
-                </div>
-                <div>
-                    <label class="label-apple" for="inverterAccount">
-                        <span class="lang-text" data-lang="en">Inverter Account</span>
-                        <span class="lang-text" data-lang="zh">逆变器账号</span>
-                    </label>
-                    <input type="text" id="inverterAccount" name="inverterAccount" class="input-apple" 
-                           data-placeholder-en="Enter inverter account" 
-                           data-placeholder-zh="请输入逆变器账号"
-                           placeholder="Enter inverter account">
                 </div>
             </div>
 
@@ -925,10 +903,24 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="label-apple">
-                                <span class="lang-text" data-lang="en">Battery Brand</span>
-                                <span class="lang-text" data-lang="zh">电池品牌</span>
+                                <span class="lang-text" data-lang="en">Brand</span>
+                                <span class="lang-text" data-lang="zh">品牌</span>
                             </label>
                             <div id="display-battery-brand" class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">--</div>
+                        </div>
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Account</span>
+                                <span class="lang-text" data-lang="zh">账号</span>
+                            </label>
+                            <div id="display-battery-account" class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">--</div>
+                        </div>
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Serial Number</span>
+                                <span class="lang-text" data-lang="zh">序列号</span>
+                            </label>
+                            <div id="display-inverter-sn" class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">--</div>
                         </div>
                         <div>
                             <label class="label-apple">
@@ -936,34 +928,6 @@
                                 <span class="lang-text" data-lang="zh">电池容量</span>
                             </label>
                             <div id="display-battery-size" class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">--</div>
-                        </div>
-                        <div>
-                            <label class="label-apple">
-                                <span class="lang-text" data-lang="en">Battery Account</span>
-                                <span class="lang-text" data-lang="zh">电池账户</span>
-                            </label>
-                            <div id="display-battery-account" class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">--</div>
-                        </div>
-                        <div>
-                            <label class="label-apple">
-                                <span class="lang-text" data-lang="en">Inverter Brand</span>
-                                <span class="lang-text" data-lang="zh">逆变器品牌</span>
-                            </label>
-                            <div id="display-inverter-brand" class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">--</div>
-                        </div>
-                        <div>
-                            <label class="label-apple">
-                                <span class="lang-text" data-lang="en">Inverter Serial Number</span>
-                                <span class="lang-text" data-lang="zh">逆变器序列号</span>
-                            </label>
-                            <div id="display-inverter-sn" class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">--</div>
-                        </div>
-                        <div>
-                            <label class="label-apple">
-                                <span class="lang-text" data-lang="en">Inverter Account</span>
-                                <span class="lang-text" data-lang="zh">逆变器账号</span>
-                            </label>
-                            <div id="display-inverter-account" class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">--</div>
                         </div>
                     </div>
                 </div>
@@ -2098,9 +2062,7 @@
             const batteryBrand = document.getElementById('batteryBrand').value;
             const batterySize = document.getElementById('batterySize').value.trim();
             const batteryAccount = document.getElementById('batteryAccount').value.trim();
-            const inverterBrand = document.getElementById('inverterBrand').value.trim();
             const inverterSN = document.getElementById('inverterSN').value.trim();
-            const inverterAccount = document.getElementById('inverterAccount').value.trim();
             const hasSignature = customerSignaturePad && !customerSignaturePad.isEmpty();
 
             // 合并完整地址
@@ -2115,9 +2077,7 @@
             const displayBatteryBrand = document.getElementById('display-battery-brand');
             const displayBatterySize = document.getElementById('display-battery-size');
             const displayBatteryAccount = document.getElementById('display-battery-account');
-            const displayInverterBrand = document.getElementById('display-inverter-brand');
             const displayInverterSn = document.getElementById('display-inverter-sn');
-            const displayInverterAccount = document.getElementById('display-inverter-account');
             const displaySignatureDate = document.getElementById('display-signature-date');
             const displaySubmitTime = document.getElementById('display-submit-time');
             const authStatusElement = document.getElementById('display-auth-status');
@@ -2136,15 +2096,9 @@
                                  document.getElementById('batteryBrand').options[document.getElementById('batteryBrand').selectedIndex].text : '--';
                 displayBatteryBrand.textContent = brandText;
             }
-            if (displayBatterySize) displayBatterySize.textContent = batterySize || '--';
             if (displayBatteryAccount) displayBatteryAccount.textContent = batteryAccount || '--';
-            if (displayInverterBrand) {
-                const inverterBrandText = inverterBrand && document.getElementById('inverterBrand').selectedIndex > 0 ? 
-                                        document.getElementById('inverterBrand').options[document.getElementById('inverterBrand').selectedIndex].text : '--';
-                displayInverterBrand.textContent = inverterBrandText;
-            }
             if (displayInverterSn) displayInverterSn.textContent = inverterSN || '--';
-            if (displayInverterAccount) displayInverterAccount.textContent = inverterAccount || '--';
+            if (displayBatterySize) displayBatterySize.textContent = batterySize || '--';
             
             // 获取安装人员数据
             const installerName = document.getElementById('installerName').value.trim();
@@ -2225,7 +2179,7 @@
             // 保存完整数据到localStorage
             const formData = {
                 customerName, mobile, email, nmi, supplyAddress, addressDetails,
-                batteryBrand, batterySize, batteryAccount, inverterBrand, inverterSN, inverterAccount,
+                batteryBrand, batterySize, batteryAccount, inverterSN,
                 signatureDate: document.getElementById('signatureDate').value,
                 signature: (hasSignature && customerSignaturePad) ? customerSignaturePad.toDataURL() : null,
                 submitTime: new Date().toISOString(),
@@ -2277,9 +2231,7 @@
                         document.getElementById('batteryBrand').value = data.batteryBrand || '';
                         document.getElementById('batterySize').value = data.batterySize || '';
                         document.getElementById('batteryAccount').value = data.batteryAccount || '';
-                        document.getElementById('inverterBrand').value = data.inverterBrand || '';
                         document.getElementById('inverterSN').value = data.inverterSN || '';
-                        document.getElementById('inverterAccount').value = data.inverterAccount || '';
                         document.getElementById('signatureDate').value = data.signatureDate || new Date().toISOString().split('T')[0];
                         
                         // 恢复签名
@@ -2487,9 +2439,7 @@
                     batteryBrand: 'Tesla Powerwall',
                     batterySize: '13.5kWh',
                     batteryAccount: 'BAT001',
-                    inverterBrand: 'SolarEdge',
                     inverterSN: 'SE12345',
-                    inverterAccount: 'INV001',
                     customerSignature: true,
                     signatureDate: '2025-09-05',
                     installerName: 'Tom Wilson',
@@ -2512,9 +2462,7 @@
                     batteryBrand: 'LG Chem',
                     batterySize: '10kWh',
                     batteryAccount: 'BAT002',
-                    inverterBrand: 'Fronius',
                     inverterSN: 'FR67890',
-                    inverterAccount: 'INV002',
                     customerSignature: true,
                     signatureDate: '2025-09-05',
                     installerName: 'Mark Davis',
@@ -2538,9 +2486,7 @@
                         batteryBrand: 'Enphase',
                         batterySize: '5kWh',
                         batteryAccount: 'BAT003',
-                        inverterBrand: 'SMA',
                         inverterSN: 'SMA11111',
-                        inverterAccount: 'INV003',
                         customerSignature: true,
                         signatureDate: '2025-09-05',
                         installerName: 'Alex Green',
@@ -2561,9 +2507,7 @@
                         batteryBrand: 'BYD',
                         batterySize: '8kWh',
                         batteryAccount: 'BAT004',
-                        inverterBrand: 'Huawei',
                         inverterSN: 'HW22222',
-                        inverterAccount: 'INV004',
                         customerSignature: true,
                         signatureDate: '2025-09-05',
                         installerName: 'Paul Miller',
@@ -2587,9 +2531,7 @@
                     batteryBrand: 'Sonnen',
                     batterySize: '15kWh',
                     batteryAccount: 'BAT005',
-                    inverterBrand: 'Goodwe',
                     inverterSN: 'GW33333',
-                    inverterAccount: 'INV005',
                     customerSignature: true,
                     signatureDate: '2025-09-05',
                     installerName: 'Lisa Wang',
@@ -2613,9 +2555,7 @@
                     batteryBrand: 'Alpha ESS',
                     batterySize: '12kWh',
                     batteryAccount: 'BAT006',
-                    inverterBrand: 'Growatt',
                     inverterSN: 'GR44444',
-                    inverterAccount: 'INV006',
                     customerSignature: true,
                     signatureDate: '2025-09-05',
                     installerName: 'Chris Lee',
@@ -2733,45 +2673,31 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Battery Brand</span>
-                                    <span class="lang-text" data-lang="zh">电池品牌</span>
+                                    <span class="lang-text" data-lang="en">Brand</span>
+                                    <span class="lang-text" data-lang="zh">品牌</span>
                                 </label>
                                 <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batteryBrand || '--'}</div>
                             </div>
                             <div>
                                 <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Battery Size</span>
-                                    <span class="lang-text" data-lang="zh">电池容量</span>
-                                </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batterySize || '--'}</div>
-                            </div>
-                            <div>
-                                <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Battery Account</span>
-                                    <span class="lang-text" data-lang="zh">电池账户</span>
+                                    <span class="lang-text" data-lang="en">Account</span>
+                                    <span class="lang-text" data-lang="zh">账号</span>
                                 </label>
                                 <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batteryAccount || '--'}</div>
                             </div>
                             <div>
                                 <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Inverter Brand</span>
-                                    <span class="lang-text" data-lang="zh">逆变器品牌</span>
-                                </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.inverterBrand || '--'}</div>
-                            </div>
-                            <div>
-                                <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Inverter Serial Number</span>
-                                    <span class="lang-text" data-lang="zh">逆变器序列号</span>
+                                    <span class="lang-text" data-lang="en">Serial Number</span>
+                                    <span class="lang-text" data-lang="zh">序列号</span>
                                 </label>
                                 <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.inverterSN || '--'}</div>
                             </div>
                             <div>
                                 <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Inverter Account</span>
-                                    <span class="lang-text" data-lang="zh">逆变器账号</span>
+                                    <span class="lang-text" data-lang="en">Battery Capacity</span>
+                                    <span class="lang-text" data-lang="zh">电池容量</span>
                                 </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.inverterAccount || '--'}</div>
+                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batterySize || '--'}</div>
                             </div>
                         </div>
                     </div>
