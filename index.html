@@ -502,13 +502,6 @@
                     <label class="label-apple" for="batteryBrand">
                         <span class="lang-text" data-lang="en">Brand</span>
                         <span class="lang-text" data-lang="zh">品牌</span>
-                        <button type="button" class="hint-icon ml-2" onclick="openHintModal('brand')" title="查看示例图片">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="12" cy="12" r="10" stroke="#6B7280" stroke-width="2"/>
-                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <circle cx="12" cy="17" r="1" fill="#6B7280"/>
-                            </svg>
-                        </button>
                     </label>
                     <select id="batteryBrand" name="batteryBrand" class="input-apple">
                         <option value="" selected></option>
@@ -2953,7 +2946,7 @@
         
         // 预加载所有提示图片
         function preloadHintImages() {
-            const imagesToPreload = ['品牌.jpg', '账号.jpg', '逆变器SN.jpg', '电池SN.jpg', '电池容量.jpg'];
+            const imagesToPreload = ['账号.jpg', '逆变器SN.jpg', '电池SN.jpg', '电池容量.jpg'];
             imagesToPreload.forEach(src => {
                 if (!imageCache.has(src)) {
                     const img = new Image();
@@ -2972,13 +2965,6 @@
             
             // 根据类型设置图片路径和标题
             const imageMap = {
-                'brand': {
-                    src: '品牌.jpg',
-                    title: { 
-                        en: 'Brand Location Example', 
-                        zh: '品牌位置示例' 
-                    }
-                },
                 'account': {
                     src: '账号.jpg',
                     title: { 
