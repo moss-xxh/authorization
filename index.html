@@ -2486,7 +2486,7 @@
             ctx.clearRect(0, 0, width, height);
             
             // 设置签名样式
-            ctx.strokeStyle = '#2563eb';
+            ctx.strokeStyle = '#000000';
             ctx.lineWidth = 2;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
@@ -2819,7 +2819,7 @@
                                     <span class="lang-text" data-lang="zh">客户签名</span>
                                 </label>
                                 <div class="bg-white rounded-lg border-2 border-gray-300 h-32 flex items-center justify-center">
-                                    ${result.customerSignature ? `<img src="data:image/svg+xml;base64,${btoa('<svg width="240" height="80" xmlns="http://www.w3.org/2000/svg"><path d="M10 40 Q60 20 120 45 Q180 60 230 35" stroke="#2563eb" stroke-width="2" fill="none" stroke-linecap="round"/><text x="10" y="70" font-family="cursive" font-size="14" fill="#2563eb">${result.customerName}</text></svg>')}" class="w-full h-full object-contain" alt="Customer Signature"/>` : '<span class="text-gray-400">--</span>'}
+                                    ${result.customerSignature ? `<img src="data:image/svg+xml;base64,${btoa('<svg width="240" height="80" xmlns="http://www.w3.org/2000/svg"><path d="M10 40 Q60 20 120 45 Q180 60 230 35" stroke="#000000" stroke-width="2" fill="none" stroke-linecap="round"/><text x="10" y="70" font-family="cursive" font-size="14" fill="#000000">${result.customerName}</text></svg>')}" class="w-full h-full object-contain" alt="Customer Signature"/>` : '<span class="text-gray-400">--</span>'}
                                 </div>
                             </div>
                             <div>
@@ -2866,7 +2866,7 @@
                                     <span class="lang-text" data-lang="zh">安装人员签名</span>
                                 </label>
                                 <div class="bg-white rounded-lg border-2 border-gray-300 h-32 flex items-center justify-center">
-                                    ${result.installerSignature ? `<img src="data:image/svg+xml;base64,${btoa('<svg width="240" height="80" xmlns="http://www.w3.org/2000/svg"><path d="M15 35 Q45 15 90 40 Q135 55 185 30 Q220 45 225 35" stroke="#2563eb" stroke-width="2" fill="none" stroke-linecap="round"/><text x="15" y="65" font-family="cursive" font-size="12" fill="#2563eb">${result.installerName}</text></svg>')}" class="w-full h-full object-contain" alt="Installer Signature"/>` : '<span class="text-gray-400">--</span>'}
+                                    ${result.installerSignature ? `<img src="data:image/svg+xml;base64,${btoa('<svg width="240" height="80" xmlns="http://www.w3.org/2000/svg"><path d="M15 35 Q45 15 90 40 Q135 55 185 30 Q220 45 225 35" stroke="#000000" stroke-width="2" fill="none" stroke-linecap="round"/><text x="15" y="65" font-family="cursive" font-size="12" fill="#000000">${result.installerName}</text></svg>')}" class="w-full h-full object-contain" alt="Installer Signature"/>` : '<span class="text-gray-400">--</span>'}
                                 </div>
                             </div>
                             <div class="md:col-span-2">
