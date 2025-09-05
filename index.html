@@ -2151,11 +2151,12 @@
                     signatureImage.className = 'w-full h-full object-contain';
                     displayInstallerSignatureContainer.appendChild(signatureImage);
                 } else {
-                    // 没有签名：显示--
-                    const placeholder = document.createElement('span');
-                    placeholder.className = 'text-gray-400';
-                    placeholder.textContent = '--';
-                    displayInstallerSignatureContainer.appendChild(placeholder);
+                    // 没有签名：显示模拟签名
+                    const simulatedSignature = generateSimulatedSignature(installerName || 'Installer');
+                    const signatureImage = document.createElement('img');
+                    signatureImage.src = simulatedSignature;
+                    signatureImage.className = 'w-full h-full object-contain';
+                    displayInstallerSignatureContainer.appendChild(signatureImage);
                 }
             }
             
@@ -2179,11 +2180,12 @@
                     signatureImage.className = 'w-full h-full object-contain';
                     displaySignatureContainer.appendChild(signatureImage);
                 } else {
-                    // 没有签名：显示--
-                    const noSignatureSpan = document.createElement('span');
-                    noSignatureSpan.className = 'text-gray-400';
-                    noSignatureSpan.textContent = '--';
-                    displaySignatureContainer.appendChild(noSignatureSpan);
+                    // 没有签名：显示模拟签名
+                    const simulatedSignature = generateSimulatedSignature(customerName || 'Customer');
+                    const signatureImage = document.createElement('img');
+                    signatureImage.src = simulatedSignature;
+                    signatureImage.className = 'w-full h-full object-contain';
+                    displaySignatureContainer.appendChild(signatureImage);
                 }
             }
             
@@ -2445,6 +2447,50 @@
             });
         }
         
+        // 生成模拟签名
+        function generateSimulatedSignature(name, width = 300, height = 120) {
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            
+            // 设置画布背景为透明
+            ctx.clearRect(0, 0, width, height);
+            
+            // 设置签名样式
+            ctx.strokeStyle = '#2563eb';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            // 根据名字生成不同的签名样式
+            const nameHash = name.split('').reduce((a, b) => a + b.charCodeAt(0), 0);
+            const startX = 20 + (nameHash % 30);
+            const startY = height / 2 + (nameHash % 20 - 10);
+            
+            ctx.beginPath();
+            // 生成模拟的手写签名路径
+            for (let i = 0; i < name.length; i++) {
+                const charCode = name.charCodeAt(i);
+                const x = startX + i * 25 + Math.sin(i * 0.5) * 10;
+                const y = startY + Math.sin(i * 0.8) * 15 + (charCode % 20 - 10);
+                
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.quadraticCurveTo(x - 10, y - 5, x, y);
+                }
+            }
+            
+            // 添加一些装饰性的笔画
+            ctx.moveTo(startX, startY + 20);
+            ctx.quadraticCurveTo(startX + name.length * 15, startY + 10, startX + name.length * 20, startY + 25);
+            
+            ctx.stroke();
+            
+            return canvas.toDataURL('image/png');
+        }
+
         // 生成模拟查询结果
         function generateMockQueryResults() {
             // 模拟不同的查询结果情况 - 包含完整的客户和系统信息
@@ -2744,7 +2790,9 @@
                                     <span class="lang-text" data-lang="en">Customer Signature</span>
                                     <span class="lang-text" data-lang="zh">客户签名</span>
                                 </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.customerSignature ? '已签名' : '--'}</div>
+                                <div class="bg-white rounded-lg border-2 border-gray-300 h-32 flex items-center justify-center">
+                                    ${result.customerSignature ? `<img src="data:image/svg+xml;base64,${btoa('<svg width="240" height="80" xmlns="http://www.w3.org/2000/svg"><path d="M10 40 Q60 20 120 45 Q180 60 230 35" stroke="#2563eb" stroke-width="2" fill="none" stroke-linecap="round"/><text x="10" y="70" font-family="cursive" font-size="14" fill="#2563eb">${result.customerName}</text></svg>')}" class="w-full h-full object-contain" alt="Customer Signature"/>` : '<span class="text-gray-400">--</span>'}
+                                </div>
                             </div>
                             <div>
                                 <label class="label-apple">
@@ -2789,7 +2837,9 @@
                                     <span class="lang-text" data-lang="en">Installer Signature</span>
                                     <span class="lang-text" data-lang="zh">安装人员签名</span>
                                 </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.installerSignature ? '已签名' : '--'}</div>
+                                <div class="bg-white rounded-lg border-2 border-gray-300 h-32 flex items-center justify-center">
+                                    ${result.installerSignature ? `<img src="data:image/svg+xml;base64,${btoa('<svg width="240" height="80" xmlns="http://www.w3.org/2000/svg"><path d="M15 35 Q45 15 90 40 Q135 55 185 30 Q220 45 225 35" stroke="#2563eb" stroke-width="2" fill="none" stroke-linecap="round"/><text x="15" y="65" font-family="cursive" font-size="12" fill="#2563eb">${result.installerName}</text></svg>')}" class="w-full h-full object-contain" alt="Installer Signature"/>` : '<span class="text-gray-400">--</span>'}
+                                </div>
                             </div>
                             <div class="md:col-span-2">
                                 <label class="label-apple">
