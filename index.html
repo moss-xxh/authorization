@@ -881,10 +881,25 @@
     <!-- Submission Information Display (Initially Hidden) -->
     <div id="submission-info" class="hidden container mx-auto px-4 max-w-4xl mt-8">
         <div class="card-apple p-6 md:p-8">
-            <h3 class="text-xl font-semibold mb-6 text-center">
-                <span class="lang-text" data-lang="en">Submitted Information</span>
-                <span class="lang-text" data-lang="zh">提交信息</span>
-            </h3>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold">
+                    <span class="lang-text" data-lang="en">Authorization Details</span>
+                    <span class="lang-text" data-lang="zh">授权详情</span>
+                </h2>
+            </div>
+            
+            <!-- 授权状态 -->
+            <div class="text-center mb-6">
+                <div id="display-auth-status" class="inline-flex items-center px-4 py-2 rounded-full bg-success/10 text-success font-semibold text-lg">
+                    <span class="lang-text" data-lang="en">Submitted</span>
+                    <span class="lang-text" data-lang="zh">已提交</span>
+                </div>
+                <div class="text-sm text-tertiary mt-2">
+                    <span class="lang-text" data-lang="en">Submit Time:</span>
+                    <span class="lang-text" data-lang="zh">提交时间:</span>
+                    <span id="display-submit-time">--</span>
+                </div>
+            </div>
             
             <div class="space-y-8">
                 <!-- 客户详情 -->
@@ -983,21 +998,13 @@
                         <span class="lang-text" data-lang="en">Customer Signature</span>
                         <span class="lang-text" data-lang="zh">客户签名</span>
                     </h2>
-                    <div class="space-y-4">
-                        <!-- 签名显示 -->
-                        <div>
-                            <div id="display-signature-container" class="bg-white rounded-lg border-2 border-border h-40 flex items-center justify-center">
-                                <span class="text-gray-400">--</span>
-                            </div>
-                        </div>
-                        
-                        <!-- 签名日期 -->
-                        <div>
-                            <label class="label-apple">
-                                <span class="lang-text" data-lang="en">Signature Date</span>
-                                <span class="lang-text" data-lang="zh">签名日期</span>
-                            </label>
-                            <div id="display-signature-date" class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">--</div>
+                    <div>
+                        <label class="label-apple">
+                            <span class="lang-text" data-lang="en">Customer Signature</span>
+                            <span class="lang-text" data-lang="zh">客户签名</span>
+                        </label>
+                        <div id="display-signature-container" class="bg-white rounded-lg border-2 border-gray-300 h-32 flex flex-col items-center justify-center">
+                            <span class="text-gray-400">--</span>
                         </div>
                     </div>
                 </div>
@@ -1040,43 +1047,17 @@
                         <span class="lang-text" data-lang="en">Installer Signature</span>
                         <span class="lang-text" data-lang="zh">安装人员签名</span>
                     </h2>
-                    <div class="space-y-4">
-                        <!-- 签名显示 -->
-                        <div>
-                            <div id="display-installer-signature-container" class="bg-white rounded-lg border-2 border-border h-40 flex items-center justify-center">
-                                <span class="text-gray-400">--</span>
-                            </div>
-                        </div>
-                        
-                        <!-- 签名日期 -->
-                        <div>
-                            <label class="label-apple">
-                                <span class="lang-text" data-lang="en">Signature Date</span>
-                                <span class="lang-text" data-lang="zh">签名日期</span>
-                            </label>
-                            <div id="display-installer-signature-date" class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">--</div>
+                    <div>
+                        <label class="label-apple">
+                            <span class="lang-text" data-lang="en">Installer Signature</span>
+                            <span class="lang-text" data-lang="zh">安装人员签名</span>
+                        </label>
+                        <div id="display-installer-signature-container" class="bg-white rounded-lg border-2 border-gray-300 h-32 flex flex-col items-center justify-center">
+                            <span class="text-gray-400">--</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-gray-50 rounded-lg p-6 mb-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="label-apple">
-                                <span class="lang-text" data-lang="en">Submit Time</span>
-                                <span class="lang-text" data-lang="zh">提交时间</span>
-                            </label>
-                            <div id="display-submit-time" class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">--</div>
-                        </div>
-                        <div>
-                            <label class="label-apple">
-                                <span class="lang-text" data-lang="en">Authorization Status</span>
-                                <span class="lang-text" data-lang="zh">授权状态</span>
-                            </label>
-                            <div id="display-auth-status" class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">--</div>
-                        </div>
-                    </div>
-                </div>
             </div>
             
             <!-- Edit Button -->
@@ -2166,66 +2147,51 @@
             if (displayInstallerName) displayInstallerName.textContent = installerName || '--';
             if (displayInstallerCompany) displayInstallerCompany.textContent = installerCompany || '--';
             if (displayInstallerLicense) displayInstallerLicense.textContent = installerLicense || '--';
-            if (displayInstallerSignatureDate) displayInstallerSignatureDate.textContent = installerSignatureDate || '--';
             
-            // 显示安装人员签名
+            // 显示安装工签名（合并姓名和日期）
             if (displayInstallerSignatureContainer) {
                 displayInstallerSignatureContainer.innerHTML = ''; // 清空内容
                 
-                if (hasInstallerSignature && installerSignaturePad) {
-                    // 有签名：显示签名图片
-                    const signatureImage = document.createElement('img');
-                    signatureImage.src = installerSignaturePad.toDataURL('image/png');
-                    signatureImage.className = 'w-full h-full object-contain';
-                    displayInstallerSignatureContainer.appendChild(signatureImage);
-                } else {
-                    // 没有签名：显示模拟签名
-                    const simulatedSignature = generateSimulatedSignature(installerName || 'Installer');
-                    const signatureImage = document.createElement('img');
-                    signatureImage.src = simulatedSignature;
-                    signatureImage.className = 'w-full h-full object-contain';
-                    displayInstallerSignatureContainer.appendChild(signatureImage);
-                }
-            }
-            
-            // 填充客户签名日期
-            if (displaySignatureDate) {
-                const signatureDateValue = document.getElementById('signatureDate').value;
-                displaySignatureDate.textContent = signatureDateValue || new Date().toISOString().split('T')[0];
+                // 显示安装工姓名
+                const installerNameElement = document.createElement('div');
+                installerNameElement.style.fontFamily = 'cursive';
+                installerNameElement.style.fontSize = '20px';
+                installerNameElement.style.color = '#333';
+                installerNameElement.textContent = installerName || 'Installer Name';
+                
+                // 显示签名日期
+                const installerSignatureDateElement = document.createElement('div');
+                installerSignatureDateElement.className = 'text-sm text-gray-500 mt-1';
+                installerSignatureDateElement.textContent = installerSignatureDate || new Date().toISOString().split('T')[0];
+                
+                displayInstallerSignatureContainer.appendChild(installerNameElement);
+                displayInstallerSignatureContainer.appendChild(installerSignatureDateElement);
             }
             
             // 填充提交时间
             if (displaySubmitTime) displaySubmitTime.textContent = new Date().toLocaleString(currentLanguage === 'zh' ? 'zh-CN' : 'en-US');
             
-            // 显示签名
+            // 显示客户签名（合并姓名和日期）
             if (displaySignatureContainer) {
                 displaySignatureContainer.innerHTML = ''; // 清空内容
                 
-                if (hasSignature && customerSignaturePad) {
-                    // 有签名：显示签名图片
-                    const signatureImage = document.createElement('img');
-                    signatureImage.src = customerSignaturePad.toDataURL('image/png');
-                    signatureImage.className = 'w-full h-full object-contain';
-                    displaySignatureContainer.appendChild(signatureImage);
-                } else {
-                    // 没有签名：显示模拟签名
-                    const simulatedSignature = generateSimulatedSignature(customerName || 'Customer');
-                    const signatureImage = document.createElement('img');
-                    signatureImage.src = simulatedSignature;
-                    signatureImage.className = 'w-full h-full object-contain';
-                    displaySignatureContainer.appendChild(signatureImage);
-                }
+                // 显示客户姓名
+                const customerNameElement = document.createElement('div');
+                customerNameElement.style.fontFamily = 'cursive';
+                customerNameElement.style.fontSize = '20px';
+                customerNameElement.style.color = '#333';
+                customerNameElement.textContent = customerName || 'Customer Name';
+                
+                // 显示签名日期
+                const signatureDateElement = document.createElement('div');
+                signatureDateElement.className = 'text-sm text-gray-500 mt-1';
+                const signatureDateValue = document.getElementById('signatureDate').value;
+                signatureDateElement.textContent = signatureDateValue || new Date().toISOString().split('T')[0];
+                
+                displaySignatureContainer.appendChild(customerNameElement);
+                displaySignatureContainer.appendChild(signatureDateElement);
             }
             
-            // 显示授权状态（随机生成用于演示）
-            const isAuthorized = Math.random() > 0.3; // 70%概率显示已授权
-            if (authStatusElement) {
-                const statusText = isAuthorized ? 
-                    (currentLanguage === 'zh' ? '已授权' : 'Authorized') :
-                    (currentLanguage === 'zh' ? '未授权' : 'Unauthorized');
-                authStatusElement.textContent = statusText;
-            }
-
             // 保存完整数据到localStorage
             const formData = {
                 customerName, mobile, email, nmi, supplyAddress, addressDetails,
@@ -2233,7 +2199,7 @@
                 signatureDate: document.getElementById('signatureDate').value,
                 signature: (hasSignature && customerSignaturePad) ? customerSignaturePad.toDataURL() : null,
                 submitTime: new Date().toISOString(),
-                authorized: isAuthorized
+                status: 'submitted'
             };
             
             // 合并安装人员数据
@@ -2357,13 +2323,16 @@
         // 场景计数器
         let currentScenarioIndex = 0;
         
+        // 存储当前查询结果
+        let currentQueryResults = [];
+        
         // 初始化查询功能
         function initQueryFunction() {
             const queryBtn = document.getElementById('query-btn');
             const backBtn = document.getElementById('back-btn');
             const doQueryBtn = document.getElementById('do-query-btn');
-            const queryConditionSelect = document.getElementById('query-condition');
-            const queryValueInput = document.getElementById('query-value');
+            const queryEmailInput = document.getElementById('query-email');
+            const queryMobileInput = document.getElementById('query-mobile');
             const queryResult = document.getElementById('query-result');
             const queryResultContent = document.getElementById('query-result-content');
             const noDataMessage = document.getElementById('no-data-message');
@@ -2371,23 +2340,6 @@
             const queryPage = document.getElementById('query-page');
             const formContainer = document.getElementById('form-container');
             const submissionInfo = document.getElementById('submission-info');
-            
-            // 查询条件改变时更新输入框占位符
-            queryConditionSelect.addEventListener('change', function() {
-                const condition = this.value;
-                const placeholders = {
-                    email: { en: 'Enter email address', zh: '请输入邮箱地址' },
-                    customerName: { en: 'Enter customer name', zh: '请输入客户姓名' },
-                    mobile: { en: 'Enter mobile number', zh: '请输入手机号码' },
-                    nmi: { en: 'Enter NMI number', zh: '请输入NMI编号' }
-                };
-                const placeholder = placeholders[condition];
-                if (placeholder) {
-                    queryValueInput.setAttribute('data-placeholder-en', placeholder.en);
-                    queryValueInput.setAttribute('data-placeholder-zh', placeholder.zh);
-                    queryValueInput.placeholder = currentLanguage === 'zh' ? placeholder.zh : placeholder.en;
-                }
-            });
             
             // 点击查询按钮，切换到查询页面
             queryBtn.addEventListener('click', function() {
@@ -2404,14 +2356,13 @@
                 queryPage.classList.remove('hidden');
                 
                 // 重置查询表单
-                queryConditionSelect.value = 'email';
-                queryValueInput.value = '';
+                queryEmailInput.value = '';
+                queryMobileInput.value = '';
                 queryResult.classList.add('hidden');
                 noDataMessage.classList.add('hidden');
                 querySuccessMessage.classList.add('hidden');
                 
-                // 触发占位符更新
-                queryConditionSelect.dispatchEvent(new Event('change'));
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
             
             // 返回按钮
@@ -2436,10 +2387,13 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
             
-            // 执行查询 - 直接切换场景，不需要输入
+            // 执行查询 - 直接切换场景，无需验证输入
             doQueryBtn.addEventListener('click', function() {
                 // 获取当前场景的模拟查询结果
                 const mockResults = generateMockQueryResults();
+                
+                // 存储当前查询结果
+                currentQueryResults = mockResults;
                 
                 // 显示查询结果
                 if (mockResults.length > 0) {
@@ -2471,8 +2425,313 @@
                 }
                 
                 // 切换到下一个场景
-                currentScenarioIndex = (currentScenarioIndex + 1) % 6;
+                currentScenarioIndex = (currentScenarioIndex + 1) % 5;
             });
+        }
+        
+        // 显示记录详情
+        function showRecordDetail(recordId) {
+            const result = currentQueryResults.find(r => r.id === recordId);
+            if (!result) return;
+            
+            const queryPage = document.getElementById('query-page');
+            const detailPage = document.getElementById('query-detail-page');
+            const detailContent = document.getElementById('detail-content');
+            const detailBackBtn = document.getElementById('detail-back-btn');
+            
+            // 状态样式映射
+            const statusStyles = {
+                authorized: { color: 'text-success', bg: 'bg-success/10', label: { en: 'Authorized', zh: '已授权' } },
+                pending: { color: 'text-warning', bg: 'bg-warning/10', label: { en: 'Authorizing', zh: '授权中' } },
+                rejected: { color: 'text-danger', bg: 'bg-danger/10', label: { en: 'Rejected', zh: '已驳回' } },
+                withdrawn: { color: 'text-gray-600', bg: 'bg-gray-100', label: { en: 'Exited', zh: '已退出' } }
+            };
+            
+            const statusInfo = statusStyles[result.status];
+            const statusLabel = statusInfo.label[currentLanguage] || statusInfo.label.en;
+            
+            // 生成详细内容
+            detailContent.innerHTML = `
+                <!-- 授权状态 -->
+                <div class="text-center mb-6">
+                    <div class="inline-flex items-center px-4 py-2 rounded-full ${statusInfo.bg} ${statusInfo.color} font-semibold text-lg">
+                        ${statusLabel}
+                    </div>
+                    <div class="text-sm text-tertiary mt-2">
+                        <span class="lang-text" data-lang="en">Submit Time:</span>
+                        <span class="lang-text" data-lang="zh">提交时间:</span>
+                        ${result.submitTime}
+                    </div>
+                </div>
+                
+                <div class="space-y-8">
+                    <!-- 客户详情 -->
+                <div>
+                    <h2 class="section-title">
+                        <span class="lang-text" data-lang="en">Customer Details</span>
+                        <span class="lang-text" data-lang="zh">客户详情</span>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Customer Name</span>
+                                <span class="lang-text" data-lang="zh">客户姓名</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.customerName || '--'}</div>
+                        </div>
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Mobile</span>
+                                <span class="lang-text" data-lang="zh">手机号码</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.mobile || '--'}</div>
+                        </div>
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Email</span>
+                                <span class="lang-text" data-lang="zh">邮箱地址</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.email || '--'}</div>
+                        </div>
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">NMI</span>
+                                <span class="lang-text" data-lang="zh">NMI编号</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.nmi || '--'}</div>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Supply Address</span>
+                                <span class="lang-text" data-lang="zh">供电地址</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.supplyAddress || '--'}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 系统详情 -->
+                <div>
+                    <h2 class="section-title">
+                        <span class="lang-text" data-lang="en">System Details</span>
+                        <span class="lang-text" data-lang="zh">系统详情</span>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Brand</span>
+                                <span class="lang-text" data-lang="zh">电池品牌</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batteryBrand || '--'}</div>
+                        </div>
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Account</span>
+                                <span class="lang-text" data-lang="zh">户头</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batteryAccount || '--'}</div>
+                        </div>
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Inverter SN</span>
+                                <span class="lang-text" data-lang="zh">逆变器序列号</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.inverterSN || '--'}</div>
+                        </div>
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Battery SN</span>
+                                <span class="lang-text" data-lang="zh">电池序列号</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batterySN || '--'}</div>
+                        </div>
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Battery Capacity (Ah)</span>
+                                <span class="lang-text" data-lang="zh">电池容量</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batterySize || '--'}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 安装工详情 -->
+                <div>
+                    <h2 class="section-title">
+                        <span class="lang-text" data-lang="en">Installer Details</span>
+                        <span class="lang-text" data-lang="zh">安装工详情</span>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Installer Name</span>
+                                <span class="lang-text" data-lang="zh">安装工姓名</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.installerName || '--'}</div>
+                        </div>
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Company Name</span>
+                                <span class="lang-text" data-lang="zh">公司名称</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.installerCompany || '--'}</div>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">License Number</span>
+                                <span class="lang-text" data-lang="zh">执照编号</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.installerLicense || '--'}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 签名信息 -->
+                <div>
+                    <h2 class="section-title">
+                        <span class="lang-text" data-lang="en">Signature Information</span>
+                        <span class="lang-text" data-lang="zh">签名信息</span>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- 客户签名 -->
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Customer Signature</span>
+                                <span class="lang-text" data-lang="zh">客户签名</span>
+                            </label>
+                            <div class="bg-white rounded-lg border-2 border-gray-300 h-32 flex flex-col items-center justify-center">
+                                ${result.customerSignature ? 
+                                    `<div style="font-family: cursive; font-size: 20px; color: #333;">${result.customerName}</div>
+                                     <div class="text-sm text-gray-500 mt-1">${result.signatureDate || '--'}</div>`
+                                    : `<span class="text-gray-400">--</span>`}
+                            </div>
+                        </div>
+                        
+                        <!-- 安装工签名 -->
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Installer Signature</span>
+                                <span class="lang-text" data-lang="zh">安装工签名</span>
+                            </label>
+                            <div class="bg-white rounded-lg border-2 border-gray-300 h-32 flex flex-col items-center justify-center">
+                                ${result.installerSignature ? 
+                                    `<div style="font-family: cursive; font-size: 20px; color: #333;">${result.installerName}</div>
+                                     <div class="text-sm text-gray-500 mt-1">${result.installerSignatureDate || '--'}</div>`
+                                    : `<span class="text-gray-400">--</span>`}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                </div>
+                
+                <!-- 操作按钮 -->
+                <div id="detail-action-buttons" class="flex justify-center pt-6 border-t border-gray-200">
+                    ${createActionButtonsForDetail(result)}
+                </div>
+            `;
+            
+            // 设置返回按钮事件
+            detailBackBtn.onclick = function() {
+                detailPage.classList.add('hidden');
+                queryPage.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+            
+            // 隐藏查询页面，显示详情页面
+            queryPage.classList.add('hidden');
+            detailPage.classList.remove('hidden');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // 为详情页面创建操作按钮
+        function createActionButtonsForDetail(result) {
+            // 检查是否是第5种场景（有2个记录）
+            const isScenario5 = currentQueryResults.length === 2;
+            
+            switch (result.status) {
+                case 'pending': // 授权中 - 显示编辑按钮
+                    return `
+                        <button onclick="editRecord(${result.id})" class="btn-black px-6 py-2 flex items-center gap-2">
+                            <i class="fa fa-edit"></i>
+                            <span class="lang-text" data-lang="en">Edit</span>
+                            <span class="lang-text" data-lang="zh">编辑</span>
+                        </button>
+                    `;
+                case 'authorized': // 已授权 - 在第5种场景中不显示编辑按钮，其他场景显示
+                    if (isScenario5) {
+                        return ''; // 第5种场景中已授权的记录没有编辑按钮
+                    } else {
+                        return `
+                            <button onclick="editRecord(${result.id})" class="btn-black px-6 py-2 flex items-center gap-2">
+                                <i class="fa fa-edit"></i>
+                                <span class="lang-text" data-lang="en">Edit</span>
+                                <span class="lang-text" data-lang="zh">编辑</span>
+                            </button>
+                        `;
+                    }
+                case 'rejected': // 已驳回 - 显示重新提交按钮
+                    return `
+                        <button onclick="resubmitRecord(${result.id})" class="btn-black px-6 py-2 flex items-center gap-2">
+                            <i class="fa fa-refresh"></i>
+                            <span class="lang-text" data-lang="en">Resubmit</span>
+                            <span class="lang-text" data-lang="zh">重新提交</span>
+                        </button>
+                    `;
+                case 'withdrawn': // 已退出 - 不显示任何按钮
+                    return '';
+                default:
+                    return '';
+            }
+        }
+        
+        // 编辑记录 - 带记录数据返回到表单页面
+        function editRecord(recordId) {
+            const result = currentQueryResults.find(r => r.id === recordId);
+            if (!result) return;
+            
+            // 这里可以将数据填充到表单中
+            // 目前简单提示用户
+            alert(`${currentLanguage === 'zh' ? '编辑功能：将返回表单并填充当前数据' : 'Edit function: Will return to form with current data'}`);
+            
+            // 实际实现时，可以将数据存储到localStorage或直接填充表单
+            // localStorage.setItem('editingRecord', JSON.stringify(result));
+            
+            // 返回到主表单页面
+            const detailPage = document.getElementById('query-detail-page');
+            const queryPage = document.getElementById('query-page');
+            const step1Container = document.getElementById('step1-content');
+            const progressSteps = document.getElementById('progress-steps');
+            
+            detailPage.classList.add('hidden');
+            queryPage.classList.add('hidden');
+            step1Container.classList.remove('hidden');
+            progressSteps.classList.remove('hidden');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // 重新提交记录 - 与编辑功能相同的交互
+        function resubmitRecord(recordId) {
+            const result = currentQueryResults.find(r => r.id === recordId);
+            if (!result) return;
+            
+            // 重新提交功能与编辑功能交互一样
+            alert(`${currentLanguage === 'zh' ? '重新提交功能：将返回表单并填充当前数据' : 'Resubmit function: Will return to form with current data'}`);
+            
+            // 返回到主表单页面
+            const detailPage = document.getElementById('query-detail-page');
+            const queryPage = document.getElementById('query-page');
+            const step1Container = document.getElementById('step1-content');
+            const progressSteps = document.getElementById('progress-steps');
+            
+            detailPage.classList.add('hidden');
+            queryPage.classList.add('hidden');
+            step1Container.classList.remove('hidden');
+            progressSteps.classList.remove('hidden');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
         // 生成模拟签名
@@ -2521,35 +2780,11 @@
 
         // 生成模拟查询结果
         function generateMockQueryResults() {
-            // 模拟不同的查询结果情况 - 包含完整的客户和系统信息
+            // 模拟不同的查询结果情况 - 根据要求的5种场景
             const scenarios = [
-                // 情况1: 查到一条，已授权
+                // 情况1: 1个授权书，状态：授权中，详情里面有编辑按钮
                 [{ 
                     id: 1, 
-                    customerName: 'John Doe', 
-                    email: 'john.doe@example.com', 
-                    mobile: '+61400123456', 
-                    nmi: 'NMI123456',
-                    supplyAddress: 'Sydney, NSW, Australia',
-                    batteryBrand: 'Tesla Powerwall',
-                    batterySize: '100Ah',
-                    batteryAccount: 'BAT001',
-                    inverterSN: 'SE12345',
-                    batterySN: 'BAT_SE001',
-                    customerSignature: true,
-                    signatureDate: '2025-09-05',
-                    installerName: 'Tom Wilson',
-                    installerCompany: 'Solar Pro',
-                    installerLicense: 'LIC123456',
-                    installerSignature: true,
-                    installerSignatureDate: '2025-09-05',
-                    status: 'authorized', 
-                    submitTime: '2025/9/5 08:58:40'
-                }],
-                
-                // 情况2: 查到一条，授权中
-                [{ 
-                    id: 2, 
                     customerName: 'Jane Smith', 
                     email: 'jane.smith@example.com', 
                     mobile: '+61400654321', 
@@ -2571,57 +2806,33 @@
                     submitTime: '2025/9/5 08:58:40'
                 }],
                 
-                // 情况3: 查到2条记录
-                [
-                    { 
-                        id: 3, 
-                        customerName: 'Mike Johnson', 
-                        email: 'mike.j@example.com', 
-                        mobile: '+61400789012', 
-                        nmi: 'NMI789012',
-                        supplyAddress: 'Brisbane, QLD, Australia',
-                        batteryBrand: 'Enphase',
-                        batterySize: '50Ah',
-                        batteryAccount: 'BAT003',
-                        inverterSN: 'SMA11111',
-                        batterySN: 'BAT_ENP003',
-                        customerSignature: true,
-                        signatureDate: '2025-09-05',
-                        installerName: 'Alex Green',
-                        installerCompany: 'Green Energy',
-                        installerLicense: 'LIC111111',
-                        installerSignature: true,
-                        installerSignatureDate: '2025-09-05',
-                        status: 'authorized', 
-                        submitTime: '2025/9/5 08:58:40'
-                    },
-                    { 
-                        id: 4, 
-                        customerName: 'Mike Johnson', 
-                        email: 'mike.j@example.com', 
-                        mobile: '+61400789012', 
-                        nmi: 'NMI789013',
-                        supplyAddress: 'Brisbane, QLD, Australia',
-                        batteryBrand: 'BYD',
-                        batterySize: '75Ah',
-                        batteryAccount: 'BAT004',
-                        inverterSN: 'HW22222',
-                        batterySN: 'BAT_BYD004',
-                        customerSignature: true,
-                        signatureDate: '2025-09-05',
-                        installerName: 'Paul Miller',
-                        installerCompany: 'Miller Solar',
-                        installerLicense: 'LIC222222',
-                        installerSignature: true,
-                        installerSignatureDate: '2025-09-05',
-                        status: 'pending', 
-                        submitTime: '2025/9/5 08:58:40'
-                    }
-                ],
-                
-                // 情况4: 查到一条，被驳回
+                // 情况2: 1个授权书，状态：已授权，详情里面有编辑按钮
                 [{ 
-                    id: 5, 
+                    id: 2, 
+                    customerName: 'John Doe', 
+                    email: 'john.doe@example.com', 
+                    mobile: '+61400123456', 
+                    nmi: 'NMI123456',
+                    supplyAddress: 'Sydney, NSW, Australia',
+                    batteryBrand: 'Tesla Powerwall',
+                    batterySize: '100Ah',
+                    batteryAccount: 'BAT001',
+                    inverterSN: 'SE12345',
+                    batterySN: 'BAT_SE001',
+                    customerSignature: true,
+                    signatureDate: '2025-09-05',
+                    installerName: 'Tom Wilson',
+                    installerCompany: 'Solar Pro',
+                    installerLicense: 'LIC123456',
+                    installerSignature: true,
+                    installerSignatureDate: '2025-09-05',
+                    status: 'authorized', 
+                    submitTime: '2025/9/5 08:58:40'
+                }],
+                
+                // 情况3: 1个授权书，状态：已驳回，详情里面编辑按钮变为重新提交
+                [{ 
+                    id: 3, 
                     customerName: 'Sarah Brown', 
                     email: 'sarah.brown@example.com', 
                     mobile: '+61400345678', 
@@ -2644,9 +2855,9 @@
                     rejectReason: '文件不完整'
                 }],
                 
-                // 情况5: 查到一条，已退出
+                // 情况4: 1个授权书，状态：已退出，详情里面没有按钮
                 [{ 
-                    id: 6, 
+                    id: 4, 
                     customerName: 'David Wilson', 
                     email: 'david.wilson@example.com', 
                     mobile: '+61400567890', 
@@ -2669,8 +2880,53 @@
                     withdrawTime: '2025/9/1 14:15:20'
                 }],
                 
-                // 情况6: 查不到数据
-                []
+                // 情况5: 2个授权书，一个是授权中（有编辑按钮），一个是已授权（没有编辑按钮）
+                [
+                    { 
+                        id: 5, 
+                        customerName: 'Mike Johnson', 
+                        email: 'mike.j@example.com', 
+                        mobile: '+61400789012', 
+                        nmi: 'NMI789012',
+                        supplyAddress: 'Brisbane, QLD, Australia',
+                        batteryBrand: 'BYD',
+                        batterySize: '75Ah',
+                        batteryAccount: 'BAT004',
+                        inverterSN: 'HW22222',
+                        batterySN: 'BAT_BYD004',
+                        customerSignature: true,
+                        signatureDate: '2025-09-05',
+                        installerName: 'Paul Miller',
+                        installerCompany: 'Miller Solar',
+                        installerLicense: 'LIC222222',
+                        installerSignature: true,
+                        installerSignatureDate: '2025-09-05',
+                        status: 'pending', 
+                        submitTime: '2025/9/5 08:58:40'
+                    },
+                    { 
+                        id: 6, 
+                        customerName: 'Mike Johnson', 
+                        email: 'mike.j@example.com', 
+                        mobile: '+61400789012', 
+                        nmi: 'NMI789013',
+                        supplyAddress: 'Brisbane, QLD, Australia',
+                        batteryBrand: 'Enphase',
+                        batterySize: '50Ah',
+                        batteryAccount: 'BAT003',
+                        inverterSN: 'SMA11111',
+                        batterySN: 'BAT_ENP003',
+                        customerSignature: true,
+                        signatureDate: '2025-09-05',
+                        installerName: 'Alex Green',
+                        installerCompany: 'Green Energy',
+                        installerLicense: 'LIC111111',
+                        installerSignature: true,
+                        installerSignatureDate: '2025-09-05',
+                        status: 'authorized', 
+                        submitTime: '2025/9/5 08:58:40'
+                    }
+                ]
             ];
             
             // 返回当前场景索引对应的结果
@@ -2680,210 +2936,61 @@
         // 创建查询结果卡片 - 显示完整信息，与提交内容一致
         function createQueryResultCard(result, index) {
             const card = document.createElement('div');
-            card.className = 'card-apple p-6 md:p-8 mb-6';
+            card.className = 'bg-white border border-gray-100 rounded-xl p-4 mb-4';
             
             // 状态样式映射
             const statusStyles = {
-                authorized: { color: 'text-green-600', bg: 'bg-green-100', label: { en: 'Authorized', zh: '已授权' } },
-                pending: { color: 'text-yellow-600', bg: 'bg-yellow-100', label: { en: 'Pending', zh: '授权中' } },
-                rejected: { color: 'text-red-600', bg: 'bg-red-100', label: { en: 'Rejected', zh: '被驳回' } },
-                withdrawn: { color: 'text-gray-600', bg: 'bg-gray-100', label: { en: 'Withdrawn', zh: '已退出' } }
+                authorized: { color: 'text-success', bg: 'bg-success/10', label: { en: 'Authorized', zh: '已授权' } },
+                pending: { color: 'text-warning', bg: 'bg-warning/10', label: { en: 'Authorizing', zh: '授权中' } },
+                rejected: { color: 'text-danger', bg: 'bg-danger/10', label: { en: 'Rejected', zh: '已驳回' } },
+                withdrawn: { color: 'text-gray-600', bg: 'bg-gray-100', label: { en: 'Exited', zh: '已退出' } }
             };
             
             const statusInfo = statusStyles[result.status];
             const statusLabel = statusInfo.label[currentLanguage] || statusInfo.label.en;
             
             card.innerHTML = `
-                <div class="flex justify-between items-start mb-6">
-                    <h3 class="text-xl font-semibold">
-                        <span class="lang-text" data-lang="en">Submitted Information</span>
-                        <span class="lang-text" data-lang="zh">提交信息</span>
-                    </h3>
-                    <div class="text-right">
-                        <div class="flex items-center gap-3 mb-2">
+                <div class="space-y-3">
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
                             <span class="text-sm text-tertiary">
-                                <span class="lang-text" data-lang="en">Submit Time:</span>
-                                <span class="lang-text" data-lang="zh">提交时间:</span>
+                                <span class="lang-text" data-lang="en">Customer Name</span>
+                                <span class="lang-text" data-lang="zh">客户姓名</span>
                             </span>
-                            <span class="font-medium">${result.submitTime}</span>
+                            <span class="text-sm text-secondary font-medium">${result.customerName}</span>
                         </div>
-                        <div class="flex items-center gap-3">
+                        <div class="flex justify-between">
+                            <span class="text-sm text-tertiary">NMI</span>
+                            <span class="text-sm text-secondary">${result.nmi}</span>
+                        </div>
+                        <div class="flex justify-between items-start">
                             <span class="text-sm text-tertiary">
-                                <span class="lang-text" data-lang="en">Status:</span>
-                                <span class="lang-text" data-lang="zh">状态:</span>
+                                <span class="lang-text" data-lang="en">Address</span>
+                                <span class="lang-text" data-lang="zh">地址</span>
                             </span>
-                            <span class="px-3 py-1 text-sm font-medium rounded-full ${statusInfo.bg} ${statusInfo.color}">
+                            <span class="text-sm text-secondary text-right flex-1 ml-2">${result.supplyAddress}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-tertiary">
+                                <span class="lang-text" data-lang="en">Submit Time</span>
+                                <span class="lang-text" data-lang="zh">提交时间</span>
+                            </span>
+                            <span class="text-sm text-secondary">${result.submitTime}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-tertiary">
+                                <span class="lang-text" data-lang="en">Status</span>
+                                <span class="lang-text" data-lang="zh">状态</span>
+                            </span>
+                            <span class="text-sm px-2 py-1 rounded-full ${statusInfo.bg} ${statusInfo.color}">
                                 ${statusLabel}
                             </span>
                         </div>
                     </div>
-                </div>
-                
-                <div class="space-y-8">
-                    <!-- 客户详情 -->
-                    <div>
-                        <h2 class="section-title">
-                            <span class="lang-text" data-lang="en">Customer Details</span>
-                            <span class="lang-text" data-lang="zh">客户详情</span>
-                        </h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Customer Name</span>
-                                    <span class="lang-text" data-lang="zh">客户姓名</span>
-                                </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.customerName || '--'}</div>
-                            </div>
-                            <div>
-                                <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Mobile</span>
-                                    <span class="lang-text" data-lang="zh">手机号码</span>
-                                </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.mobile || '--'}</div>
-                            </div>
-                            <div>
-                                <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Email</span>
-                                    <span class="lang-text" data-lang="zh">电子邮箱</span>
-                                </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.email || '--'}</div>
-                            </div>
-                            <div>
-                                <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">NMI</span>
-                                    <span class="lang-text" data-lang="zh">NMI编号</span>
-                                </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.nmi || '--'}</div>
-                            </div>
-                            <div class="md:col-span-2">
-                                <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Supply Address</span>
-                                    <span class="lang-text" data-lang="zh">供电地址</span>
-                                </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.supplyAddress || '--'}</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 系统详情 -->
-                    <div>
-                        <h2 class="section-title">
-                            <span class="lang-text" data-lang="en">System Details</span>
-                            <span class="lang-text" data-lang="zh">系统详情</span>
-                        </h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Brand</span>
-                                    <span class="lang-text" data-lang="zh">品牌</span>
-                                </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batteryBrand || '--'}</div>
-                            </div>
-                            <div>
-                                <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Account</span>
-                                    <span class="lang-text" data-lang="zh">账号</span>
-                                </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batteryAccount || '--'}</div>
-                            </div>
-                            <div>
-                                <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Inverter SN</span>
-                                    <span class="lang-text" data-lang="zh">逆变器SN</span>
-                                </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.inverterSN || '--'}</div>
-                            </div>
-                            <div>
-                                <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Battery SN</span>
-                                    <span class="lang-text" data-lang="zh">电池SN</span>
-                                </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batterySN || '--'}</div>
-                            </div>
-                            <div>
-                                <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Battery Capacity (Ah)</span>
-                                    <span class="lang-text" data-lang="zh">电池容量 (Ah)</span>
-                                </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batterySize || '--'}</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 客户签名 -->
-                    <div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Customer Signature</span>
-                                    <span class="lang-text" data-lang="zh">客户签名</span>
-                                </label>
-                                <div class="bg-white rounded-lg border-2 border-gray-300 h-32 flex items-center justify-center">
-                                    ${result.customerSignature ? `<img src="data:image/svg+xml;base64,${btoa('<svg width="240" height="80" xmlns="http://www.w3.org/2000/svg"><path d="M10 40 Q60 20 120 45 Q180 60 230 35" stroke="#000000" stroke-width="2" fill="none" stroke-linecap="round"/><text x="10" y="70" font-family="cursive" font-size="14" fill="#000000">${result.customerName}</text></svg>')}" class="w-full h-full object-contain" alt="Customer Signature"/>` : '<span class="text-gray-400">--</span>'}
-                                </div>
-                            </div>
-                            <div>
-                                <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Signature Date</span>
-                                    <span class="lang-text" data-lang="zh">签名日期</span>
-                                </label>
-                                <div class="font-medium text-lg pb-1 min-h-[2rem]">${result.signatureDate || '--'}</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 安装人员信息 -->
-                    <div>
-                        <h2 class="section-title">
-                            <span class="lang-text" data-lang="en">Installer Information</span>
-                            <span class="lang-text" data-lang="zh">安装人员信息</span>
-                        </h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Installer Name</span>
-                                    <span class="lang-text" data-lang="zh">安装人员姓名</span>
-                                </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.installerName || '--'}</div>
-                            </div>
-                            <div>
-                                <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Installer Company</span>
-                                    <span class="lang-text" data-lang="zh">安装公司</span>
-                                </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.installerCompany || '--'}</div>
-                            </div>
-                            <div>
-                                <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Installer License Number</span>
-                                    <span class="lang-text" data-lang="zh">安装人员执照号</span>
-                                </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.installerLicense || '--'}</div>
-                            </div>
-                            <div>
-                                <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Installer Signature</span>
-                                    <span class="lang-text" data-lang="zh">安装人员签名</span>
-                                </label>
-                                <div class="bg-white rounded-lg border-2 border-gray-300 h-32 flex items-center justify-center">
-                                    ${result.installerSignature ? `<img src="data:image/svg+xml;base64,${btoa('<svg width="240" height="80" xmlns="http://www.w3.org/2000/svg"><path d="M15 35 Q45 15 90 40 Q135 55 185 30 Q220 45 225 35" stroke="#000000" stroke-width="2" fill="none" stroke-linecap="round"/><text x="15" y="65" font-family="cursive" font-size="12" fill="#000000">${result.installerName}</text></svg>')}" class="w-full h-full object-contain" alt="Installer Signature"/>` : '<span class="text-gray-400">--</span>'}
-                                </div>
-                            </div>
-                            <div class="md:col-span-2">
-                                <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Signature Date</span>
-                                    <span class="lang-text" data-lang="zh">签名日期</span>
-                                </label>
-                                <div class="font-medium text-lg pb-1 min-h-[2rem] mb-5">${result.installerSignatureDate || '--'}</div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- 操作按钮 -->
-                <div class="flex gap-3 pt-6 justify-center">
-                    ${createActionButtons(result)}
+                    <button onclick="showRecordDetail(${result.id})" class="w-full mt-3 px-4 py-2 border-2 border-black text-black bg-white rounded-full font-medium hover:bg-black hover:text-white transition-colors duration-200">
+                        <span class="lang-text" data-lang="en">View Details</span>
+                        <span class="lang-text" data-lang="zh">查看详情</span>
+                    </button>
                 </div>
             `;
             
@@ -3076,37 +3183,33 @@
             </div>
             
             <div class="space-y-4 mb-6">
-                <!-- 查询条件选择 -->
+                <!-- Email查询 -->
                 <div class="space-y-2">
-                    <label for="query-condition" class="label-apple">
-                        <span class="lang-text" data-lang="en">Query Condition</span>
-                        <span class="lang-text" data-lang="zh">查询条件</span>
+                    <label for="query-email" class="label-apple">
+                        <span class="lang-text" data-lang="en">Email</span>
+                        <span class="lang-text" data-lang="zh">邮箱</span>
                     </label>
                     <div class="relative">
-                        <select id="query-condition" name="query-condition" class="input-apple appearance-none pr-10">
-                            <option value="email" data-text-en="Email" data-text-zh="邮箱">Email</option>
-                            <option value="customerName" data-text-en="Customer Name" data-text-zh="客户姓名">Customer Name</option>
-                            <option value="mobile" data-text-en="Mobile" data-text-zh="手机号码">Mobile</option>
-                            <option value="nmi" data-text-en="NMI" data-text-zh="NMI编号">NMI</option>
-                        </select>
-                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-tertiary pointer-events-none">
-                            <i class="fa fa-chevron-down"></i>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 查询值输入 -->
-                <div class="space-y-2">
-                    <label for="query-value" class="label-apple">
-                        <span class="lang-text" data-lang="en">Search Value</span>
-                        <span class="lang-text" data-lang="zh">查询内容</span>
-                    </label>
-                    <div class="relative">
-                        <input type="text" id="query-value" name="query-value" 
+                        <input type="text" id="query-email" name="query-email" 
                                class="input-apple" 
                                data-placeholder-en="Enter email address"
                                data-placeholder-zh="请输入邮箱地址"
-                               placeholder="请输入邮箱地址">
+                               placeholder="Enter email address">
+                    </div>
+                </div>
+                
+                <!-- Mobile查询 -->
+                <div class="space-y-2">
+                    <label for="query-mobile" class="label-apple">
+                        <span class="lang-text" data-lang="en">Mobile</span>
+                        <span class="lang-text" data-lang="zh">手机号</span>
+                    </label>
+                    <div class="relative">
+                        <input type="text" id="query-mobile" name="query-mobile" 
+                               class="input-apple" 
+                               data-placeholder-en="Enter mobile number"
+                               data-placeholder-zh="请输入手机号码"
+                               placeholder="Enter mobile number">
                     </div>
                 </div>
             </div>
@@ -3161,6 +3264,27 @@
                         </p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 查询详情页面（初始隐藏） -->
+    <div id="query-detail-page" class="hidden container mx-auto px-4 max-w-4xl">
+        <div class="card-apple p-6 md:p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold">
+                    <span class="lang-text" data-lang="en">Authorization Details</span>
+                    <span class="lang-text" data-lang="zh">授权详情</span>
+                </h2>
+                <button id="detail-back-btn" class="btn-outline-black px-4 py-2 flex items-center gap-2">
+                    <i class="fa fa-arrow-left"></i>
+                    <span class="lang-text" data-lang="en">Back</span>
+                    <span class="lang-text" data-lang="zh">返回</span>
+                </button>
+            </div>
+            
+            <div id="detail-content" class="space-y-6">
+                <!-- 详情内容将动态生成 -->
             </div>
         </div>
     </div>
