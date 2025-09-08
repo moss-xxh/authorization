@@ -1237,6 +1237,9 @@
         let customerSignaturePad;
         let currentLanguage = 'en';
         
+        // Ensure page always starts in English by default
+        document.body.className = document.body.className.replace(/lang-(en|zh)/, 'lang-en');
+        
         // Language switching function
         function switchLanguage(lang) {
             console.log('Switching language to:', lang);
@@ -1284,11 +1287,11 @@
         }
         
         document.addEventListener('DOMContentLoaded', function() {
-            // Load saved language preference
-            const savedLang = localStorage.getItem('preferred-language') || 'en';
+            // Always default to English - clear any previous language preference
+            localStorage.removeItem('preferred-language');
             
-            // Always call switchLanguage to ensure all elements are properly initialized
-            switchLanguage(savedLang);
+            // Force default language to English
+            switchLanguage('en');
             
             // Initialize customer signature pad
             const customerCanvas = document.getElementById('customerSignature');
