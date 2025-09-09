@@ -332,6 +332,44 @@
         </div>
     </header>
     
+<<<<<<< HEAD
+=======
+    <!-- Progress Steps -->
+    <div id="progress-steps" class="bg-white border-b border-gray-100 py-3 sticky top-16 z-40">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="flex items-center justify-center space-x-8">
+                <!-- Step 1 -->
+                <div id="step1-container" class="flex items-center">
+                    <div id="step1-indicator" class="flex items-center justify-center w-6 h-6 rounded-full bg-black text-white font-medium text-xs">
+                        1
+                    </div>
+                    <div class="ml-2">
+                        <div id="step1-title" class="text-sm font-medium text-gray-900">
+                            <span class="lang-text" data-lang="en">Customer Authorization</span>
+                            <span class="lang-text" data-lang="zh">客户授权</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Divider -->
+                <div class="w-8 h-0.5 bg-gray-200"></div>
+                
+                <!-- Step 2 -->
+                <div id="step2-container" class="flex items-center">
+                    <div id="step2-indicator" class="flex items-center justify-center w-6 h-6 rounded-full bg-gray-200 text-gray-500 font-medium text-xs">
+                        2
+                    </div>
+                    <div class="ml-2">
+                        <div id="step2-title" class="text-sm font-medium text-gray-500">
+                            <span class="lang-text" data-lang="en">Installer Information</span>
+                            <span class="lang-text" data-lang="zh">安装人员信息</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
     
     <!-- 主内容区 -->
     <main class="container mx-auto px-4 py-10 max-w-4xl flex-1">
@@ -477,8 +515,13 @@
                 </div>
                 <div>
                     <label class="label-apple" for="batteryAccount">
+<<<<<<< HEAD
                         <span class="lang-text" data-lang="en">User Name</span>
                         <span class="lang-text" data-lang="zh">用户名</span>
+=======
+                        <span class="lang-text" data-lang="en">Account</span>
+                        <span class="lang-text" data-lang="zh">账号</span>
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                         <button type="button" class="hint-icon ml-2" onclick="openHintModal('account')" title="查看示例图片">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="12" cy="12" r="10" stroke="#6B7280" stroke-width="2"/>
@@ -488,9 +531,15 @@
                         </button>
                     </label>
                     <input type="text" id="batteryAccount" name="batteryAccount" class="input-apple" 
+<<<<<<< HEAD
                            data-placeholder-en="Enter user name" 
                            data-placeholder-zh="请输入用户名"
                            placeholder="Enter user name">
+=======
+                           data-placeholder-en="Enter account" 
+                           data-placeholder-zh="请输入账号"
+                           placeholder="Enter account">
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                 </div>
                 <div>
                     <label class="label-apple" for="inverterSN">
@@ -510,9 +559,32 @@
                            placeholder="Enter inverter serial number">
                 </div>
                 <div>
+<<<<<<< HEAD
                     <label class="label-apple" for="batterySize">
                         <span class="lang-text" data-lang="en">Battery Capacity (Kwh)</span>
                         <span class="lang-text" data-lang="zh">电池容量 (Kwh)</span>
+=======
+                    <label class="label-apple" for="batterySN">
+                        <span class="lang-text" data-lang="en">Battery SN</span>
+                        <span class="lang-text" data-lang="zh">电池SN</span>
+                        <button type="button" class="hint-icon ml-2" onclick="openHintModal('batterySN')" title="查看示例图片">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="#6B7280" stroke-width="2"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="17" r="1" fill="#6B7280"/>
+                            </svg>
+                        </button>
+                    </label>
+                    <input type="text" id="batterySN" name="batterySN" class="input-apple" 
+                           data-placeholder-en="Enter battery serial number" 
+                           data-placeholder-zh="请输入电池序列号"
+                           placeholder="Enter battery serial number">
+                </div>
+                <div>
+                    <label class="label-apple" for="batterySize">
+                        <span class="lang-text" data-lang="en">Battery Capacity (Ah)</span>
+                        <span class="lang-text" data-lang="zh">电池容量 (Ah)</span>
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                         <button type="button" class="hint-icon ml-2" onclick="openHintModal('batteryCapacity')" title="查看示例图片">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="12" cy="12" r="10" stroke="#6B7280" stroke-width="2"/>
@@ -522,9 +594,15 @@
                         </button>
                     </label>
                     <input type="text" id="batterySize" name="batterySize" class="input-apple" 
+<<<<<<< HEAD
                            data-placeholder-en="e.g., 10Kwh" 
                            data-placeholder-zh="如: 10Kwh"
                            placeholder="e.g., 10Kwh">
+=======
+                           data-placeholder-en="e.g., 100Ah" 
+                           data-placeholder-zh="如: 100Ah"
+                           placeholder="e.g., 100Ah">
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                 </div>
             </div>
 
@@ -660,6 +738,7 @@
             <!-- Step Navigation -->
             <div class="flex justify-between items-center mt-8">
                 <div class="text-sm text-gray-500">
+<<<<<<< HEAD
                     <span class="lang-text" data-lang="en">Step 1 of 1</span>
                     <span class="lang-text" data-lang="zh">第1步 / 共1步</span>
                 </div>
@@ -667,6 +746,15 @@
                     <i class="fa fa-paper-plane"></i>
                     <span class="lang-text" data-lang="en">Submit Form</span>
                     <span class="lang-text" data-lang="zh">提交表单</span>
+=======
+                    <span class="lang-text" data-lang="en">Step 1 of 2</span>
+                    <span class="lang-text" data-lang="zh">第1步 / 共2步</span>
+                </div>
+                <button type="button" id="nextStepBtn" class="btn-black flex items-center gap-3 px-6 py-3">
+                    <span class="lang-text" data-lang="en">Next Step</span>
+                    <span class="lang-text" data-lang="zh">下一步</span>
+                    <i class="fa fa-arrow-right"></i>
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                 </button>
             </div>
         </div>
@@ -674,6 +762,160 @@
     </div>
     </div>
 
+<<<<<<< HEAD
+=======
+    <!-- Step 2: Installer Information (Initially Hidden) -->
+    <div id="step2-installer" class="hidden">
+        <div class="card-apple p-6 md:p-8">
+            <!-- Header -->
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <img src="新logo.png" alt="CovaU Logo" class="h-12 w-auto">
+                </div>
+                <div class="text-right text-sm text-secondary">
+                    <p class="mb-1">
+                        <span class="lang-text" data-lang="en">CovaU Pty Ltd (ABN 54 090 117 730)</span>
+                        <span class="lang-text" data-lang="zh">CovaU Pty Ltd (ABN 54 090 117 730)</span>
+                    </p>
+                    <p>
+                        <span class="lang-text" data-lang="en">Enquiries: </span>
+                        <span class="lang-text" data-lang="zh">咨询热线: </span>
+                        <strong>1300 689 866</strong>
+                    </p>
+                </div>
+            </div>
+            
+            <h1 class="text-2xl font-bold text-secondary mb-4 text-center">
+                <span class="lang-text" data-lang="en">Installer Information</span>
+                <span class="lang-text" data-lang="zh">安装人员信息</span>
+            </h1>
+            
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                <p class="text-sm text-yellow-800">
+                    <strong class="lang-text" data-lang="en">Note:</strong>
+                    <strong class="lang-text" data-lang="zh">注意：</strong>
+                    <span class="lang-text" data-lang="en">Only applicable when customers have requested battery installation</span>
+                    <span class="lang-text" data-lang="zh">仅在客户要求电池安装时适用</span>
+                </p>
+            </div>
+
+            <form id="installer-form">
+                <!-- Installer Information -->
+                <h2 class="section-title">
+                    <span class="lang-text" data-lang="en">Installer Information</span>
+                    <span class="lang-text" data-lang="zh">安装人员信息</span>
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                    <div>
+                        <label class="label-apple" for="installerName">
+                            <span class="lang-text" data-lang="en">Installer Name</span>
+                            <span class="lang-text" data-lang="zh">安装人员姓名</span>
+                        </label>
+                        <input type="text" id="installerName" name="installerName" class="input-apple" 
+                               data-placeholder-en="Enter installer name" 
+                               data-placeholder-zh="请输入安装人员姓名"
+                               placeholder="Enter installer name">
+                    </div>
+                    <div>
+                        <label class="label-apple" for="installerCompany">
+                            <span class="lang-text" data-lang="en">Installer Company</span>
+                            <span class="lang-text" data-lang="zh">安装公司</span>
+                        </label>
+                        <input type="text" id="installerCompany" name="installerCompany" class="input-apple" 
+                               data-placeholder-en="Enter installer company" 
+                               data-placeholder-zh="请输入安装公司"
+                               placeholder="Enter installer company">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="label-apple" for="installerLicense">
+                            <span class="lang-text" data-lang="en">Installer License Number</span>
+                            <span class="lang-text" data-lang="zh">安装人员执照号</span>
+                        </label>
+                        <input type="text" id="installerLicense" name="installerLicense" class="input-apple" 
+                               data-placeholder-en="Enter installer license number" 
+                               data-placeholder-zh="请输入安装人员执照号"
+                               placeholder="Enter installer license number">
+                    </div>
+                </div>
+
+                <!-- Installer Statement -->
+                <div class="terms-box mb-8">
+                    <p class="text-secondary mb-4">
+                        <strong>
+                            <span class="lang-text" data-lang="en">Installer Statement</span>
+                            <span class="lang-text" data-lang="zh">安装人员声明</span>
+                        </strong>
+                    </p>
+                    
+                    <p class="text-secondary">
+                        <span class="lang-text" data-lang="en">The installer may perform the installation of the battery, complete the battery connection, and carry out any related actions necessary for the VPP Program. By signing, the installer confirms their role and responsibilities.</span>
+                        <span class="lang-text" data-lang="zh">安装人员可以执行电池安装、完成电池连接，并执行VPP计划所需的任何相关操作。通过签名，安装人员确认其角色和责任。</span>
+                    </p>
+                </div>
+
+                <!-- Installer Signature -->
+                <h2 class="section-title">
+                    <span class="lang-text" data-lang="en">Installer Signature</span>
+                    <span class="lang-text" data-lang="zh">安装人员签名</span>
+                </h2>
+                
+                <!-- Installer Signature Section -->
+                <div class="space-y-6 mb-8">
+                    <!-- Signature Canvas -->
+                    <div>
+                        <label class="label-apple">
+                            <span class="lang-text" data-lang="en">Installer Signature</span>
+                            <span class="lang-text" data-lang="zh">安装人员签名</span>
+                        </label>
+                        <div class="bg-white rounded-lg border-2 border-border overflow-hidden" style="min-height: 200px;">
+                            <canvas id="installerSignatureCanvas" class="signature-pad w-full block" 
+                                    width="600" height="200" 
+                                    style="background-color: white; touch-action: none; cursor: crosshair;"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Controls at bottom of signature area -->
+                    <div class="flex justify-start mt-3">
+                        <button type="button" id="clearInstallerSignature" class="text-sm text-tertiary hover:text-danger transition-colors">
+                            <span class="lang-text" data-lang="en">Clear Signature</span>
+                            <span class="lang-text" data-lang="zh">清除签名</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Signature Date -->
+                    <div class="mt-6 flex items-center gap-4">
+                        <label class="text-sm font-medium text-secondary" for="installerSignatureDate">
+                            <span class="lang-text" data-lang="en">Signature Date</span>
+                            <span class="lang-text" data-lang="zh">签名日期</span>
+                        </label>
+                        <input type="date" id="installerSignatureDate" name="installerSignatureDate" class="input-apple max-w-xs" value="2025-09-04">
+                    </div>
+                </div>
+
+                <!-- Step Navigation -->
+                <div class="flex justify-between items-center pt-16 border-t border-border">
+                    <div class="text-sm text-gray-500">
+                        <span class="lang-text" data-lang="en">Step 2 of 2</span>
+                        <span class="lang-text" data-lang="zh">第2步 / 共2步</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <button type="button" id="prevStepBtn" class="btn-outline flex items-center gap-3 px-6 py-3">
+                            <i class="fa fa-arrow-left"></i>
+                            <span class="lang-text" data-lang="en">Previous Step</span>
+                            <span class="lang-text" data-lang="zh">上一步</span>
+                        </button>
+                        <button type="submit" id="finalSubmitBtn" class="btn-black flex items-center gap-3 px-6 py-3">
+                            <i class="fa fa-paper-plane"></i>
+                            <span class="lang-text" data-lang="en">Submit Form</span>
+                            <span class="lang-text" data-lang="zh">提交表单</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
 
     <!-- Submission Information Display (Initially Hidden) -->
     <div id="submission-info" class="hidden container mx-auto px-4 max-w-4xl mt-8">
@@ -760,8 +1002,13 @@
                         </div>
                         <div>
                             <label class="label-apple">
+<<<<<<< HEAD
                                 <span class="lang-text" data-lang="en">User Name</span>
                                 <span class="lang-text" data-lang="zh">用户名</span>
+=======
+                                <span class="lang-text" data-lang="en">Account</span>
+                                <span class="lang-text" data-lang="zh">账号</span>
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                             </label>
                             <div id="display-battery-account" class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">--</div>
                         </div>
@@ -774,8 +1021,20 @@
                         </div>
                         <div>
                             <label class="label-apple">
+<<<<<<< HEAD
                                 <span class="lang-text" data-lang="en">Battery Capacity (Kwh)</span>
                                 <span class="lang-text" data-lang="zh">电池容量 (Kwh)</span>
+=======
+                                <span class="lang-text" data-lang="en">Battery SN</span>
+                                <span class="lang-text" data-lang="zh">电池SN</span>
+                            </label>
+                            <div id="display-battery-sn" class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">--</div>
+                        </div>
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Battery Capacity (Ah)</span>
+                                <span class="lang-text" data-lang="zh">电池容量 (Ah)</span>
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                             </label>
                             <div id="display-battery-size" class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">--</div>
                         </div>
@@ -800,6 +1059,56 @@
                 </div>
 
 
+<<<<<<< HEAD
+=======
+                <!-- 安装人员信息 -->
+                <div>
+                    <h2 class="section-title">
+                        <span class="lang-text" data-lang="en">Installer Information</span>
+                        <span class="lang-text" data-lang="zh">安装人员信息</span>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Installer Name</span>
+                                <span class="lang-text" data-lang="zh">安装人员姓名</span>
+                            </label>
+                            <div id="display-installer-name" class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">--</div>
+                        </div>
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Installer Company</span>
+                                <span class="lang-text" data-lang="zh">安装公司</span>
+                            </label>
+                            <div id="display-installer-company" class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">--</div>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Installer License Number</span>
+                                <span class="lang-text" data-lang="zh">安装人员执照号</span>
+                            </label>
+                            <div id="display-installer-license" class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">--</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 安装人员签名信息 -->
+                <div>
+                    <h2 class="section-title">
+                        <span class="lang-text" data-lang="en">Installer Signature</span>
+                        <span class="lang-text" data-lang="zh">安装人员签名</span>
+                    </h2>
+                    <div>
+                        <label class="label-apple">
+                            <span class="lang-text" data-lang="en">Installer Signature</span>
+                            <span class="lang-text" data-lang="zh">安装人员签名</span>
+                        </label>
+                        <div id="display-installer-signature-container" class="bg-white rounded-lg border-2 border-gray-300 h-32 flex flex-col items-center justify-center">
+                            <span class="text-gray-400">--</span>
+                        </div>
+                    </div>
+                </div>
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
 
             </div>
             
@@ -1097,8 +1406,17 @@
             // Initialize query functionality
             initQueryFunction();
             
+<<<<<<< HEAD
             // Initialize form submission
             handleFormSubmission();
+=======
+            // Initialize two-step process
+            handleStepNavigation();
+            initInstallerSignature();
+            
+            // Initialize progress steps to step 1
+            updateProgressSteps(1);
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
         });
         
         // Address Selection Functionality
@@ -1644,6 +1962,7 @@
         }
         
         
+<<<<<<< HEAD
 
         // 表单提交处理
         function handleFormSubmission() {
@@ -1652,11 +1971,112 @@
             const finalSubmitBtn = document.getElementById('finalSubmitBtn');
             
             // 提交按钮
+=======
+        // 更新步骤指示器
+        function updateProgressSteps(currentStep) {
+            const step1Indicator = document.getElementById('step1-indicator');
+            const step1Title = document.getElementById('step1-title');
+            const step2Indicator = document.getElementById('step2-indicator');
+            const step2Title = document.getElementById('step2-title');
+            
+            if (currentStep === 1) {
+                // 第一步选中
+                step1Indicator.className = 'flex items-center justify-center w-6 h-6 rounded-full bg-black text-white font-medium text-xs';
+                step1Title.className = 'text-sm font-medium text-gray-900';
+                
+                // 第二步未选中
+                step2Indicator.className = 'flex items-center justify-center w-6 h-6 rounded-full bg-gray-200 text-gray-500 font-medium text-xs';
+                step2Title.className = 'text-sm font-medium text-gray-500';
+                
+            } else if (currentStep === 2) {
+                // 第一步已完成
+                step1Indicator.className = 'flex items-center justify-center w-6 h-6 rounded-full bg-green-500 text-white font-medium text-xs';
+                step1Indicator.innerHTML = '<i class="fa fa-check text-xs"></i>';
+                step1Title.className = 'text-sm font-medium text-green-600';
+                
+                // 第二步选中
+                step2Indicator.className = 'flex items-center justify-center w-6 h-6 rounded-full bg-black text-white font-medium text-xs';
+                step2Indicator.textContent = '2';
+                step2Title.className = 'text-sm font-medium text-gray-900';
+            }
+        }
+
+        // 步骤导航处理
+        function handleStepNavigation() {
+            const step1Container = document.getElementById('step1-content');
+            const step2Container = document.getElementById('step2-installer');
+            const submissionInfo = document.getElementById('submission-info');
+            const progressSteps = document.getElementById('progress-steps');
+            const nextStepBtn = document.getElementById('nextStepBtn');
+            const prevStepBtn = document.getElementById('prevStepBtn');
+            const finalSubmitBtn = document.getElementById('finalSubmitBtn');
+            
+            // 下一步按钮
+            if (nextStepBtn) {
+                nextStepBtn.addEventListener('click', function(e) {
+                    e.preventDefault(); // 阻止表单提交
+                    e.stopPropagation(); // 阻止事件冒泡
+                    
+                    console.log('Next step button clicked');
+                    
+                    // 隐藏第一步，显示第二步
+                    step1Container.classList.add('hidden');
+                    step2Container.classList.remove('hidden');
+                    
+                    // 重新初始化安装人员签名（因为现在第二步可见了）
+                    setTimeout(() => {
+                        initInstallerSignature();
+                    }, 100);
+                    
+                    // 更新步骤指示器
+                    updateProgressSteps(2);
+                    
+                    // 滚动到顶部
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+            
+            // 上一步按钮
+            if (prevStepBtn) {
+                prevStepBtn.addEventListener('click', function() {
+                    // 隐藏第二步，显示第一步
+                    step2Container.classList.add('hidden');
+                    step1Container.classList.remove('hidden');
+                    
+                    // 更新步骤指示器
+                    updateProgressSteps(1);
+                    
+                    // 滚动到顶部
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+            
+            // 最终提交按钮
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
             if (finalSubmitBtn) {
                 finalSubmitBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     
+<<<<<<< HEAD
                     // 处理表单数据并显示
+=======
+                    // 收集安装人员信息
+                    const installerData = {
+                        installerName: document.getElementById('installerName').value.trim(),
+                        installerCompany: document.getElementById('installerCompany').value.trim(),
+                        installerLicense: document.getElementById('installerLicense').value.trim(),
+                        installerSignatureDate: document.getElementById('installerSignatureDate').value,
+                        installerSignature: installerSignaturePad && !installerSignaturePad.isEmpty() ? installerSignaturePad.toDataURL() : null
+                    };
+                    
+                    // 保存安装人员信息到localStorage
+                    const existingData = localStorage.getItem('vpp-form-data') || '{}';
+                    const formData = JSON.parse(existingData);
+                    Object.assign(formData, installerData);
+                    localStorage.setItem('vpp-form-data', JSON.stringify(formData));
+                    
+                    // 处理完整表单数据并显示
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                     processCompleteFormData();
                     
                     // 显示提交成功提示
@@ -1666,15 +2086,79 @@
                     );
                     
                     // 跳转到提交信息页面
+<<<<<<< HEAD
                     step1Container.classList.add('hidden');
                     submissionInfo.classList.remove('hidden');
                     
+=======
+                    step2Container.classList.add('hidden');
+                    submissionInfo.classList.remove('hidden');
+                    
+                    // 隐藏步骤指示器
+                    progressSteps.classList.add('hidden');
+                    
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                     // 滚动到顶部
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
             }
         }
         
+<<<<<<< HEAD
+=======
+        // 安装人员签名处理
+        let installerSignaturePad = null;
+        function initInstallerSignature() {
+            console.log('initInstallerSignature called');
+            const installerCanvas = document.getElementById('installerSignatureCanvas');
+            console.log('installerCanvas:', installerCanvas);
+            console.log('SignaturePad available:', typeof SignaturePad !== 'undefined');
+            
+            if (installerCanvas && typeof SignaturePad !== 'undefined') {
+                console.log('Canvas dimensions:', installerCanvas.offsetWidth, 'x', installerCanvas.offsetHeight);
+                
+                // 如果已经存在实例，先销毁
+                if (installerSignaturePad) {
+                    installerSignaturePad.off();
+                }
+                installerSignaturePad = new SignaturePad(installerCanvas);
+                console.log('SignaturePad created:', installerSignaturePad);
+                
+                // 设置画布大小
+                function resizeInstallerCanvas() {
+                    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+                    installerCanvas.width = installerCanvas.offsetWidth * ratio;
+                    installerCanvas.height = installerCanvas.offsetHeight * ratio;
+                    installerCanvas.getContext('2d').scale(ratio, ratio);
+                    installerSignaturePad.clear();
+                    console.log('Canvas resized to:', installerCanvas.width, 'x', installerCanvas.height);
+                }
+                
+                resizeInstallerCanvas();
+                window.addEventListener('resize', resizeInstallerCanvas);
+                
+                // 清除签名按钮
+                const clearBtn = document.getElementById('clearInstallerSignature');
+                if (clearBtn) {
+                    clearBtn.addEventListener('click', function() {
+                        if (installerSignaturePad) {
+                            installerSignaturePad.clear();
+                        }
+                    });
+                    console.log('Clear button event added');
+                }
+                
+                // 设置默认日期
+                const dateField = document.getElementById('installerSignatureDate');
+                if (dateField) {
+                    dateField.value = new Date().toISOString().split('T')[0];
+                    console.log('Date field set');
+                }
+            } else {
+                console.log('Canvas or SignaturePad not available');
+            }
+        }
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
         
         // 完整的表单数据处理和显示
         function processCompleteFormData() {
@@ -1689,6 +2173,10 @@
             const batterySize = document.getElementById('batterySize').value.trim();
             const batteryAccount = document.getElementById('batteryAccount').value.trim();
             const inverterSN = document.getElementById('inverterSN').value.trim();
+<<<<<<< HEAD
+=======
+            const batterySN = document.getElementById('batterySN').value.trim();
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
             const hasSignature = customerSignaturePad && !customerSignaturePad.isEmpty();
 
             // 合并完整地址
@@ -1704,6 +2192,10 @@
             const displayBatterySize = document.getElementById('display-battery-size');
             const displayBatteryAccount = document.getElementById('display-battery-account');
             const displayInverterSn = document.getElementById('display-inverter-sn');
+<<<<<<< HEAD
+=======
+            const displayBatterySn = document.getElementById('display-battery-sn');
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
             const displaySignatureDate = document.getElementById('display-signature-date');
             const displaySubmitTime = document.getElementById('display-submit-time');
             const authStatusElement = document.getElementById('display-auth-status');
@@ -1724,8 +2216,52 @@
             }
             if (displayBatteryAccount) displayBatteryAccount.textContent = batteryAccount || '--';
             if (displayInverterSn) displayInverterSn.textContent = inverterSN || '--';
+<<<<<<< HEAD
             if (displayBatterySize) displayBatterySize.textContent = batterySize || '--';
             
+=======
+            if (displayBatterySn) displayBatterySn.textContent = batterySN || '--';
+            if (displayBatterySize) displayBatterySize.textContent = batterySize || '--';
+            
+            // 获取安装人员数据
+            const installerName = document.getElementById('installerName').value.trim();
+            const installerCompany = document.getElementById('installerCompany').value.trim();
+            const installerLicense = document.getElementById('installerLicense').value.trim();
+            const installerSignatureDate = document.getElementById('installerSignatureDate').value;
+            const hasInstallerSignature = installerSignaturePad && !installerSignaturePad.isEmpty();
+            
+            // 获取安装人员显示元素
+            const displayInstallerName = document.getElementById('display-installer-name');
+            const displayInstallerCompany = document.getElementById('display-installer-company');
+            const displayInstallerLicense = document.getElementById('display-installer-license');
+            const displayInstallerSignatureDate = document.getElementById('display-installer-signature-date');
+            const displayInstallerSignatureContainer = document.getElementById('display-installer-signature-container');
+            
+            // 填充安装人员信息
+            if (displayInstallerName) displayInstallerName.textContent = installerName || '--';
+            if (displayInstallerCompany) displayInstallerCompany.textContent = installerCompany || '--';
+            if (displayInstallerLicense) displayInstallerLicense.textContent = installerLicense || '--';
+            
+            // 显示安装工签名（合并姓名和日期）
+            if (displayInstallerSignatureContainer) {
+                displayInstallerSignatureContainer.innerHTML = ''; // 清空内容
+                
+                // 显示安装工姓名
+                const installerNameElement = document.createElement('div');
+                installerNameElement.style.fontFamily = 'cursive';
+                installerNameElement.style.fontSize = '20px';
+                installerNameElement.style.color = '#333';
+                installerNameElement.textContent = installerName || 'Installer Name';
+                
+                // 显示签名日期
+                const installerSignatureDateElement = document.createElement('div');
+                installerSignatureDateElement.className = 'text-sm text-gray-500 mt-1';
+                installerSignatureDateElement.textContent = installerSignatureDate || new Date().toISOString().split('T')[0];
+                
+                displayInstallerSignatureContainer.appendChild(installerNameElement);
+                displayInstallerSignatureContainer.appendChild(installerSignatureDateElement);
+            }
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
             
             // 填充提交时间
             if (displaySubmitTime) displaySubmitTime.textContent = new Date().toLocaleString(currentLanguage === 'zh' ? 'zh-CN' : 'en-US');
@@ -1754,13 +2290,23 @@
             // 保存完整数据到localStorage
             const formData = {
                 customerName, mobile, email, nmi, supplyAddress, addressDetails,
+<<<<<<< HEAD
                 batteryBrand, batterySize, batteryAccount, inverterSN,
+=======
+                batteryBrand, batterySize, batteryAccount, inverterSN, batterySN,
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                 signatureDate: document.getElementById('signatureDate').value,
                 signature: (hasSignature && customerSignaturePad) ? customerSignaturePad.toDataURL() : null,
                 submitTime: new Date().toISOString(),
                 status: 'submitted'
             };
             
+<<<<<<< HEAD
+=======
+            // 合并安装人员数据
+            const installerData = JSON.parse(localStorage.getItem('vpp-form-data') || '{}');
+            Object.assign(formData, installerData);
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
             
             localStorage.setItem('vpp-form-data', JSON.stringify(formData));
         }
@@ -1804,6 +2350,10 @@
                         document.getElementById('batterySize').value = data.batterySize || '';
                         document.getElementById('batteryAccount').value = data.batteryAccount || '';
                         document.getElementById('inverterSN').value = data.inverterSN || '';
+<<<<<<< HEAD
+=======
+                        document.getElementById('batterySN').value = data.batterySN || '';
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                         document.getElementById('signatureDate').value = data.signatureDate || new Date().toISOString().split('T')[0];
                         
                         // 恢复签名
@@ -1825,13 +2375,29 @@
         // Edit submission - return to step 1
         function editSubmission() {
             const step1Container = document.getElementById('step1-content');
+<<<<<<< HEAD
             const submissionInfo = document.getElementById('submission-info');
+=======
+            const step2Container = document.getElementById('step2-installer');
+            const submissionInfo = document.getElementById('submission-info');
+            const progressSteps = document.getElementById('progress-steps');
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
             
             // Hide submission info
             submissionInfo.classList.add('hidden');
             
+<<<<<<< HEAD
             // Show step 1
             step1Container.classList.remove('hidden');
+=======
+            // Show step 1 and hide step 2
+            step1Container.classList.remove('hidden');
+            step2Container.classList.add('hidden');
+            
+            // Show progress steps and reset to step 1
+            progressSteps.classList.remove('hidden');
+            updateProgressSteps(1);
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
             
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1893,10 +2459,21 @@
             queryBtn.addEventListener('click', function() {
                 // 获取所有相关容器
                 const step1Container = document.getElementById('step1-content');
+<<<<<<< HEAD
                 
                 // 隐藏所有主要容器，显示查询页面
                 step1Container.classList.add('hidden');
                 submissionInfo.classList.add('hidden');
+=======
+                const step2Container = document.getElementById('step2-installer');
+                const progressSteps = document.getElementById('progress-steps');
+                
+                // 隐藏所有主要容器，显示查询页面
+                step1Container.classList.add('hidden');
+                if (step2Container) step2Container.classList.add('hidden');
+                submissionInfo.classList.add('hidden');
+                progressSteps.classList.add('hidden');
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                 queryPage.classList.remove('hidden');
                 
                 // 重置查询表单
@@ -1915,11 +2492,26 @@
                 
                 // 获取所有相关容器
                 const step1Container = document.getElementById('step1-content');
+<<<<<<< HEAD
                 const submissionInfo = document.getElementById('submission-info');
                 
                 // 显示Step 1，隐藏其他所有容器
                 step1Container.classList.remove('hidden');
                 submissionInfo.classList.add('hidden');
+=======
+                const step2Container = document.getElementById('step2-installer');
+                const submissionInfo = document.getElementById('submission-info');
+                const progressSteps = document.getElementById('progress-steps');
+                
+                // 显示Step 1，隐藏其他所有容器
+                step1Container.classList.remove('hidden');
+                if (step2Container) step2Container.classList.add('hidden');
+                submissionInfo.classList.add('hidden');
+                progressSteps.classList.remove('hidden');
+                
+                // 重置进度条为第一步
+                updateProgressSteps(1);
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                 
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
@@ -2063,8 +2655,13 @@
                         </div>
                         <div>
                             <label class="label-apple">
+<<<<<<< HEAD
                                 <span class="lang-text" data-lang="en">User Name</span>
                                 <span class="lang-text" data-lang="zh">用户名</span>
+=======
+                                <span class="lang-text" data-lang="en">Account</span>
+                                <span class="lang-text" data-lang="zh">户头</span>
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                             </label>
                             <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batteryAccount || '--'}</div>
                         </div>
@@ -2077,8 +2674,20 @@
                         </div>
                         <div>
                             <label class="label-apple">
+<<<<<<< HEAD
                                 <span class="lang-text" data-lang="en">Battery Capacity (Kwh)</span>
                                 <span class="lang-text" data-lang="zh">电池容量 (Kwh)</span>
+=======
+                                <span class="lang-text" data-lang="en">Battery SN</span>
+                                <span class="lang-text" data-lang="zh">电池序列号</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batterySN || '--'}</div>
+                        </div>
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Battery Capacity (Ah)</span>
+                                <span class="lang-text" data-lang="zh">电池容量</span>
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                             </label>
                             <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batterySize || '--'}</div>
                         </div>
@@ -2232,10 +2841,18 @@
             const detailPage = document.getElementById('query-detail-page');
             const queryPage = document.getElementById('query-page');
             const step1Container = document.getElementById('step1-content');
+<<<<<<< HEAD
+=======
+            const progressSteps = document.getElementById('progress-steps');
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
             
             detailPage.classList.add('hidden');
             queryPage.classList.add('hidden');
             step1Container.classList.remove('hidden');
+<<<<<<< HEAD
+=======
+            progressSteps.classList.remove('hidden');
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -2252,10 +2869,18 @@
             const detailPage = document.getElementById('query-detail-page');
             const queryPage = document.getElementById('query-page');
             const step1Container = document.getElementById('step1-content');
+<<<<<<< HEAD
+=======
+            const progressSteps = document.getElementById('progress-steps');
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
             
             detailPage.classList.add('hidden');
             queryPage.classList.add('hidden');
             step1Container.classList.remove('hidden');
+<<<<<<< HEAD
+=======
+            progressSteps.classList.remove('hidden');
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -2317,9 +2942,16 @@
                     nmi: 'NMI654321',
                     supplyAddress: 'Melbourne, VIC, Australia',
                     batteryBrand: 'LG Chem',
+<<<<<<< HEAD
                     batterySize: '8Kwh',
                     batteryAccount: 'BAT002',
                     inverterSN: 'FR67890',
+=======
+                    batterySize: '80Ah',
+                    batteryAccount: 'BAT002',
+                    inverterSN: 'FR67890',
+                    batterySN: 'BAT_LG002',
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                     customerSignature: true,
                     signatureDate: '2025-09-05',
                     installerName: 'Mark Davis',
@@ -2340,9 +2972,16 @@
                     nmi: 'NMI123456',
                     supplyAddress: 'Sydney, NSW, Australia',
                     batteryBrand: 'Tesla Powerwall',
+<<<<<<< HEAD
                     batterySize: '10Kwh',
                     batteryAccount: 'BAT001',
                     inverterSN: 'SE12345',
+=======
+                    batterySize: '100Ah',
+                    batteryAccount: 'BAT001',
+                    inverterSN: 'SE12345',
+                    batterySN: 'BAT_SE001',
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                     customerSignature: true,
                     signatureDate: '2025-09-05',
                     installerName: 'Tom Wilson',
@@ -2363,9 +3002,16 @@
                     nmi: 'NMI345678',
                     supplyAddress: 'Perth, WA, Australia',
                     batteryBrand: 'Sonnen',
+<<<<<<< HEAD
                     batterySize: '12Kwh',
                     batteryAccount: 'BAT005',
                     inverterSN: 'GW33333',
+=======
+                    batterySize: '120Ah',
+                    batteryAccount: 'BAT005',
+                    inverterSN: 'GW33333',
+                    batterySN: 'BAT_SON005',
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                     customerSignature: true,
                     signatureDate: '2025-09-05',
                     installerName: 'Lisa Wang',
@@ -2387,9 +3033,16 @@
                     nmi: 'NMI567890',
                     supplyAddress: 'Adelaide, SA, Australia',
                     batteryBrand: 'Alpha ESS',
+<<<<<<< HEAD
                     batterySize: '9Kwh',
                     batteryAccount: 'BAT006',
                     inverterSN: 'GR44444',
+=======
+                    batterySize: '90Ah',
+                    batteryAccount: 'BAT006',
+                    inverterSN: 'GR44444',
+                    batterySN: 'BAT_ALP006',
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                     customerSignature: true,
                     signatureDate: '2025-09-05',
                     installerName: 'Chris Lee',
@@ -2412,9 +3065,16 @@
                         nmi: 'NMI789012',
                         supplyAddress: 'Brisbane, QLD, Australia',
                         batteryBrand: 'BYD',
+<<<<<<< HEAD
                         batterySize: '7.5Kwh',
                         batteryAccount: 'BAT004',
                         inverterSN: 'HW22222',
+=======
+                        batterySize: '75Ah',
+                        batteryAccount: 'BAT004',
+                        inverterSN: 'HW22222',
+                        batterySN: 'BAT_BYD004',
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                         customerSignature: true,
                         signatureDate: '2025-09-05',
                         installerName: 'Paul Miller',
@@ -2433,9 +3093,16 @@
                         nmi: 'NMI789013',
                         supplyAddress: 'Brisbane, QLD, Australia',
                         batteryBrand: 'Enphase',
+<<<<<<< HEAD
                         batterySize: '5Kwh',
                         batteryAccount: 'BAT003',
                         inverterSN: 'SMA11111',
+=======
+                        batterySize: '50Ah',
+                        batteryAccount: 'BAT003',
+                        inverterSN: 'SMA11111',
+                        batterySN: 'BAT_ENP003',
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                         customerSignature: true,
                         signatureDate: '2025-09-05',
                         installerName: 'Alex Green',
@@ -2548,11 +3215,23 @@
             // 跳转到第一步进行编辑
             const queryPage = document.getElementById('query-page');
             const step1Container = document.getElementById('step1-content');
+<<<<<<< HEAD
             const submissionInfo = document.getElementById('submission-info');
+=======
+            const step2Container = document.getElementById('step2-installer');
+            const submissionInfo = document.getElementById('submission-info');
+            const progressSteps = document.getElementById('progress-steps');
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
             
             queryPage.classList.add('hidden');
             submissionInfo.classList.add('hidden');
             step1Container.classList.remove('hidden');
+<<<<<<< HEAD
+=======
+            step2Container.classList.add('hidden');
+            progressSteps.classList.remove('hidden');
+            updateProgressSteps(1);
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -2590,8 +3269,13 @@
                 'account': {
                     src: '账号.jpg',
                     title: { 
+<<<<<<< HEAD
                         en: 'User Name Location Example', 
                         zh: '用户名位置示例' 
+=======
+                        en: 'Account Location Example', 
+                        zh: '账号位置示例' 
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                     }
                 },
                 'inverterSN': {
@@ -2601,6 +3285,16 @@
                         zh: '逆变器SN位置示例' 
                     }
                 },
+<<<<<<< HEAD
+=======
+                'batterySN': {
+                    src: '电池SN.jpg',
+                    title: { 
+                        en: 'Battery SN Location Example', 
+                        zh: '电池SN位置示例' 
+                    }
+                },
+>>>>>>> 82f4d8b2dfd8bacbd7efabcd17be58ea43fea494
                 'batteryCapacity': {
                     src: '电池容量.jpg',
                     title: { 
