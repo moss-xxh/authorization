@@ -463,7 +463,7 @@
                 <span class="lang-text" data-lang="zh">系统详情</span>
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
+                <div class="min-w-0 overflow-hidden">
                     <label class="label-apple" for="batteryBrand">
                         <span class="lang-text" data-lang="en">Brand</span>
                         <span class="lang-text" data-lang="zh">品牌</span>
@@ -475,7 +475,7 @@
                         <option value="weiheng">weiheng</option>
                     </select>
                 </div>
-                <div>
+                <div class="min-w-0 overflow-hidden">
                     <label class="label-apple" for="batteryAccount">
                         <span class="lang-text" data-lang="en">User Name</span>
                         <span class="lang-text" data-lang="zh">用户名</span>
@@ -492,7 +492,7 @@
                            data-placeholder-zh="请输入用户名"
                            placeholder="Enter user name">
                 </div>
-                <div id="apiKeyField" style="display: none;">
+                <div id="apiKeyField" class="min-w-0 overflow-hidden" style="display: none;">
                     <label class="label-apple" for="apiKey">
                         <span class="lang-text" data-lang="en">API Key</span>
                         <span class="lang-text" data-lang="zh">API密钥</span>
@@ -503,17 +503,17 @@
                                 <circle cx="12" cy="17" r="1" fill="#6B7280"/>
                             </svg>
                         </button>
-                        <span class="text-xs text-gray-500 ml-1">
-                            <span class="lang-text" data-lang="en">(Get from web: <a href="https://www.foxesscloud.com/login" target="_blank" class="text-blue-600 hover:underline">https://www.foxesscloud.com/login</a>)</span>
-                            <span class="lang-text" data-lang="zh">(使用web: <a href="https://www.foxesscloud.com/login" target="_blank" class="text-blue-600 hover:underline">https://www.foxesscloud.com/login</a>)</span>
-                        </span>
                     </label>
+                    <div class="text-xs text-gray-500 mb-2 -mt-1 break-words overflow-wrap-anywhere max-w-full">
+                        <span class="lang-text" data-lang="en">(Please open on computer: <a href="https://www.foxesscloud.com/login" target="_blank" class="text-blue-600 hover:underline break-all">https://www.foxesscloud.com/login</a>)</span>
+                        <span class="lang-text" data-lang="zh">(请使用电脑打开: <a href="https://www.foxesscloud.com/login" target="_blank" class="text-blue-600 hover:underline break-all">https://www.foxesscloud.com/login</a>)</span>
+                    </div>
                     <input type="text" id="apiKey" name="apiKey" class="input-apple"
                            data-placeholder-en="Enter API key"
                            data-placeholder-zh="请输入API密钥"
                            placeholder="Enter API key">
                 </div>
-                <div>
+                <div class="min-w-0 overflow-hidden">
                     <label class="label-apple" for="inverterSN">
                         <span class="lang-text" data-lang="en">Inverter SN</span>
                         <span class="lang-text" data-lang="zh">逆变器SN</span>
@@ -525,12 +525,13 @@
                             </svg>
                         </button>
                     </label>
-                    <input type="text" id="inverterSN" name="inverterSN" class="input-apple" 
-                           data-placeholder-en="Enter inverter serial number" 
+                    <div id="inverterSNSpacer" class="text-xs mb-2 -mt-1" style="visibility: hidden; height: 1.25rem; display: none;">placeholder</div>
+                    <input type="text" id="inverterSN" name="inverterSN" class="input-apple"
+                           data-placeholder-en="Enter inverter serial number"
                            data-placeholder-zh="请输入逆变器序列号"
                            placeholder="Enter inverter serial number">
                 </div>
-                <div>
+                <div class="min-w-0 overflow-hidden">
                     <label class="label-apple" for="batterySize">
                         <span class="lang-text" data-lang="en">Battery Capacity (kWh)</span>
                         <span class="lang-text" data-lang="zh">电池容量 (kWh)</span>
@@ -935,12 +936,15 @@
             // Brand selection change handler
             const batteryBrandSelect = document.getElementById('batteryBrand');
             const apiKeyField = document.getElementById('apiKeyField');
+            const inverterSNSpacer = document.getElementById('inverterSNSpacer');
 
             batteryBrandSelect.addEventListener('change', function() {
                 if (this.value === 'FOX ESS') {
                     apiKeyField.style.display = 'block';
+                    inverterSNSpacer.style.display = 'block';
                 } else {
                     apiKeyField.style.display = 'none';
+                    inverterSNSpacer.style.display = 'none';
                     document.getElementById('apiKey').value = ''; // Clear API key when hidden
                 }
             });
@@ -948,6 +952,7 @@
             // Show API key field initially since FOX ESS is pre-selected
             if (batteryBrandSelect.value === 'FOX ESS') {
                 apiKeyField.style.display = 'block';
+                inverterSNSpacer.style.display = 'block';
             }
 
             // Set today's date
@@ -995,11 +1000,14 @@
                     // Handle API key field visibility and value
                     const apiKeyField = document.getElementById('apiKeyField');
                     const apiKeyInput = document.getElementById('apiKey');
+                    const inverterSNSpacer = document.getElementById('inverterSNSpacer');
                     if (data.batteryBrand === 'FOX ESS') {
                         apiKeyField.style.display = 'block';
+                        inverterSNSpacer.style.display = 'block';
                         apiKeyInput.value = data.apiKey || '';
                     } else {
                         apiKeyField.style.display = 'none';
+                        inverterSNSpacer.style.display = 'none';
                         apiKeyInput.value = '';
                     }
 
@@ -3026,9 +3034,9 @@
             </div>
             <div class="modal-body">
                 <div id="modalHint" class="hidden mb-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                    <p class="text-xs text-blue-700">
-                        <span class="lang-text" data-lang="en">Get API Key from web: <a href="https://www.foxesscloud.com/login" target="_blank" class="text-blue-600 hover:underline font-medium">https://www.foxesscloud.com/login</a></span>
-                        <span class="lang-text" data-lang="zh">使用web获取API密钥: <a href="https://www.foxesscloud.com/login" target="_blank" class="text-blue-600 hover:underline font-medium">https://www.foxesscloud.com/login</a></span>
+                    <p class="text-xs text-gray-900">
+                        <span class="lang-text" data-lang="en">Please open on computer: <a href="https://www.foxesscloud.com/login" target="_blank" class="text-blue-600 hover:underline font-medium">https://www.foxesscloud.com/login</a></span>
+                        <span class="lang-text" data-lang="zh">请使用电脑打开: <a href="https://www.foxesscloud.com/login" target="_blank" class="text-blue-600 hover:underline font-medium">https://www.foxesscloud.com/login</a></span>
                     </p>
                 </div>
                 <div id="modalImageContainer" class="relative">
