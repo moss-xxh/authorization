@@ -503,6 +503,10 @@
                                 <circle cx="12" cy="17" r="1" fill="#6B7280"/>
                             </svg>
                         </button>
+                        <span class="text-xs text-gray-500 ml-1">
+                            <span class="lang-text" data-lang="en">(Get from web: <a href="https://www.foxesscloud.com/login" target="_blank" class="text-blue-600 hover:underline">https://www.foxesscloud.com/login</a>)</span>
+                            <span class="lang-text" data-lang="zh">(使用web: <a href="https://www.foxesscloud.com/login" target="_blank" class="text-blue-600 hover:underline">https://www.foxesscloud.com/login</a>)</span>
+                        </span>
                     </label>
                     <input type="text" id="apiKey" name="apiKey" class="input-apple"
                            data-placeholder-en="Enter API key"
@@ -569,20 +573,8 @@
                         <span class="lang-text" data-lang="zh">在VPP服务期间随时远程访问和控制我的电池，以用于VPP计划的目的。</span>
                     </li>
                     <li>
-                        <span class="lang-text" data-lang="en">Access my Supply Address for on-site work by CovaU technicians or the installer.</span>
-                        <span class="lang-text" data-lang="zh">访问我的供电地址，以便CovaU技术人员或安装人员进行现场工作。</span>
-                    </li>
-                    <li>
                         <span class="lang-text" data-lang="en">Disclose my Data to third parties that are directly involved in administering the VPP Program, including CovaU's VPP Platform provider or technology partner, for purposes such as Battery status and may need my Supply Address or an identifier for site coordination.</span>
                         <span class="lang-text" data-lang="zh">向直接参与管理VPP计划的第三方披露我的数据，包括CovaU的VPP平台提供商或技术合作伙伴，用于电池状态等目的，可能需要我的供电地址或站点协调标识符。</span>
-                    </li>
-                    <li>
-                        <span class="lang-text" data-lang="en">Complete the battery connection.</span>
-                        <span class="lang-text" data-lang="zh">完成电池连接。</span>
-                    </li>
-                    <li>
-                        <span class="lang-text" data-lang="en">Engaged the installer to complete the connection, if I requested the battery installation.</span>
-                        <span class="lang-text" data-lang="zh">如果我要求电池安装，则聘请安装人员完成连接。</span>
                     </li>
                 </ol>
                 
@@ -602,22 +594,6 @@
                     <li>
                         <span class="lang-text" data-lang="en">Prior to signing this form, I have already signed and agreed to the CovaU VPP Offer and the CovaU Virtual Power Plant Services Agreement.</span>
                         <span class="lang-text" data-lang="zh">在签署本表格之前，我已经签署并同意了CovaU VPP报价和CovaU虚拟电厂服务协议。</span>
-                    </li>
-                    <li>
-                        <span class="lang-text" data-lang="en">Prior to signing this authorisation form, I provide my consent for the installer to perform the necessary actions.</span>
-                        <span class="lang-text" data-lang="zh">在签署本授权表格之前，我同意安装人员执行必要的操作。</span>
-                    </li>
-                    <li>
-                        <span class="lang-text" data-lang="en">CovaU employs reasonable administrative, technical, and physical security measures to protect the Data collected through the VPP Program.</span>
-                        <span class="lang-text" data-lang="zh">CovaU采用合理的管理、技术和物理安全措施来保护通过VPP计划收集的数据。</span>
-                    </li>
-                    <li>
-                        <span class="lang-text" data-lang="en">When my participation is terminated, CovaU will cease all remote control of my Battery and disconnect the VPP Platform.</span>
-                        <span class="lang-text" data-lang="zh">当我的参与终止时，CovaU将停止对我的电池的所有远程控制并断开VPP平台连接。</span>
-                    </li>
-                    <li>
-                        <span class="lang-text" data-lang="en">Third-party apps or services are outside of CovaU's control and not covered by CovaU Privacy Policy.</span>
-                        <span class="lang-text" data-lang="zh">第三方应用程序或服务超出CovaU的控制范围，不受CovaU隐私政策保护。</span>
                     </li>
                     <li>
                         <span class="lang-text" data-lang="en">I acknowledge that CovaU may provide me with access to the VPP Platform app, which is covered by CovaU Privacy Policy.</span>
@@ -2641,6 +2617,14 @@
                 if (titleEn) titleEn.textContent = config.title.en;
                 if (titleZh) titleZh.textContent = config.title.zh;
 
+                // 显示/隐藏提示信息（仅API Key显示）
+                const modalHint = document.getElementById('modalHint');
+                if (type === 'apiKey') {
+                    modalHint.classList.remove('hidden');
+                } else {
+                    modalHint.classList.add('hidden');
+                }
+
                 // 显示模态框
                 modal.classList.remove('hidden');
                 document.body.style.overflow = 'hidden'; // 防止背景滚动
@@ -2848,7 +2832,9 @@
         // 关闭提示模态框
         function closeHintModal() {
             const modal = document.getElementById('hintModal');
+            const modalHint = document.getElementById('modalHint');
             modal.classList.add('hidden');
+            modalHint.classList.add('hidden'); // 隐藏提示信息
             document.body.style.overflow = ''; // 恢复滚动
         }
 
@@ -3039,6 +3025,12 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div id="modalHint" class="hidden mb-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                    <p class="text-xs text-blue-700">
+                        <span class="lang-text" data-lang="en">Get API Key from web: <a href="https://www.foxesscloud.com/login" target="_blank" class="text-blue-600 hover:underline font-medium">https://www.foxesscloud.com/login</a></span>
+                        <span class="lang-text" data-lang="zh">使用web获取API密钥: <a href="https://www.foxesscloud.com/login" target="_blank" class="text-blue-600 hover:underline font-medium">https://www.foxesscloud.com/login</a></span>
+                    </p>
+                </div>
                 <div id="modalImageContainer" class="relative">
                     <div id="imageLoader" class="absolute inset-0 flex items-center justify-center bg-gray-50 rounded-lg hidden">
                         <div class="flex flex-col items-center">
