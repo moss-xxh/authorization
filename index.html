@@ -59,6 +59,7 @@
             }
             .input-apple {
                 @apply w-full px-4 py-3 bg-white border border-border rounded-lg transition-all duration-200;
+                height: 52px;
                 &:focus {
                     @apply ring-1 ring-black border-black text-black outline-none;
                 }
@@ -467,15 +468,56 @@
                     <label class="label-apple" for="batteryBrand">
                         <span class="lang-text" data-lang="en">Brand</span>
                         <span class="lang-text" data-lang="zh">品牌</span>
+                        <span class="hint-icon ml-2" style="visibility: hidden;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="#6B7280" stroke-width="2"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="17" r="1" fill="#6B7280"/>
+                            </svg>
+                        </span>
                     </label>
                     <select id="batteryBrand" name="batteryBrand" class="input-apple">
                         <option value=""></option>
                         <option value="ipotisedge" selected>ipotisedge</option>
                         <option value="FOX ESS">FOX ESS</option>
-                        <option value="weiheng">weiheng</option>
+                        <option value="Alpha">Alpha</option>
                     </select>
                 </div>
                 <div class="min-w-0 overflow-hidden">
+                    <label class="label-apple" for="inverterSN">
+                        <span class="lang-text" data-lang="en">Inverter SN</span>
+                        <span class="lang-text" data-lang="zh">逆变器SN</span>
+                        <button type="button" class="hint-icon ml-2" onclick="openHintModal('inverterSN')" title="查看示例图片">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="#6B7280" stroke-width="2"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="17" r="1" fill="#6B7280"/>
+                            </svg>
+                        </button>
+                    </label>
+                    <input type="text" id="inverterSN" name="inverterSN" class="input-apple"
+                           data-placeholder-en="Enter inverter serial number"
+                           data-placeholder-zh="请输入逆变器序列号"
+                           placeholder="Enter inverter serial number">
+                </div>
+                <div id="checkCodeField" class="min-w-0 overflow-hidden" style="display: none;">
+                    <label class="label-apple" for="checkCode">
+                        <span class="lang-text" data-lang="en">Check Code</span>
+                        <span class="lang-text" data-lang="zh">校验码</span>
+                        <button type="button" class="hint-icon ml-2" onclick="openHintModal('checkCode')" title="查看示例图片">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="#6B7280" stroke-width="2"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="17" r="1" fill="#6B7280"/>
+                            </svg>
+                        </button>
+                    </label>
+                    <input type="text" id="checkCode" name="checkCode" class="input-apple"
+                           data-placeholder-en="Enter check code"
+                           data-placeholder-zh="请输入校验码"
+                           placeholder="Enter check code">
+                </div>
+                <div id="batteryAccountField" class="min-w-0 overflow-hidden">
                     <label class="label-apple" for="batteryAccount">
                         <span class="lang-text" data-lang="en">User Name</span>
                         <span class="lang-text" data-lang="zh">用户名</span>
@@ -491,6 +533,23 @@
                            data-placeholder-en="Enter user name"
                            data-placeholder-zh="请输入用户名"
                            placeholder="Enter user name">
+                </div>
+                <div class="min-w-0 overflow-hidden">
+                    <label class="label-apple" for="batterySize">
+                        <span class="lang-text" data-lang="en">Battery Capacity (kWh)</span>
+                        <span class="lang-text" data-lang="zh">电池容量 (kWh)</span>
+                        <button type="button" class="hint-icon ml-2" onclick="openHintModal('batteryCapacity')" title="查看示例图片">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="#6B7280" stroke-width="2"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="17" r="1" fill="#6B7280"/>
+                            </svg>
+                        </button>
+                    </label>
+                    <input type="text" id="batterySize" name="batterySize" class="input-apple"
+                           data-placeholder-en="e.g., 100Ah"
+                           data-placeholder-zh="如: 100Ah"
+                           placeholder="e.g., 100Ah">
                 </div>
                 <div id="apiKeyField" class="min-w-0 overflow-hidden" style="display: none;">
                     <label class="label-apple" for="apiKey">
@@ -512,41 +571,6 @@
                            data-placeholder-en="Enter API key"
                            data-placeholder-zh="请输入API密钥"
                            placeholder="Enter API key">
-                </div>
-                <div class="min-w-0 overflow-hidden">
-                    <label class="label-apple" for="inverterSN">
-                        <span class="lang-text" data-lang="en">Inverter SN</span>
-                        <span class="lang-text" data-lang="zh">逆变器SN</span>
-                        <button type="button" class="hint-icon ml-2" onclick="openHintModal('inverterSN')" title="查看示例图片">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="12" cy="12" r="10" stroke="#6B7280" stroke-width="2"/>
-                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <circle cx="12" cy="17" r="1" fill="#6B7280"/>
-                            </svg>
-                        </button>
-                    </label>
-                    <div id="inverterSNSpacer" class="text-xs mb-2 -mt-1" style="visibility: hidden; height: 1.25rem; display: none;">placeholder</div>
-                    <input type="text" id="inverterSN" name="inverterSN" class="input-apple"
-                           data-placeholder-en="Enter inverter serial number"
-                           data-placeholder-zh="请输入逆变器序列号"
-                           placeholder="Enter inverter serial number">
-                </div>
-                <div class="min-w-0 overflow-hidden">
-                    <label class="label-apple" for="batterySize">
-                        <span class="lang-text" data-lang="en">Battery Capacity (kWh)</span>
-                        <span class="lang-text" data-lang="zh">电池容量 (kWh)</span>
-                        <button type="button" class="hint-icon ml-2" onclick="openHintModal('batteryCapacity')" title="查看示例图片">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="12" cy="12" r="10" stroke="#6B7280" stroke-width="2"/>
-                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <circle cx="12" cy="17" r="1" fill="#6B7280"/>
-                            </svg>
-                        </button>
-                    </label>
-                    <input type="text" id="batterySize" name="batterySize" class="input-apple" 
-                           data-placeholder-en="e.g., 100Ah" 
-                           data-placeholder-zh="如: 100Ah"
-                           placeholder="e.g., 100Ah">
                 </div>
             </div>
 
@@ -936,23 +960,42 @@
             // Brand selection change handler
             const batteryBrandSelect = document.getElementById('batteryBrand');
             const apiKeyField = document.getElementById('apiKeyField');
-            const inverterSNSpacer = document.getElementById('inverterSNSpacer');
+            const batteryAccountField = document.getElementById('batteryAccountField');
+            const checkCodeField = document.getElementById('checkCodeField');
 
             batteryBrandSelect.addEventListener('change', function() {
+                // Handle FOX ESS
                 if (this.value === 'FOX ESS') {
                     apiKeyField.style.display = 'block';
-                    inverterSNSpacer.style.display = 'block';
                 } else {
                     apiKeyField.style.display = 'none';
-                    inverterSNSpacer.style.display = 'none';
                     document.getElementById('apiKey').value = ''; // Clear API key when hidden
+                }
+
+                // Handle Alpha
+                if (this.value === 'Alpha') {
+                    batteryAccountField.style.display = 'none';
+                    checkCodeField.style.display = 'block';
+                    document.getElementById('batteryAccount').value = ''; // Clear user name when hidden
+                } else {
+                    batteryAccountField.style.display = 'block';
+                    checkCodeField.style.display = 'none';
+                    document.getElementById('checkCode').value = ''; // Clear check code when hidden
                 }
             });
 
             // Show API key field initially since FOX ESS is pre-selected
             if (batteryBrandSelect.value === 'FOX ESS') {
                 apiKeyField.style.display = 'block';
-                inverterSNSpacer.style.display = 'block';
+            }
+
+            // Handle initial Alpha brand state
+            if (batteryBrandSelect.value === 'Alpha') {
+                batteryAccountField.style.display = 'none';
+                checkCodeField.style.display = 'block';
+            } else {
+                batteryAccountField.style.display = 'block';
+                checkCodeField.style.display = 'none';
             }
 
             // Set today's date
@@ -995,21 +1038,13 @@
                     document.getElementById('batteryBrand').value = data.batteryBrand || '';
                     document.getElementById('batterySize').value = data.batterySize || '';
                     document.getElementById('batteryAccount').value = data.batteryAccount || '';
+                    document.getElementById('checkCode').value = data.checkCode || '';
+                    document.getElementById('apiKey').value = data.apiKey || '';
                     document.getElementById('inverterSN').value = data.inverterSN || '';
 
-                    // Handle API key field visibility and value
-                    const apiKeyField = document.getElementById('apiKeyField');
-                    const apiKeyInput = document.getElementById('apiKey');
-                    const inverterSNSpacer = document.getElementById('inverterSNSpacer');
-                    if (data.batteryBrand === 'FOX ESS') {
-                        apiKeyField.style.display = 'block';
-                        inverterSNSpacer.style.display = 'block';
-                        apiKeyInput.value = data.apiKey || '';
-                    } else {
-                        apiKeyField.style.display = 'none';
-                        inverterSNSpacer.style.display = 'none';
-                        apiKeyInput.value = '';
-                    }
+                    // 触发品牌切换事件以显示/隐藏对应字段
+                    const brandChangeEvent = new Event('change');
+                    document.getElementById('batteryBrand').dispatchEvent(brandChangeEvent);
 
                     // Clear the editing data after filling the form
                     localStorage.removeItem('editingRecord');
@@ -1653,11 +1688,20 @@
                             </div>
                             <div>
                                 <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Battery Size</span>
-                                    <span class="lang-text" data-lang="zh">电池容量</span>
+                                    <span class="lang-text" data-lang="en">Inverter SN</span>
+                                    <span class="lang-text" data-lang="zh">逆变器序列号</span>
                                 </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${data.batterySize || '--'}</div>
+                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${data.inverterSN || '--'}</div>
                             </div>
+                            ${data.batteryBrand === 'Alpha' ? `
+                            <div>
+                                <label class="label-apple">
+                                    <span class="lang-text" data-lang="en">Check Code</span>
+                                    <span class="lang-text" data-lang="zh">校验码</span>
+                                </label>
+                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${data.checkCode || '--'}</div>
+                            </div>
+                            ` : `
                             <div>
                                 <label class="label-apple">
                                     <span class="lang-text" data-lang="en">User Name</span>
@@ -1665,12 +1709,13 @@
                                 </label>
                                 <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${data.batteryAccount || '--'}</div>
                             </div>
+                            `}
                             <div>
                                 <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Inverter SN</span>
-                                    <span class="lang-text" data-lang="zh">逆变器序列号</span>
+                                    <span class="lang-text" data-lang="en">Battery Size</span>
+                                    <span class="lang-text" data-lang="zh">电池容量</span>
                                 </label>
-                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${data.inverterSN || '--'}</div>
+                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${data.batterySize || '--'}</div>
                             </div>
                         </div>
                     </div>
@@ -1731,9 +1776,15 @@
                         document.getElementById('batteryBrand').value = data.batteryBrand || '';
                         document.getElementById('batterySize').value = data.batterySize || '';
                         document.getElementById('batteryAccount').value = data.batteryAccount || '';
+                        document.getElementById('checkCode').value = data.checkCode || '';
+                        document.getElementById('apiKey').value = data.apiKey || '';
                         document.getElementById('inverterSN').value = data.inverterSN || '';
                         document.getElementById('signatureDate').value = data.signatureDate || new Date().toISOString().split('T')[0];
-                        
+
+                        // 触发品牌切换事件以显示/隐藏对应字段
+                        const brandChangeEvent = new Event('change');
+                        document.getElementById('batteryBrand').dispatchEvent(brandChangeEvent);
+
                         // 恢复签名
                         if (data.signature && customerSignaturePad) {
                             customerSignaturePad.fromDataURL(data.signature);
@@ -1800,6 +1851,8 @@
                     batteryBrand: document.getElementById('batteryBrand').value,
                     batterySize: document.getElementById('batterySize').value.trim(),
                     batteryAccount: document.getElementById('batteryAccount').value.trim(),
+                    checkCode: document.getElementById('checkCode').value.trim(),
+                    apiKey: document.getElementById('apiKey').value.trim(),
                     inverterSN: document.getElementById('inverterSN').value.trim(),
                     signatureDate: document.getElementById('signatureDate').value,
                     signature: (customerSignaturePad && !customerSignaturePad.isEmpty()) ? customerSignaturePad.toDataURL() : null,
@@ -1835,9 +1888,15 @@
                         document.getElementById('batteryBrand').value = data.batteryBrand || '';
                         document.getElementById('batterySize').value = data.batterySize || '';
                         document.getElementById('batteryAccount').value = data.batteryAccount || '';
+                        document.getElementById('checkCode').value = data.checkCode || '';
+                        document.getElementById('apiKey').value = data.apiKey || '';
                         document.getElementById('inverterSN').value = data.inverterSN || '';
                         document.getElementById('signatureDate').value = data.signatureDate || new Date().toISOString().split('T')[0];
-                        
+
+                        // 触发品牌切换事件以显示/隐藏对应字段
+                        const brandChangeEvent = new Event('change');
+                        document.getElementById('batteryBrand').dispatchEvent(brandChangeEvent);
+
                         // 恢复签名
                         if (data.signature && customerSignaturePad) {
                             customerSignaturePad.fromDataURL(data.signature);
@@ -2087,18 +2146,28 @@
                         </div>
                         <div>
                             <label class="label-apple">
-                                <span class="lang-text" data-lang="en">Account</span>
-                                <span class="lang-text" data-lang="zh">户头</span>
-                            </label>
-                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batteryAccount || '--'}</div>
-                        </div>
-                        <div>
-                            <label class="label-apple">
                                 <span class="lang-text" data-lang="en">Inverter SN</span>
                                 <span class="lang-text" data-lang="zh">逆变器序列号</span>
                             </label>
                             <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.inverterSN || '--'}</div>
                         </div>
+                        ${result.batteryBrand === 'Alpha' ? `
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Check Code</span>
+                                <span class="lang-text" data-lang="zh">校验码</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.checkCode || '--'}</div>
+                        </div>
+                        ` : `
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Account</span>
+                                <span class="lang-text" data-lang="zh">户头</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batteryAccount || '--'}</div>
+                        </div>
+                        `}
                         <div>
                             <label class="label-apple">
                                 <span class="lang-text" data-lang="en">Battery Capacity (Ah)</span>
@@ -2581,23 +2650,23 @@
                         }
                     }
                 },
-                'weiheng': {
-                    'account': {
-                        images: ['ipotisedge-账号.jpg', 'ipotisedge-账号2.jpg'], // 使用ipotisedge的图片作为默认，或者可以是weiheng专属图片
-                        title: {
-                            en: 'Account Location Example',
-                            zh: '账号位置示例'
-                        }
-                    },
+                'Alpha': {
                     'inverterSN': {
-                        images: ['ipotisedge-SN.jpg'],
+                        images: ['Alpha-SN.jpg'],
                         title: {
                             en: 'Inverter SN Location Example',
                             zh: '逆变器SN位置示例'
                         }
                     },
+                    'checkCode': {
+                        images: ['Alpha-校验码.jpg'],
+                        title: {
+                            en: 'Check Code Location Example',
+                            zh: '校验码位置示例'
+                        }
+                    },
                     'batteryCapacity': {
-                        images: ['ipotisedge-电池容量.jpg'],
+                        images: ['Alpha-电池容量.jpg'],
                         title: {
                             en: 'Battery Capacity Location Example',
                             zh: '电池容量位置示例'
