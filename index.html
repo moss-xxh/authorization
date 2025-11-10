@@ -380,7 +380,6 @@
                     <span class="lang-text" data-lang="zh">VPP平台 指CovaU的"VPP平台"系统，该系统将在VPP事件期间与您的符合条件的电池系统进行通信、访问和控制，CovaU可能会不时更新该系统。</span>
                 </p>
                 <p class="text-warning font-medium mb-6">
-                    <span class="lang-text" data-lang="en">Before signing the Form, please make sure all your details and system details are correct.</span>
                     <span class="lang-text" data-lang="zh">签署本表格前，请确保您的所有详细信息和系统详细信息都是正确的。</span>
                 </p>
                 
@@ -391,7 +390,6 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label class="label-apple" for="customerName">
-                        <span class="lang-text" data-lang="en">Customer Name</span>
                         <span class="lang-text" data-lang="zh">客户姓名</span>
                     </label>
                     <input type="text" id="customerName" name="customerName" class="input-apple" 
@@ -573,104 +571,6 @@
                            placeholder="Enter API key">
                 </div>
             </div>
-
-            <h2 class="section-title mt-8">
-                <span class="lang-text" data-lang="en">Customer Signature (s)</span>
-                <span class="lang-text" data-lang="zh">客户签名</span>
-            </h2>
-            
-            <div class="terms-box">
-                <p class="text-secondary mb-4">
-                    <strong>
-                        <span class="lang-text" data-lang="en">Customer Authorisation</span>
-                        <span class="lang-text" data-lang="zh">客户授权</span>
-                    </strong>
-                </p>
-                
-                <p class="text-secondary mb-4">
-                    <span class="lang-text" data-lang="en">By signing this form, I authorise CovaU to:</span>
-                    <span class="lang-text" data-lang="zh">通过签署本表格，我授权CovaU：</span>
-                </p>
-                
-                <ol class="terms-list list-decimal text-secondary">
-                    <li>
-                        <span class="lang-text" data-lang="en">Remotely access and control my Battery at any time during the VPP Services Term for the purposes of the VPP Program.</span>
-                        <span class="lang-text" data-lang="zh">在VPP服务期间随时远程访问和控制我的电池，以用于VPP计划的目的。</span>
-                    </li>
-                    <li>
-                        <span class="lang-text" data-lang="en">Disclose my Data to third parties that are directly involved in administering the VPP Program, including CovaU's VPP Platform provider or technology partner, for purposes such as Battery status and may need my Supply Address or an identifier for site coordination.</span>
-                        <span class="lang-text" data-lang="zh">向直接参与管理VPP计划的第三方披露我的数据，包括CovaU的VPP平台提供商或技术合作伙伴，用于电池状态等目的，可能需要我的供电地址或站点协调标识符。</span>
-                    </li>
-                </ol>
-                
-                <!-- Customer Acknowledgement & Consent -->
-                <p class="text-secondary mb-4 mt-8">
-                    <strong>
-                        <span class="lang-text" data-lang="en">Customer Acknowledgement & Consent</span>
-                        <span class="lang-text" data-lang="zh">客户确认与同意</span>
-                    </strong>
-                </p>
-                
-                <p class="text-secondary mb-4">
-                    <span class="lang-text" data-lang="en">By signing this form, I also acknowledge and agree that:</span>
-                    <span class="lang-text" data-lang="zh">通过签署本表格，我还确认并同意：</span>
-                </p>
-                <ol class="terms-list list-decimal text-secondary">
-                    <li>
-                        <span class="lang-text" data-lang="en">Prior to signing this form, I have already signed and agreed to the CovaU VPP Offer and the CovaU Virtual Power Plant Services Agreement.</span>
-                        <span class="lang-text" data-lang="zh">在签署本表格之前，我已经签署并同意了CovaU VPP报价和CovaU虚拟电厂服务协议。</span>
-                    </li>
-                    <li>
-                        <span class="lang-text" data-lang="en">I acknowledge that CovaU may provide me with access to the VPP Platform app, which is covered by CovaU Privacy Policy.</span>
-                        <span class="lang-text" data-lang="zh">我确认CovaU可能为我提供VPP平台应用程序的访问权限，该应用程序受CovaU隐私政策保护。</span>
-                    </li>
-                    <li>
-                        <span class="lang-text" data-lang="en">I have read and agreed CovaU Privacy Policy through Website <a href="https://covau.com.au/terms-conditions/" class="text-covau underline" target="_blank">https://covau.com.au/terms-conditions/</a>.</span>
-                        <span class="lang-text" data-lang="zh">我已阅读并同意CovaU隐私政策，网址：<a href="https://covau.com.au/terms-conditions/" class="text-covau underline" target="_blank">https://covau.com.au/terms-conditions/</a>。</span>
-                    </li>
-                </ol>
-                
-            </div>
-            
-            <!-- Customer Signature -->
-            <h2 class="section-title mt-8">
-                <span class="lang-text" data-lang="en">Customer Signature</span>
-                <span class="lang-text" data-lang="zh">客户签名</span>
-            </h2>
-            
-            <!-- Customer Signature Section -->
-            <div class="space-y-6">
-                <!-- Signature Canvas -->
-                <div>
-                    <label class="label-apple">
-                        <span class="lang-text" data-lang="en">Customer Signature</span>
-                        <span class="lang-text" data-lang="zh">客户签名</span>
-                    </label>
-                    <div class="signature-container bg-white rounded-lg border-2 border-border overflow-hidden">
-                        <canvas id="customerSignature" class="signature-pad w-full block" 
-                                height="200" 
-                                style="background-color: white; touch-action: none; cursor: crosshair;"></canvas>
-                    </div>
-                </div>
-
-                <!-- Controls at bottom of signature area -->
-                <div class="flex justify-start mt-3">
-                    <button type="button" id="clearCustomerSignature" class="text-sm text-tertiary hover:text-danger transition-colors">
-                        <span class="lang-text" data-lang="en">Clear Signature</span>
-                        <span class="lang-text" data-lang="zh">清除签名</span>
-                    </button>
-                </div>
-                
-                <!-- Signature Date -->
-                <div class="mt-6 flex items-center gap-4">
-                    <label class="text-sm font-medium text-secondary" for="signatureDate">
-                        <span class="lang-text" data-lang="en">Signature Date</span>
-                        <span class="lang-text" data-lang="zh">签名日期</span>
-                    </label>
-                    <input type="date" id="signatureDate" name="signatureDate" class="max-w-xs px-4 py-2.5 bg-gray-100 text-gray-600 border border-gray-300 rounded-lg cursor-not-allowed" readonly>
-                </div>
-            </div>
-            
         </div>
 
         <!-- Action Buttons -->
@@ -851,8 +751,6 @@
 
     <!-- Scripts -->
     <script>
-        // Initialize signature pad
-        let customerSignaturePad;
         let currentLanguage = 'en';
         
         // Ensure page always starts in English by default
@@ -911,51 +809,6 @@
             // Force default language to English
             switchLanguage('en');
             
-            // Initialize customer signature pad
-            const customerCanvas = document.getElementById('customerSignature');
-            customerSignaturePad = new SignaturePad(customerCanvas, {
-                backgroundColor: 'rgb(255, 255, 255)',
-                penColor: 'rgb(0, 0, 0)',
-                minWidth: 2,
-                maxWidth: 4,
-                throttle: 16,
-                minDistance: 5
-            });
-            
-            // Resize canvas for high DPI displays
-            function resizeCanvas(canvas, signaturePad) {
-                const ratio = Math.max(window.devicePixelRatio || 1, 1);
-                const rect = canvas.getBoundingClientRect();
-                canvas.width = rect.width * ratio;
-                canvas.height = rect.height * ratio;
-                canvas.getContext('2d').scale(ratio, ratio);
-                canvas.style.width = rect.width + 'px';
-                canvas.style.height = rect.height + 'px';
-                signaturePad.clear(); // Clear after resize
-            }
-            
-            // Resize on load
-            setTimeout(() => {
-                resizeCanvas(customerCanvas, customerSignaturePad);
-            }, 100);
-            
-            // Clear signature button - simplified like the original
-            document.getElementById('clearCustomerSignature').addEventListener('click', function() {
-                if (customerSignaturePad) {
-                    customerSignaturePad.clear();
-                }
-            });
-            
-            // Load saved signature if exists
-            const savedCustomerSignature = localStorage.getItem('customer-signature');
-            if (savedCustomerSignature && customerSignaturePad) {
-                customerSignaturePad.fromDataURL(savedCustomerSignature);
-            }
-            
-            // Window resize handler
-            window.addEventListener('resize', function() {
-                resizeCanvas(customerCanvas, customerSignaturePad);
-            });
 
             // Brand selection change handler
             const batteryBrandSelect = document.getElementById('batteryBrand');
@@ -997,10 +850,6 @@
                 batteryAccountField.style.display = 'block';
                 checkCodeField.style.display = 'none';
             }
-
-            // Set today's date
-            document.getElementById('signatureDate').valueAsDate = new Date();
-            
             // Initialize address functionality
             initAddressSelection();
             
@@ -1636,7 +1485,6 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label class="label-apple">
-                                    <span class="lang-text" data-lang="en">Customer Name</span>
                                     <span class="lang-text" data-lang="zh">客户姓名</span>
                                 </label>
                                 <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${data.customerName || '--'}</div>
@@ -1719,32 +1567,6 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- 签名信息 -->
-                    <div>
-                        <h2 class="section-title">
-                            <span class="lang-text" data-lang="en">Customer Signature</span>
-                            <span class="lang-text" data-lang="zh">客户签名</span>
-                        </h2>
-                        <div class="w-1/2">
-                            <label class="label-apple">
-                                <span class="lang-text" data-lang="en">Signature</span>
-                                <span class="lang-text" data-lang="zh">签名</span>
-                            </label>
-                            <div class="bg-white rounded-lg border-2 border-gray-300 h-32 flex flex-col items-center justify-center p-4 relative">
-                                <div class="flex flex-col items-center justify-center h-full w-full">
-                                    <!-- 模拟签名 -->
-                                    <div class="text-2xl font-bold text-blue-800 mb-2" style="font-family: cursive; transform: rotate(-2deg);">
-                                        ${data.customerName || 'Customer Name'}
-                                    </div>
-                                    <!-- 签名日期 -->
-                                    <div class="text-sm text-gray-600">
-                                        ${data.signatureDate || new Date().toISOString().split('T')[0]}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             `;
             
@@ -1779,17 +1601,11 @@
                         document.getElementById('checkCode').value = data.checkCode || '';
                         document.getElementById('apiKey').value = data.apiKey || '';
                         document.getElementById('inverterSN').value = data.inverterSN || '';
-                        document.getElementById('signatureDate').value = data.signatureDate || new Date().toISOString().split('T')[0];
 
                         // 触发品牌切换事件以显示/隐藏对应字段
                         const brandChangeEvent = new Event('change');
                         document.getElementById('batteryBrand').dispatchEvent(brandChangeEvent);
 
-                        // 恢复签名
-                        if (data.signature && customerSignaturePad) {
-                            customerSignaturePad.fromDataURL(data.signature);
-                        }
-                        
                         // 重新启用表单元素
                         const formElements = document.querySelectorAll('#vpp-authorization-form input, #vpp-authorization-form select, #vpp-authorization-form textarea, #vpp-authorization-form button[type="submit"]');
                         formElements.forEach(element => {
@@ -1854,8 +1670,6 @@
                     checkCode: document.getElementById('checkCode').value.trim(),
                     apiKey: document.getElementById('apiKey').value.trim(),
                     inverterSN: document.getElementById('inverterSN').value.trim(),
-                    signatureDate: document.getElementById('signatureDate').value,
-                    signature: (customerSignaturePad && !customerSignaturePad.isEmpty()) ? customerSignaturePad.toDataURL() : null,
                     submitTime: new Date().toISOString(),
                     status: 'submitted'
                 };
@@ -1891,16 +1705,10 @@
                         document.getElementById('checkCode').value = data.checkCode || '';
                         document.getElementById('apiKey').value = data.apiKey || '';
                         document.getElementById('inverterSN').value = data.inverterSN || '';
-                        document.getElementById('signatureDate').value = data.signatureDate || new Date().toISOString().split('T')[0];
 
                         // 触发品牌切换事件以显示/隐藏对应字段
                         const brandChangeEvent = new Event('change');
                         document.getElementById('batteryBrand').dispatchEvent(brandChangeEvent);
-
-                        // 恢复签名
-                        if (data.signature && customerSignaturePad) {
-                            customerSignaturePad.fromDataURL(data.signature);
-                        }
                     }
                     
                     // 切换显示
@@ -1931,19 +1739,6 @@
                 }
             });
         }
-        
-        // Auto-resize signature canvases
-        function resizeCanvas(canvas) {
-            const ratio = Math.max(window.devicePixelRatio || 1, 1);
-            canvas.width = canvas.offsetWidth * ratio;
-            canvas.height = canvas.offsetHeight * ratio;
-            canvas.getContext("2d").scale(ratio, ratio);
-        }
-        
-        window.addEventListener('resize', function() {
-            resizeCanvas(document.getElementById('customerSignature'), customerSignaturePad);
-        });
-        
         // 场景计数器
         let currentScenarioIndex = 0;
         
@@ -2094,7 +1889,6 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="label-apple">
-                                <span class="lang-text" data-lang="en">Customer Name</span>
                                 <span class="lang-text" data-lang="zh">客户姓名</span>
                             </label>
                             <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.customerName || '--'}</div>
@@ -2177,37 +1971,6 @@
                         </div>
                     </div>
                 </div>
-
-
-                <!-- 签名信息 -->
-                <div>
-                    <h2 class="section-title">
-                        <span class="lang-text" data-lang="en">Signature Information</span>
-                        <span class="lang-text" data-lang="zh">签名信息</span>
-                    </h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- 客户签名 -->
-                        <div class="w-1/2">
-                            <label class="label-apple">
-                                <span class="lang-text" data-lang="en">Customer Signature</span>
-                                <span class="lang-text" data-lang="zh">客户签名</span>
-                            </label>
-                            <div class="bg-white rounded-lg border-2 border-gray-300 h-32 flex flex-col items-center justify-center p-4 relative">
-                                ${result.customerSignature ? 
-                                    `<div class="flex flex-col items-center justify-center h-full w-full">
-                                        <div class="text-2xl font-bold text-blue-800 mb-2" style="font-family: cursive; transform: rotate(-2deg);">
-                                            ${result.customerName}
-                                        </div>
-                                        <div class="text-sm text-gray-600">
-                                            ${result.signatureDate || '--'}
-                                        </div>
-                                    </div>`
-                                    : `<span class="text-gray-400">--</span>`}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
                 </div>
                 
                 <!-- 操作按钮 -->
@@ -2491,7 +2254,6 @@
                     <div class="space-y-2">
                         <div class="flex justify-between">
                             <span class="text-sm text-tertiary">
-                                <span class="lang-text" data-lang="en">Customer Name</span>
                                 <span class="lang-text" data-lang="zh">客户姓名</span>
                             </span>
                             <span class="text-sm text-secondary font-medium">${result.customerName}</span>
