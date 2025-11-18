@@ -231,21 +231,13 @@
         
         /* Language switching without module separation */
         .lang-text {
-            display: inline;
-        }
-        
-        .lang-zh .lang-text[data-lang="en"] {
             display: none;
         }
-        
+
         .lang-zh .lang-text[data-lang="zh"] {
             display: inline;
         }
-        
-        .lang-en .lang-text[data-lang="zh"] {
-            display: none;
-        }
-        
+
         .lang-en .lang-text[data-lang="en"] {
             display: inline;
         }
@@ -301,43 +293,6 @@
     </style>
 </head>
 <body class="min-h-screen font-sans text-secondary flex flex-col lang-en">
-    <!-- 头部导航 -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <div class="flex flex-col items-center">
-                    <img src="新logo.png" alt="CovaU Logo" class="h-8 w-auto">
-                    <span class="text-xs text-gray-600 mt-1">Powered by Xenergi</span>
-                </div>
-                <img src="新logo 2.png" alt="CovaU Energy Logo" class="h-10 w-auto -mt-2">
-            </div>
-            <div class="flex items-center gap-3">
-                <!-- 查询按钮 -->
-                <button id="query-btn" class="flex items-center px-4 py-2 rounded-full bg-black text-white hover:bg-black/90 transition-colors">
-                    <i class="fa fa-search mr-2"></i>
-                    <span class="lang-text" data-lang="en">Query</span>
-                    <span class="lang-text" data-lang="zh">查询</span>
-                </button>
-                <!-- 语言选择器 -->
-                <div class="relative">
-                    <button id="language-dropdown-btn" class="flex items-center px-3 py-2 rounded-full bg-light hover:bg-gray-200 transition-colors">
-                        <span id="current-language" class="mr-1">EN</span>
-                        <i class="fa fa-chevron-down text-xs"></i>
-                    </button>
-                    <div id="language-dropdown" class="hidden absolute right-0 mt-2 w-20 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
-                        <button onclick="switchLanguage('en')" class="language-option w-full text-left px-3 py-2 hover:bg-gray-50 transition-colors text-sm" data-lang="en">
-                            EN
-                        </button>
-                        <button onclick="switchLanguage('zh')" class="language-option w-full text-left px-3 py-2 hover:bg-gray-50 transition-colors text-sm" data-lang="zh">
-                            中文
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-    
-    
     <!-- 主内容区 -->
     <main class="container mx-auto px-4 py-10 max-w-4xl flex-1">
         <!-- Step 1: Customer Authorization -->
@@ -345,11 +300,15 @@
         <!-- Header -->
         <div class="card-apple p-6 mb-6" id="form-container">
             <form id="vpp-authorization-form">
-            <div class="flex justify-end items-start mb-4">
+            <!-- Logo和公司信息区域 -->
+            <div class="flex justify-between items-start mb-4">
+                <div class="flex items-center">
+                    <img src="新logo 2.png" alt="CovaU Energy Logo" class="h-12 w-auto">
+                </div>
                 <div class="text-right text-sm text-secondary">
                     <p class="mb-1">
-                        <span class="lang-text" data-lang="en">CovaU Pty Ltd (ABN 54 090 117 730)</span>
-                        <span class="lang-text" data-lang="zh">CovaU Pty Ltd (ABN 54 090 117 730)</span>
+                        <span class="lang-text" data-lang="en"><strong>CovaU</strong> Pty Ltd (ABN 54 090 117 730)</span>
+                        <span class="lang-text" data-lang="zh"><strong>CovaU</strong> Pty Ltd (ABN 54 090 117 730)</span>
                     </p>
                     <p>
                         <span class="lang-text" data-lang="en">Enquiries: </span>
@@ -359,7 +318,7 @@
                 </div>
             </div>
             <h1 class="text-2xl font-bold text-secondary mb-4 text-center">
-                <span class="lang-text" data-lang="en">Virtual Power Plant Customer Authorisation and Consent Form</span>
+                <span class="lang-text" data-lang="en">VPP Customer Authorisation and Consent Form</span>
                 <span class="lang-text" data-lang="zh">虚拟电厂平台客户授权与同意书</span>
             </h1>
             
@@ -369,16 +328,16 @@
                     <span class="lang-text" data-lang="zh">尊敬的客户：</span>
                 </p>
                 <p class="mb-4">
-                    <span class="lang-text" data-lang="en">Thank you for choosing to join the CovaU Virtual Power Plant (VPP), powered by Xenergi.</span>
-                    <span class="lang-text" data-lang="zh">感谢您选择加入由Xenergi提供技术支持的CovaU虚拟电厂(VPP)。</span>
+                    <span class="lang-text" data-lang="en">Thank you for choosing to join the <strong>CovaU</strong> Virtual Power Plant (VPP), powered by <strong>Xenergi</strong>.</span>
+                    <span class="lang-text" data-lang="zh">感谢您选择加入由<strong>Xenergi</strong>提供技术支持的<strong>CovaU</strong>虚拟电厂(VPP)。</span>
                 </p>
                 <p class="mb-4">
-                    <span class="lang-text" data-lang="en">This authorisation seeks your consent for Xenergi, as the technology provider powering the CovaU VPP, to deliver services required for the operation of the virtual power plant. This includes permission for Xenergi to access, communicate with and control your battery system as part of the service.</span>
-                    <span class="lang-text" data-lang="zh">本授权书旨在征得您的同意，允许Xenergi作为CovaU虚拟电厂的技术提供商，提供虚拟电厂运营所需的服务。这包括允许Xenergi访问、通信和控制您的电池系统作为服务的一部分。</span>
+                    <span class="lang-text" data-lang="en">This authorisation seeks your consent for <strong>Xenergi</strong>, as the technology provider powering the <strong>CovaU</strong> VPP, to deliver services required for the operation of the virtual power plant. This includes permission for <strong>Xenergi</strong> to access, communicate with and control your battery system as part of the service.</span>
+                    <span class="lang-text" data-lang="zh">本授权书旨在征得您的同意，允许<strong>Xenergi</strong>作为<strong>CovaU</strong>虚拟电厂的技术提供商，提供虚拟电厂运营所需的服务。这包括允许<strong>Xenergi</strong>访问、通信和控制您的电池系统作为服务的一部分。</span>
                 </p>
                 <p class="mb-4">
-                    <span class="lang-text" data-lang="en">"VPP Platform" refers to Xenergi's VPP platform, which enables communication with, access to and control of your eligible battery system during VPP events. Xenergi may update this platform from time to time as needed.</span>
-                    <span class="lang-text" data-lang="zh">"VPP平台"是指Xenergi的VPP平台，该平台能够在VPP事件期间与您符合条件的电池系统进行通信、访问和控制。Xenergi可能会根据需要不时更新此平台。</span>
+                    <span class="lang-text" data-lang="en">"VPP Platform" refers to <strong>CovaU</strong>'s VPP platform, which enables communication with, access to and control of your eligible battery system during VPP events. <strong>Xenergi</strong> may update this platform from time to time as needed.</span>
+                    <span class="lang-text" data-lang="zh">"VPP平台"是指<strong>CovaU</strong>的VPP平台，该平台能够在VPP事件期间与您符合条件的电池系统进行通信、访问和控制。<strong>Xenergi</strong>可能会根据需要不时更新此平台。</span>
                 </p>
                 <p class="text-warning font-medium mb-6">
                     <span class="lang-text" data-lang="zh">签署本表格前，请确保您的所有详细信息和系统详细信息都是正确的。</span>
@@ -578,8 +537,8 @@
         <div class="pt-6">
             <!-- Agreement Text -->
             <div class="mb-6 text-sm text-secondary">
-                <p class="lang-text" data-lang="en">By submitting, I agree to join the CovaU VPP (powered by Xenergi) and authorise Xenergi to access and control my battery system for VPP operation.</p>
-                <p class="lang-text" data-lang="zh">提交即表示我同意加入CovaU虚拟电厂（由Xenergi提供技术支持），并授权Xenergi访问和控制我的电池系统以进行虚拟电厂运营。</p>
+                <p class="lang-text" data-lang="en">By submitting, I agree to join the <strong>CovaU</strong> VPP (powered by <strong>Xenergi</strong>) and authorise <strong>Xenergi</strong> to access and control my battery system for VPP operation.</p>
+                <p class="lang-text" data-lang="zh">提交即表示我同意加入<strong>CovaU</strong>虚拟电厂（由<strong>Xenergi</strong>提供技术支持），并授权<strong>Xenergi</strong>访问和控制我的电池系统以进行虚拟电厂运营。</p>
             </div>
 
             <!-- Submit Button -->
@@ -592,6 +551,12 @@
             </div>
         </div>
         </form>
+
+        <!-- 底部Logo区域 -->
+        <div class="flex justify-center items-center gap-4 pt-8 pb-4 border-t border-gray-200 mt-8">
+            <img src="新logo 2.png" alt="CovaU Energy Logo" class="h-6 w-auto">
+            <img src="新logo.png" alt="CovaU Logo" class="h-5 w-auto">
+        </div>
     </div>
     </div>
 
@@ -761,13 +726,14 @@
         let currentLanguage = 'en';
         
         // Ensure page always starts in English by default
-        document.body.className = document.body.className.replace(/lang-(en|zh)/, 'lang-en');
-        
         // Language switching function
         function switchLanguage(lang) {
             console.log('Switching language to:', lang);
             currentLanguage = lang;
-            document.body.className = document.body.className.replace(/lang-(en|zh)/, 'lang-' + lang);
+
+            // 使用 classList 避免闪烁
+            document.body.classList.remove('lang-en', 'lang-zh');
+            document.body.classList.add('lang-' + lang);
             
             // Update dropdown display
             const currentLanguageSpan = document.getElementById('current-language');
@@ -812,9 +778,17 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Always default to English - clear any previous language preference
             localStorage.removeItem('preferred-language');
-            
-            // Force default language to English
-            switchLanguage('en');
+
+            // 初始化语言设置(避免不必要的DOM操作)
+            currentLanguage = 'en';
+            // 确保body有正确的class
+            if (!document.body.classList.contains('lang-en')) {
+                document.body.classList.add('lang-en');
+            }
+            // 初始化placeholder
+            document.querySelectorAll('input[data-placeholder-en], textarea[data-placeholder-en]').forEach(element => {
+                element.placeholder = element.getAttribute('data-placeholder-en');
+            });
             
 
             // Brand selection change handler
