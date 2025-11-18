@@ -1714,13 +1714,18 @@
         function initLanguageDropdown() {
             const dropdownBtn = document.getElementById('language-dropdown-btn');
             const dropdown = document.getElementById('language-dropdown');
-            
+
+            // 如果元素不存在则直接返回（顶部导航栏已删除）
+            if (!dropdownBtn || !dropdown) {
+                return;
+            }
+
             // Toggle dropdown on button click
             dropdownBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 dropdown.classList.toggle('hidden');
             });
-            
+
             // Close dropdown when clicking outside
             document.addEventListener('click', function(e) {
                 if (!e.target.closest('#language-dropdown-btn') && !e.target.closest('#language-dropdown')) {
@@ -1747,10 +1752,15 @@
             const querySuccessMessage = document.getElementById('query-success-message');
             const queryPage = document.getElementById('query-page');
             const formContainer = document.getElementById('form-container');
-            
+
+            // 如果查询按钮不存在则直接返回（顶部导航栏已删除）
+            if (!queryBtn) {
+                return;
+            }
+
             // 记录来源页面的变量
             let previousPage = 'form';
-            
+
             // 点击查询按钮，切换到查询页面
             queryBtn.addEventListener('click', function() {
                 // 记录当前显示的页面
