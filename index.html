@@ -299,7 +299,7 @@
         <div id="step1-content">
         <!-- Header -->
         <div class="card-apple p-6 mb-6" id="form-container">
-            <form id="vpp-authorization-form">
+            <form id="vpp-authorization-form" novalidate>
             <!-- Logo和公司信息区域 -->
             <div class="flex justify-between items-start mb-4">
                 <div class="flex items-center">
@@ -1608,11 +1608,13 @@
                     
                     // 隐藏提交成功页面，显示表单
                     const submissionPage = document.getElementById('submission-success-page');
-                    const formContainer = document.getElementById('form-container');
-                    
+                    const step1Content = document.getElementById('step1-content');
+
                     submissionPage.classList.add('hidden');
-                    formContainer.classList.remove('hidden');
-                    
+                    if (step1Content) {
+                        step1Content.classList.remove('hidden');
+                    }
+
                     // 滚动到顶部
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
@@ -1636,7 +1638,7 @@
             // 表单提交处理
             form.addEventListener('submit', function(e) {
                 e.preventDefault(); // 阻止默认提交
-                
+
                 // 收集表单数据
                 const formData = {
                     customerName: document.getElementById('customerName').value.trim(),
@@ -1654,13 +1656,16 @@
                     submitTime: new Date().toISOString(),
                     status: 'submitted'
                 };
-                
+
                 // 保存到localStorage
                 localStorage.setItem('vpp-form-data', JSON.stringify(formData));
-                
-                // 隐藏表单页面
-                formContainer.classList.add('hidden');
-                
+
+                // 隐藏整个step1内容
+                const step1Content = document.getElementById('step1-content');
+                if (step1Content) {
+                    step1Content.classList.add('hidden');
+                }
+
                 // 显示提交成功页面
                 showSubmissionSuccessPage(formData);
             });
@@ -1693,8 +1698,11 @@
                     }
                     
                     // 切换显示
-                    formContainer.classList.remove('hidden');
-                    
+                    const step1Content = document.getElementById('step1-content');
+                    if (step1Content) {
+                        step1Content.classList.remove('hidden');
+                    }
+
                     // 滚动到顶部
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
@@ -2776,7 +2784,7 @@
     </div>
     
     <!-- 提交成功页面（初始隐藏） -->
-    <div id="submission-success-page" class="hidden container mx-auto px-4 max-w-4xl">
+    <div id="submission-success-page" class="hidden container mx-auto px-4 max-w-4xl py-10">
         <div class="card-apple p-6 md:p-8">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-semibold">
