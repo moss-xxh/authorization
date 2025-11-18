@@ -304,8 +304,12 @@
     <!-- 头部导航 -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center">
-                <img src="新logo.png" alt="CovaU Logo" class="h-8 w-auto">
+            <div class="flex items-center gap-4">
+                <div class="flex flex-col items-center">
+                    <img src="新logo.png" alt="CovaU Logo" class="h-8 w-auto">
+                    <span class="text-xs text-gray-600 mt-1">Powered by Xenergi</span>
+                </div>
+                <img src="新logo 2.png" alt="CovaU Energy Logo" class="h-10 w-auto -mt-2">
             </div>
             <div class="flex items-center gap-3">
                 <!-- 查询按钮 -->
@@ -341,10 +345,7 @@
         <!-- Header -->
         <div class="card-apple p-6 mb-6" id="form-container">
             <form id="vpp-authorization-form">
-            <div class="flex justify-between items-start mb-4">
-                <div>
-                    <img src="新logo.png" alt="CovaU Logo" class="h-12 w-auto">
-                </div>
+            <div class="flex justify-end items-start mb-4">
                 <div class="text-right text-sm text-secondary">
                     <p class="mb-1">
                         <span class="lang-text" data-lang="en">CovaU Pty Ltd (ABN 54 090 117 730)</span>
@@ -358,7 +359,7 @@
                 </div>
             </div>
             <h1 class="text-2xl font-bold text-secondary mb-4 text-center">
-                <span class="lang-text" data-lang="en">Customer Authorisation and Consent for VPP Platform</span>
+                <span class="lang-text" data-lang="en">Virtual Power Plant Customer Authorisation and Consent Form</span>
                 <span class="lang-text" data-lang="zh">虚拟电厂平台客户授权与同意书</span>
             </h1>
             
@@ -368,16 +369,16 @@
                     <span class="lang-text" data-lang="zh">尊敬的客户：</span>
                 </p>
                 <p class="mb-4">
-                    <span class="lang-text" data-lang="en">Thank you for choosing CovaU as your Virtual Power Plant (VPP) provider.</span>
-                    <span class="lang-text" data-lang="zh">感谢您选择CovaU作为您的虚拟电厂(VPP)服务提供商。</span>
+                    <span class="lang-text" data-lang="en">Thank you for choosing to join the CovaU Virtual Power Plant (VPP), powered by Xenergi.</span>
+                    <span class="lang-text" data-lang="zh">感谢您选择加入由Xenergi提供技术支持的CovaU虚拟电厂(VPP)。</span>
                 </p>
                 <p class="mb-4">
-                    <span class="lang-text" data-lang="en">This Authorisation Form is intended to grant your consent and authorisation to CovaU, allowing us to perform the services we provide to you as part of the operation of our VPP, as well as the services you provide to us, including granting CovaU access to and control over your Battery.</span>
-                    <span class="lang-text" data-lang="zh">本授权书旨在获得您的同意和授权，允许CovaU在运营虚拟电厂过程中为您提供服务，以及您向我们提供的服务，包括授权CovaU访问和控制您的电池系统。</span>
+                    <span class="lang-text" data-lang="en">This authorisation seeks your consent for Xenergi, as the technology provider powering the CovaU VPP, to deliver services required for the operation of the virtual power plant. This includes permission for Xenergi to access, communicate with and control your battery system as part of the service.</span>
+                    <span class="lang-text" data-lang="zh">本授权书旨在征得您的同意，允许Xenergi作为CovaU虚拟电厂的技术提供商，提供虚拟电厂运营所需的服务。这包括允许Xenergi访问、通信和控制您的电池系统作为服务的一部分。</span>
                 </p>
                 <p class="mb-4">
-                    <span class="lang-text" data-lang="en">VPP Platform means CovaU "VPP Platform" system which will communicate with, access and control your Eligible Battery System during VPP Events, as may be updated from time to time by CovaU.</span>
-                    <span class="lang-text" data-lang="zh">VPP平台 指CovaU的"VPP平台"系统，该系统将在VPP事件期间与您的符合条件的电池系统进行通信、访问和控制，CovaU可能会不时更新该系统。</span>
+                    <span class="lang-text" data-lang="en">"VPP Platform" refers to Xenergi's VPP platform, which enables communication with, access to and control of your eligible battery system during VPP events. Xenergi may update this platform from time to time as needed.</span>
+                    <span class="lang-text" data-lang="zh">"VPP平台"是指Xenergi的VPP平台，该平台能够在VPP事件期间与您符合条件的电池系统进行通信、访问和控制。Xenergi可能会根据需要不时更新此平台。</span>
                 </p>
                 <p class="text-warning font-medium mb-6">
                     <span class="lang-text" data-lang="zh">签署本表格前，请确保您的所有详细信息和系统详细信息都是正确的。</span>
@@ -575,6 +576,12 @@
 
         <!-- Action Buttons -->
         <div class="pt-6">
+            <!-- Agreement Text -->
+            <div class="mb-6 text-sm text-secondary">
+                <p class="lang-text" data-lang="en">By submitting, I agree to join the CovaU VPP (powered by Xenergi) and authorise Xenergi to access and control my battery system for VPP operation.</p>
+                <p class="lang-text" data-lang="zh">提交即表示我同意加入CovaU虚拟电厂（由Xenergi提供技术支持），并授权Xenergi访问和控制我的电池系统以进行虚拟电厂运营。</p>
+            </div>
+
             <!-- Submit Button -->
             <div class="flex justify-end mt-8">
                 <button type="submit" class="btn-black flex items-center gap-3 px-6 py-3">
