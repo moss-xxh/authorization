@@ -439,6 +439,7 @@
                         <option value="ipotisedge" selected>ipotisedge</option>
                         <option value="FOX ESS">FOX ESS</option>
                         <option value="Alpha">Alpha</option>
+                        <option value="GROWATT">GROWATT</option>
                     </select>
                 </div>
                 <div class="min-w-0 overflow-hidden">
@@ -492,7 +493,7 @@
                            data-placeholder-zh="请输入用户名"
                            placeholder="Enter user name">
                 </div>
-                <div class="min-w-0 overflow-hidden">
+                <div id="batterySizeField" class="min-w-0 overflow-hidden">
                     <label class="label-apple" for="batterySize">
                         <span class="lang-text" data-lang="en">Battery Capacity (kWh)</span>
                         <span class="lang-text" data-lang="zh">电池容量 (kWh)</span>
@@ -529,6 +530,40 @@
                            data-placeholder-en="Enter API key"
                            data-placeholder-zh="请输入API密钥"
                            placeholder="Enter API key">
+                </div>
+                <div id="apiTokenField" class="min-w-0 overflow-hidden" style="display: none;">
+                    <label class="label-apple" for="apiToken">
+                        <span class="lang-text" data-lang="en">API Token</span>
+                        <span class="lang-text" data-lang="zh">API令牌</span>
+                        <button type="button" class="hint-icon ml-2" onclick="openHintModal('apiToken')" title="查看示例图片">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="#6B7280" stroke-width="2"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="17" r="1" fill="#6B7280"/>
+                            </svg>
+                        </button>
+                    </label>
+                    <input type="text" id="apiToken" name="apiToken" class="input-apple"
+                           data-placeholder-en="Enter API token"
+                           data-placeholder-zh="请输入API令牌"
+                           placeholder="Enter API token">
+                </div>
+                <div id="batteryCapacityField" class="min-w-0 overflow-hidden" style="display: none;">
+                    <label class="label-apple" for="batteryCapacity">
+                        <span class="lang-text" data-lang="en">Battery Capacity (kWh)</span>
+                        <span class="lang-text" data-lang="zh">电池容量 (kWh)</span>
+                        <button type="button" class="hint-icon ml-2" onclick="openHintModal('batteryCapacity')" title="查看示例图片">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="#6B7280" stroke-width="2"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="17" r="1" fill="#6B7280"/>
+                            </svg>
+                        </button>
+                    </label>
+                    <input type="text" id="batteryCapacity" name="batteryCapacity" class="input-apple"
+                           data-placeholder-en="e.g., 10.5"
+                           data-placeholder-zh="如: 10.5"
+                           placeholder="e.g., 10.5">
                 </div>
             </div>
         </div>
@@ -795,41 +830,62 @@
             const batteryBrandSelect = document.getElementById('batteryBrand');
             const apiKeyField = document.getElementById('apiKeyField');
             const batteryAccountField = document.getElementById('batteryAccountField');
+            const batterySizeField = document.getElementById('batterySizeField');
             const checkCodeField = document.getElementById('checkCodeField');
+            const apiTokenField = document.getElementById('apiTokenField');
+            const batteryCapacityField = document.getElementById('batteryCapacityField');
 
             batteryBrandSelect.addEventListener('change', function() {
-                // Handle FOX ESS
-                if (this.value === 'FOX ESS') {
-                    apiKeyField.style.display = 'block';
-                } else {
-                    apiKeyField.style.display = 'none';
-                    document.getElementById('apiKey').value = ''; // Clear API key when hidden
-                }
+                // Reset all fields first
+                apiKeyField.style.display = 'none';
+                batteryAccountField.style.display = 'none';
+                batterySizeField.style.display = 'none';
+                checkCodeField.style.display = 'none';
+                apiTokenField.style.display = 'none';
+                batteryCapacityField.style.display = 'none';
 
-                // Handle Alpha
-                if (this.value === 'Alpha') {
-                    batteryAccountField.style.display = 'none';
-                    checkCodeField.style.display = 'block';
-                    document.getElementById('batteryAccount').value = ''; // Clear user name when hidden
-                } else {
+                // Clear hidden field values
+                document.getElementById('apiKey').value = '';
+                document.getElementById('batteryAccount').value = '';
+                document.getElementById('batterySize').value = '';
+                document.getElementById('checkCode').value = '';
+                document.getElementById('apiToken').value = '';
+                document.getElementById('batteryCapacity').value = '';
+
+                // Show fields based on brand
+                if (this.value === 'FOX ESS') {
                     batteryAccountField.style.display = 'block';
-                    checkCodeField.style.display = 'none';
-                    document.getElementById('checkCode').value = ''; // Clear check code when hidden
+                    batterySizeField.style.display = 'block';
+                    apiKeyField.style.display = 'block';
+                } else if (this.value === 'Alpha') {
+                    batterySizeField.style.display = 'block';
+                    checkCodeField.style.display = 'block';
+                } else if (this.value === 'GROWATT') {
+                    apiTokenField.style.display = 'block';
+                    batteryCapacityField.style.display = 'block';
+                } else {
+                    // Default for other brands (ipotisedge, etc.)
+                    batteryAccountField.style.display = 'block';
+                    batterySizeField.style.display = 'block';
                 }
             });
 
-            // Show API key field initially since FOX ESS is pre-selected
-            if (batteryBrandSelect.value === 'FOX ESS') {
-                apiKeyField.style.display = 'block';
-            }
-
-            // Handle initial Alpha brand state
-            if (batteryBrandSelect.value === 'Alpha') {
-                batteryAccountField.style.display = 'none';
-                checkCodeField.style.display = 'block';
-            } else {
+            // Initialize fields based on initial brand selection
+            const initialBrand = batteryBrandSelect.value;
+            if (initialBrand === 'FOX ESS') {
                 batteryAccountField.style.display = 'block';
-                checkCodeField.style.display = 'none';
+                batterySizeField.style.display = 'block';
+                apiKeyField.style.display = 'block';
+            } else if (initialBrand === 'Alpha') {
+                batterySizeField.style.display = 'block';
+                checkCodeField.style.display = 'block';
+            } else if (initialBrand === 'GROWATT') {
+                apiTokenField.style.display = 'block';
+                batteryCapacityField.style.display = 'block';
+            } else {
+                // Default for ipotisedge
+                batteryAccountField.style.display = 'block';
+                batterySizeField.style.display = 'block';
             }
             // Initialize address functionality
             initAddressSelection();
@@ -870,6 +926,8 @@
                     document.getElementById('batteryAccount').value = data.batteryAccount || '';
                     document.getElementById('checkCode').value = data.checkCode || '';
                     document.getElementById('apiKey').value = data.apiKey || '';
+                    document.getElementById('apiToken').value = data.apiToken || '';
+                    document.getElementById('batteryCapacity').value = data.batteryCapacity || '';
                     document.getElementById('inverterSN').value = data.inverterSN || '';
 
                     // 触发品牌切换事件以显示/隐藏对应字段
@@ -1530,6 +1588,21 @@
                                 </label>
                                 <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${data.checkCode || '--'}</div>
                             </div>
+                            ` : data.batteryBrand === 'GROWATT' ? `
+                            <div>
+                                <label class="label-apple">
+                                    <span class="lang-text" data-lang="en">API Token</span>
+                                    <span class="lang-text" data-lang="zh">API令牌</span>
+                                </label>
+                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${data.apiToken || '--'}</div>
+                            </div>
+                            <div>
+                                <label class="label-apple">
+                                    <span class="lang-text" data-lang="en">Battery Capacity (kWh)</span>
+                                    <span class="lang-text" data-lang="zh">电池容量 (kWh)</span>
+                                </label>
+                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${data.batteryCapacity || '--'}</div>
+                            </div>
                             ` : `
                             <div>
                                 <label class="label-apple">
@@ -1581,6 +1654,8 @@
                         document.getElementById('batteryAccount').value = data.batteryAccount || '';
                         document.getElementById('checkCode').value = data.checkCode || '';
                         document.getElementById('apiKey').value = data.apiKey || '';
+                        document.getElementById('apiToken').value = data.apiToken || '';
+                        document.getElementById('batteryCapacity').value = data.batteryCapacity || '';
                         document.getElementById('inverterSN').value = data.inverterSN || '';
 
                         // 触发品牌切换事件以显示/隐藏对应字段
@@ -1652,6 +1727,8 @@
                     batteryAccount: document.getElementById('batteryAccount').value.trim(),
                     checkCode: document.getElementById('checkCode').value.trim(),
                     apiKey: document.getElementById('apiKey').value.trim(),
+                    apiToken: document.getElementById('apiToken').value.trim(),
+                    batteryCapacity: document.getElementById('batteryCapacity').value.trim(),
                     inverterSN: document.getElementById('inverterSN').value.trim(),
                     submitTime: new Date().toISOString(),
                     status: 'submitted'
@@ -1690,13 +1767,15 @@
                         document.getElementById('batteryAccount').value = data.batteryAccount || '';
                         document.getElementById('checkCode').value = data.checkCode || '';
                         document.getElementById('apiKey').value = data.apiKey || '';
+                        document.getElementById('apiToken').value = data.apiToken || '';
+                        document.getElementById('batteryCapacity').value = data.batteryCapacity || '';
                         document.getElementById('inverterSN').value = data.inverterSN || '';
 
                         // 触发品牌切换事件以显示/隐藏对应字段
                         const brandChangeEvent = new Event('change');
                         document.getElementById('batteryBrand').dispatchEvent(brandChangeEvent);
                     }
-                    
+
                     // 切换显示
                     const step1Content = document.getElementById('step1-content');
                     if (step1Content) {
@@ -1951,6 +2030,21 @@
                                 <span class="lang-text" data-lang="zh">校验码</span>
                             </label>
                             <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.checkCode || '--'}</div>
+                        </div>
+                        ` : result.batteryBrand === 'GROWATT' ? `
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">API Token</span>
+                                <span class="lang-text" data-lang="zh">API令牌</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.apiToken || '--'}</div>
+                        </div>
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Battery Capacity (kWh)</span>
+                                <span class="lang-text" data-lang="zh">电池容量 (kWh)</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batteryCapacity || '--'}</div>
                         </div>
                         ` : `
                         <div>
@@ -2428,6 +2522,29 @@
                     },
                     'batteryCapacity': {
                         images: ['alpha-电池容量.jpg'],
+                        title: {
+                            en: 'Battery Capacity Location Example',
+                            zh: '电池容量位置示例'
+                        }
+                    }
+                },
+                'GROWATT': {
+                    'inverterSN': {
+                        images: ['GRO-sn-1.jpg'],
+                        title: {
+                            en: 'Inverter SN Location Example',
+                            zh: '逆变器SN位置示例'
+                        }
+                    },
+                    'apiToken': {
+                        images: ['GRO-TOKEN-1.jpg', 'GRO-TOKEN-2.jpg', 'GRO-TOKEN-3.jpg'],
+                        title: {
+                            en: 'API Token Location Example',
+                            zh: 'API令牌位置示例'
+                        }
+                    },
+                    'batteryCapacity': {
+                        images: ['GRO-电池-1.jpg', 'GRO-电池-2.jpg'],
                         title: {
                             en: 'Battery Capacity Location Example',
                             zh: '电池容量位置示例'
