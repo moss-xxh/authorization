@@ -548,6 +548,23 @@
                            data-placeholder-zh="请输入API令牌"
                            placeholder="Enter API token">
                 </div>
+                <div id="modelNameField" class="min-w-0 overflow-hidden" style="display: none;">
+                    <label class="label-apple" for="modelName">
+                        <span class="lang-text" data-lang="en">Model name</span>
+                        <span class="lang-text" data-lang="zh">型号名称</span>
+                        <button type="button" class="hint-icon ml-2" onclick="openHintModal('modelName')" title="查看示例图片">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="#6B7280" stroke-width="2"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="17" r="1" fill="#6B7280"/>
+                            </svg>
+                        </button>
+                    </label>
+                    <input type="text" id="modelName" name="modelName" class="input-apple"
+                           data-placeholder-en="Enter model name"
+                           data-placeholder-zh="请输入型号名称"
+                           placeholder="Enter model name">
+                </div>
                 <div id="batteryCapacityField" class="min-w-0 overflow-hidden" style="display: none;">
                     <label class="label-apple" for="batteryCapacity">
                         <span class="lang-text" data-lang="en">Battery Capacity (kWh)</span>
@@ -833,6 +850,7 @@
             const batterySizeField = document.getElementById('batterySizeField');
             const checkCodeField = document.getElementById('checkCodeField');
             const apiTokenField = document.getElementById('apiTokenField');
+            const modelNameField = document.getElementById('modelNameField');
             const batteryCapacityField = document.getElementById('batteryCapacityField');
 
             batteryBrandSelect.addEventListener('change', function() {
@@ -842,6 +860,7 @@
                 batterySizeField.style.display = 'none';
                 checkCodeField.style.display = 'none';
                 apiTokenField.style.display = 'none';
+                modelNameField.style.display = 'none';
                 batteryCapacityField.style.display = 'none';
 
                 // Clear hidden field values
@@ -850,6 +869,7 @@
                 document.getElementById('batterySize').value = '';
                 document.getElementById('checkCode').value = '';
                 document.getElementById('apiToken').value = '';
+                document.getElementById('modelName').value = '';
                 document.getElementById('batteryCapacity').value = '';
 
                 // Show fields based on brand
@@ -862,6 +882,7 @@
                     checkCodeField.style.display = 'block';
                 } else if (this.value === 'GROWATT') {
                     apiTokenField.style.display = 'block';
+                    modelNameField.style.display = 'block';
                     batteryCapacityField.style.display = 'block';
                 } else {
                     // Default for other brands (ipotisedge, etc.)
@@ -881,6 +902,7 @@
                 checkCodeField.style.display = 'block';
             } else if (initialBrand === 'GROWATT') {
                 apiTokenField.style.display = 'block';
+                modelNameField.style.display = 'block';
                 batteryCapacityField.style.display = 'block';
             } else {
                 // Default for ipotisedge
@@ -1598,6 +1620,13 @@
                             </div>
                             <div>
                                 <label class="label-apple">
+                                    <span class="lang-text" data-lang="en">Model name</span>
+                                    <span class="lang-text" data-lang="zh">型号名称</span>
+                                </label>
+                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${data.modelName || '--'}</div>
+                            </div>
+                            <div>
+                                <label class="label-apple">
                                     <span class="lang-text" data-lang="en">Battery Capacity (kWh)</span>
                                     <span class="lang-text" data-lang="zh">电池容量 (kWh)</span>
                                 </label>
@@ -2038,6 +2067,13 @@
                                 <span class="lang-text" data-lang="zh">API令牌</span>
                             </label>
                             <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.apiToken || '--'}</div>
+                        </div>
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Model name</span>
+                                <span class="lang-text" data-lang="zh">型号名称</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.modelName || '--'}</div>
                         </div>
                         <div>
                             <label class="label-apple">
@@ -2541,6 +2577,13 @@
                         title: {
                             en: 'API Token Location Example',
                             zh: 'API令牌位置示例'
+                        }
+                    },
+                    'modelName': {
+                        images: ['GRO-model-name.jpg'],
+                        title: {
+                            en: 'Model Name Location Example',
+                            zh: '型号名称位置示例'
                         }
                     },
                     'batteryCapacity': {
