@@ -440,6 +440,7 @@
                         <option value="FOX ESS">FOX ESS</option>
                         <option value="Alpha">Alpha</option>
                         <option value="GROWATT">GROWATT</option>
+                        <option value="WHES">WHES</option>
                     </select>
                 </div>
                 <div class="min-w-0 overflow-hidden">
@@ -884,6 +885,8 @@
                     apiTokenField.style.display = 'block';
                     modelNameField.style.display = 'block';
                     batteryCapacityField.style.display = 'block';
+                } else if (this.value === 'WHES') {
+                    batteryCapacityField.style.display = 'block';
                 } else {
                     // Default for other brands (ipotisedge, etc.)
                     batteryAccountField.style.display = 'block';
@@ -903,6 +906,8 @@
             } else if (initialBrand === 'GROWATT') {
                 apiTokenField.style.display = 'block';
                 modelNameField.style.display = 'block';
+                batteryCapacityField.style.display = 'block';
+            } else if (initialBrand === 'WHES') {
                 batteryCapacityField.style.display = 'block';
             } else {
                 // Default for ipotisedge
@@ -1632,6 +1637,14 @@
                                 </label>
                                 <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${data.batteryCapacity || '--'}</div>
                             </div>
+                            ` : data.batteryBrand === 'WHES' ? `
+                            <div>
+                                <label class="label-apple">
+                                    <span class="lang-text" data-lang="en">Battery Capacity (kWh)</span>
+                                    <span class="lang-text" data-lang="zh">电池容量 (kWh)</span>
+                                </label>
+                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${data.batteryCapacity || '--'}</div>
+                            </div>
                             ` : `
                             <div>
                                 <label class="label-apple">
@@ -2075,6 +2088,14 @@
                             </label>
                             <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.modelName || '--'}</div>
                         </div>
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Battery Capacity (kWh)</span>
+                                <span class="lang-text" data-lang="zh">电池容量 (kWh)</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batteryCapacity || '--'}</div>
+                        </div>
+                        ` : result.batteryBrand === 'WHES' ? `
                         <div>
                             <label class="label-apple">
                                 <span class="lang-text" data-lang="en">Battery Capacity (kWh)</span>
@@ -2593,6 +2614,22 @@
                             zh: '电池容量位置示例'
                         }
                     }
+                },
+                'WHES': {
+                    'inverterSN': {
+                        images: ['WHES-SN.jpg'],
+                        title: {
+                            en: 'Inverter SN Location Example',
+                            zh: '设备SN位置示例'
+                        }
+                    },
+                    'batteryCapacity': {
+                        images: ['WHES-电池-1.jpg', 'WHES-电池-2.jpg'],
+                        title: {
+                            en: 'Battery Capacity Location Example',
+                            zh: '电池容量位置示例'
+                        }
+                    }
                 }
             };
 
@@ -2643,12 +2680,67 @@
             currentImages = images;
             currentImageIndex = 0;
 
+            const imageContainer = document.getElementById('modalImageContainer');
+            if (!imageContainer) return;
 
-            // 显示第一张图片
-            loadImage(images[0], modalImage, imageLoader);
+            // 清除旧的控件
+            const existingControls = imageContainer.querySelector('.carousel-controls');
+            const existingIndicators = imageContainer.querySelector('.carousel-indicators');
+            const existingScrollContainer = imageContainer.querySelector('.images-scroll-container');
+            if (existingControls) existingControls.remove();
+            if (existingIndicators) existingIndicators.remove();
+            if (existingScrollContainer) existingScrollContainer.remove();
 
-            // 创建或更新导航控件
-            setupCarouselControls(images.length > 1);
+            // 如果只有一张图片，使用原有的单图显示方式
+            if (images.length === 1) {
+                modalImage.style.display = 'block';
+                loadImage(images[0], modalImage, imageLoader);
+                return;
+            }
+
+            // 多张图片：隐藏原有的 modalImage，创建垂直滚动容器
+            modalImage.style.display = 'none';
+            imageLoader.classList.add('hidden');
+
+            // 创建可滚动的图片容器（无缝连接样式）
+            const scrollContainer = document.createElement('div');
+            scrollContainer.className = 'images-scroll-container';
+            scrollContainer.style.cssText = `
+                max-height: 70vh;
+                overflow-y: auto;
+                overflow-x: hidden;
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                padding: 0;
+                border-radius: 8px;
+                background: white;
+            `;
+
+            // 为每张图片创建元素（无间隙、无边框）
+            images.forEach((imageSrc, index) => {
+                const img = document.createElement('img');
+                img.src = imageSrc;
+                img.alt = `图片 ${index + 1}`;
+                img.style.cssText = `
+                    width: 100%;
+                    height: auto;
+                    display: block;
+                    margin: 0;
+                    padding: 0;
+                    border: none;
+                `;
+
+                // 添加加载错误处理
+                img.onerror = () => {
+                    console.error(`Failed to load image: ${imageSrc}`);
+                };
+
+                scrollContainer.appendChild(img);
+            });
+
+            // 将滚动容器插入到 imageContainer 中
+            imageContainer.appendChild(scrollContainer);
         }
 
         function setupCarouselControls(showControls) {
@@ -3127,6 +3219,31 @@
             object-fit: contain;
             border-radius: 8px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 图片滚动容器样式 */
+        .images-scroll-container {
+            scrollbar-width: thin;
+            scrollbar-color: #cbd5e1 #f1f5f9;
+        }
+
+        .images-scroll-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .images-scroll-container::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+
+        .images-scroll-container::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .images-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
         
         @media (max-width: 640px) {
