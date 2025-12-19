@@ -511,6 +511,37 @@
                            data-placeholder-zh="如: 8kWh"
                            placeholder="e.g., 8kWh">
                 </div>
+                <div id="foxAuthField" class="min-w-0 overflow-hidden" style="display: none;">
+                    <label class="label-apple">
+                        <span class="lang-text" data-lang="en">FOX ESS Authorization</span>
+                        <span class="lang-text" data-lang="zh">FOX ESS 授权</span>
+                    </label>
+                    <div class="flex items-center gap-2">
+                        <!-- 验证按钮(左侧) -->
+                        <button type="button" id="foxAuthBtn" class="px-6 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 whitespace-nowrap" style="height: 52px;" onclick="handleFoxAuth()">
+                            <span class="lang-text" data-lang="en">Verify</span>
+                            <span class="lang-text" data-lang="zh">验证</span>
+                        </button>
+
+                        <!-- 重新验证按钮(左侧,验证后显示) -->
+                        <button type="button" id="foxReAuthBtn" class="px-4 bg-gray-500 hover:bg-gray-600 text-white text-sm font-medium rounded-lg transition-colors duration-200 whitespace-nowrap hidden" style="height: 52px;" onclick="handleFoxReAuth()">
+                            <span class="lang-text" data-lang="en">Re-verify</span>
+                            <span class="lang-text" data-lang="zh">重新验证</span>
+                        </button>
+
+                        <!-- 验证状态(右侧) -->
+                        <div id="foxAuthStatus" class="hidden flex items-center" style="height: 52px;">
+                            <span id="foxAuthStatusPass" class="text-sm text-green-600 font-medium whitespace-nowrap hidden">
+                                <span class="lang-text" data-lang="en">✓ Passed</span>
+                                <span class="lang-text" data-lang="zh">✓ 通过</span>
+                            </span>
+                            <span id="foxAuthStatusFail" class="text-sm text-red-600 font-medium whitespace-nowrap hidden">
+                                <span class="lang-text" data-lang="en">✗ Failed</span>
+                                <span class="lang-text" data-lang="zh">✗ 未通过</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
                 <div id="apiKeyField" class="min-w-0 overflow-hidden" style="display: none;">
                     <label class="label-apple" for="apiKey">
                         <span class="lang-text" data-lang="en">API Key</span>
@@ -777,7 +808,12 @@
     <!-- Scripts -->
     <script>
         let currentLanguage = 'en';
-        
+
+        // Get current language
+        function getCurrentLanguage() {
+            return currentLanguage;
+        }
+
         // Ensure page always starts in English by default
         // Language switching function
         function switchLanguage(lang) {
@@ -829,6 +865,8 @@
         }
         
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('==================== 页面加载开始 ====================');
+
             // Always default to English - clear any previous language preference
             localStorage.removeItem('preferred-language');
 
@@ -842,10 +880,14 @@
             document.querySelectorAll('input[data-placeholder-en], textarea[data-placeholder-en]').forEach(element => {
                 element.placeholder = element.getAttribute('data-placeholder-en');
             });
-            
+
+            // 检查 FOX ESS 授权回调
+            console.log('[DOMContentLoaded] 步骤1: 调用 checkFoxAuthCallback()');
+            checkFoxAuthCallback();
 
             // Brand selection change handler
             const batteryBrandSelect = document.getElementById('batteryBrand');
+            const foxAuthField = document.getElementById('foxAuthField');
             const apiKeyField = document.getElementById('apiKeyField');
             const batteryAccountField = document.getElementById('batteryAccountField');
             const batterySizeField = document.getElementById('batterySizeField');
@@ -855,7 +897,11 @@
             const batteryCapacityField = document.getElementById('batteryCapacityField');
 
             batteryBrandSelect.addEventListener('change', function() {
+                console.log('[品牌切换事件] 触发,当前品牌:', this.value);
+                console.log('[品牌切换事件] _foxAuthCallbackActive:', window._foxAuthCallbackActive);
+
                 // Reset all fields first
+                foxAuthField.style.display = 'none';
                 apiKeyField.style.display = 'none';
                 batteryAccountField.style.display = 'none';
                 batterySizeField.style.display = 'none';
@@ -875,71 +921,84 @@
 
                 // Show fields based on brand
                 if (this.value === 'FOX ESS') {
-                    batteryAccountField.style.display = 'block';
+                    console.log('[品牌切换事件] 显示 FOX ESS 字段');
+                    foxAuthField.style.display = 'block';
                     batterySizeField.style.display = 'block';
-                    apiKeyField.style.display = 'block';
                 } else if (this.value === 'Alpha') {
+                    console.log('[品牌切换事件] 显示 Alpha 字段');
                     batterySizeField.style.display = 'block';
                     checkCodeField.style.display = 'block';
                 } else if (this.value === 'GROWATT') {
+                    console.log('[品牌切换事件] 显示 GROWATT 字段');
                     apiTokenField.style.display = 'block';
                     modelNameField.style.display = 'block';
                     batteryCapacityField.style.display = 'block';
                 } else if (this.value === 'WHES') {
+                    console.log('[品牌切换事件] 显示 WHES 字段');
                     batteryCapacityField.style.display = 'block';
                 } else {
-                    // Default for other brands (ipotisedge, etc.)
+                    console.log('[品牌切换事件] 显示默认字段 (ipotisedge)');
                     batteryAccountField.style.display = 'block';
                     batterySizeField.style.display = 'block';
                 }
+
+                console.log('[品牌切换事件] 完成 - foxAuthField.display:', foxAuthField.style.display, 'batteryAccountField.display:', batteryAccountField.style.display);
             });
 
-            // Initialize fields based on initial brand selection
-            const initialBrand = batteryBrandSelect.value;
-            if (initialBrand === 'FOX ESS') {
-                batteryAccountField.style.display = 'block';
-                batterySizeField.style.display = 'block';
-                apiKeyField.style.display = 'block';
-            } else if (initialBrand === 'Alpha') {
-                batterySizeField.style.display = 'block';
-                checkCodeField.style.display = 'block';
-            } else if (initialBrand === 'GROWATT') {
-                apiTokenField.style.display = 'block';
-                modelNameField.style.display = 'block';
-                batteryCapacityField.style.display = 'block';
-            } else if (initialBrand === 'WHES') {
-                batteryCapacityField.style.display = 'block';
+            // 执行字段初始化(使用全局函数)
+            // 只有在非授权回调时才初始化,避免覆盖授权回调中的设置
+            if (!window._foxAuthCallbackActive) {
+                console.log('[DOMContentLoaded] 步骤2: 调用 initializeFieldDisplay()');
+                initializeFieldDisplay();
             } else {
-                // Default for ipotisedge
-                batteryAccountField.style.display = 'block';
-                batterySizeField.style.display = 'block';
+                console.log('[DOMContentLoaded] 步骤2: 跳过 initializeFieldDisplay() (FOX ESS授权回调已处理)');
             }
+
             // Initialize address functionality
+            console.log('[DOMContentLoaded] 步骤3: 初始化地址选择');
             initAddressSelection();
-            
+
             // Initialize language dropdown
+            console.log('[DOMContentLoaded] 步骤4: 初始化语言下拉');
             initLanguageDropdown();
-            
+
             // Initialize form submission
+            console.log('[DOMContentLoaded] 步骤5: 初始化表单提交');
             handleFormSubmit();
-            
+
             // Initialize query functionality
+            console.log('[DOMContentLoaded] 步骤6: 初始化查询功能');
             initQueryFunction();
 
             // Initialize edit submission functionality
+            console.log('[DOMContentLoaded] 步骤7: 初始化编辑提交功能');
             initEditSubmissionFunction();
 
             // Check for editing record and fill form
+            console.log('[DOMContentLoaded] 步骤8: 调用 checkAndFillEditingData()');
             checkAndFillEditingData();
-            
+
+            console.log('==================== 页面加载完成 ====================');
+
         });
 
         // Check and fill editing data
         function checkAndFillEditingData() {
+            console.log('[checkAndFillEditingData] 开始检查编辑数据');
+
+            // 如果是FOX ESS授权回调,跳过编辑数据处理,防止覆盖字段设置
+            if (window._foxAuthCallbackActive) {
+                console.log('[checkAndFillEditingData] 检测到FOX ESS授权回调活动,跳过编辑数据处理');
+                return;
+            }
+
             const editingData = localStorage.getItem('editingRecord');
+            console.log('[checkAndFillEditingData] editingRecord:', editingData ? '存在' : '不存在');
+
             if (editingData) {
                 try {
                     const data = JSON.parse(editingData);
+                    console.log('[checkAndFillEditingData] 解析编辑数据成功,品牌:', data.batteryBrand);
 
                     // Fill form fields with the editing data
                     document.getElementById('customerName').value = data.customerName || '';
@@ -957,6 +1016,8 @@
                     document.getElementById('batteryCapacity').value = data.batteryCapacity || '';
                     document.getElementById('inverterSN').value = data.inverterSN || '';
 
+                    console.log('[checkAndFillEditingData] 表单字段已填充,触发品牌切换事件');
+
                     // 触发品牌切换事件以显示/隐藏对应字段
                     const brandChangeEvent = new Event('change');
                     document.getElementById('batteryBrand').dispatchEvent(brandChangeEvent);
@@ -967,8 +1028,10 @@
                     // Scroll to form
                     window.scrollTo({ top: 0, behavior: 'smooth' });
 
+                    console.log('[checkAndFillEditingData] 编辑数据处理完成');
+
                 } catch (error) {
-                    console.error('Error parsing editing data:', error);
+                    console.error('[checkAndFillEditingData] Error parsing editing data:', error);
                     localStorage.removeItem('editingRecord');
                 }
             }
@@ -2494,7 +2557,206 @@
                 }
             });
         }
-        
+
+        // 全局字段初始化函数
+        function initializeFieldDisplay() {
+            // 获取调用栈信息,便于调试
+            const caller = new Error().stack.split('\n')[2].trim();
+            console.log('[initializeFieldDisplay] 开始执行字段初始化,调用来源:', caller);
+            console.log('[initializeFieldDisplay] _foxAuthCallbackActive 状态:', window._foxAuthCallbackActive);
+
+            const batteryBrandSelect = document.getElementById('batteryBrand');
+            const foxAuthField = document.getElementById('foxAuthField');
+            const apiKeyField = document.getElementById('apiKeyField');
+            const batteryAccountField = document.getElementById('batteryAccountField');
+            const batterySizeField = document.getElementById('batterySizeField');
+            const checkCodeField = document.getElementById('checkCodeField');
+            const apiTokenField = document.getElementById('apiTokenField');
+            const modelNameField = document.getElementById('modelNameField');
+            const batteryCapacityField = document.getElementById('batteryCapacityField');
+
+            const brand = batteryBrandSelect.value;
+            console.log('[initializeFieldDisplay] 读取到的当前品牌:', brand);
+
+            // 先隐藏所有字段
+            foxAuthField.style.display = 'none';
+            apiKeyField.style.display = 'none';
+            batteryAccountField.style.display = 'none';
+            batterySizeField.style.display = 'none';
+            checkCodeField.style.display = 'none';
+            apiTokenField.style.display = 'none';
+            modelNameField.style.display = 'none';
+            batteryCapacityField.style.display = 'none';
+
+            // 根据品牌显示对应字段
+            if (brand === 'FOX ESS') {
+                console.log('[initializeFieldDisplay] 显示 FOX ESS 字段');
+                foxAuthField.style.display = 'block';
+                batterySizeField.style.display = 'block';
+            } else if (brand === 'Alpha') {
+                console.log('[initializeFieldDisplay] 显示 Alpha 字段');
+                batterySizeField.style.display = 'block';
+                checkCodeField.style.display = 'block';
+            } else if (brand === 'GROWATT') {
+                console.log('[initializeFieldDisplay] 显示 GROWATT 字段');
+                apiTokenField.style.display = 'block';
+                modelNameField.style.display = 'block';
+                batteryCapacityField.style.display = 'block';
+            } else if (brand === 'WHES') {
+                console.log('[initializeFieldDisplay] 显示 WHES 字段');
+                batteryCapacityField.style.display = 'block';
+            } else {
+                console.log('[initializeFieldDisplay] 显示默认字段 (ipotisedge)');
+                batteryAccountField.style.display = 'block';
+                batterySizeField.style.display = 'block';
+            }
+
+            console.log('[initializeFieldDisplay] 执行完成 - foxAuthField.display:', foxAuthField.style.display, 'batteryAccountField.display:', batteryAccountField.style.display);
+        }
+
+        // 检查 FOX ESS 授权回调
+        function checkFoxAuthCallback() {
+            console.log('[checkFoxAuthCallback] 开始检查授权回调');
+
+            // 详细的URL调试信息
+            console.log('[checkFoxAuthCallback] 完整URL:', window.location.href);
+            console.log('[checkFoxAuthCallback] 协议:', window.location.protocol);
+            console.log('[checkFoxAuthCallback] search:', window.location.search);
+            console.log('[checkFoxAuthCallback] hash:', window.location.hash);
+
+            // 检查query参数
+            const urlParams = new URLSearchParams(window.location.search);
+            let code = urlParams.get('code');
+            let error = urlParams.get('error');
+
+            // 如果query中没有,检查hash参数
+            if (!code && !error && window.location.hash) {
+                const hashParams = new URLSearchParams(window.location.hash.substring(1));
+                code = hashParams.get('code');
+                error = hashParams.get('error');
+                console.log('[checkFoxAuthCallback] 从hash中检查 - code:', code, 'error:', error);
+            }
+
+            console.log('[checkFoxAuthCallback] 最终参数 - code:', code, 'error:', error);
+
+            // 检查是否从FOX ESS授权页面返回(通过sessionStorage标记)
+            const foxAuthPending = sessionStorage.getItem('foxAuthPending');
+            if (foxAuthPending === 'true') {
+                console.log('[checkFoxAuthCallback] 检测到从FOX ESS授权页面返回');
+                sessionStorage.removeItem('foxAuthPending');
+
+                // 强制设置品牌为 FOX ESS
+                const batteryBrandSelect = document.getElementById('batteryBrand');
+                const previousValue = batteryBrandSelect.value;
+                batteryBrandSelect.value = 'FOX ESS';
+
+                console.log('[checkFoxAuthCallback] 品牌值变更: "' + previousValue + '" → "' + batteryBrandSelect.value + '"');
+
+                // 设置一个标记,表明当前是FOX ESS授权回调
+                window._foxAuthCallbackActive = true;
+                console.log('[checkFoxAuthCallback] 设置 _foxAuthCallbackActive = true,防止后续初始化覆盖');
+
+                // 使用全局函数初始化字段显示
+                console.log('[checkFoxAuthCallback] 调用 initializeFieldDisplay() 显示 FOX ESS 字段');
+                initializeFieldDisplay();
+
+                // 显示授权成功状态
+                setTimeout(() => {
+                    console.log('[checkFoxAuthCallback] 显示授权成功状态');
+                    updateFoxAuthStatus(true);
+                }, 500);
+            } else if (code || error) {
+                console.log('[checkFoxAuthCallback] 检测到授权回调参数,设置品牌为 FOX ESS');
+
+                // 强制设置品牌为 FOX ESS
+                const batteryBrandSelect = document.getElementById('batteryBrand');
+                const previousValue = batteryBrandSelect.value;
+                batteryBrandSelect.value = 'FOX ESS';
+
+                console.log('[checkFoxAuthCallback] 品牌值变更: "' + previousValue + '" → "' + batteryBrandSelect.value + '"');
+
+                // 设置一个标记,表明当前是FOX ESS授权回调
+                window._foxAuthCallbackActive = true;
+                console.log('[checkFoxAuthCallback] 设置 _foxAuthCallbackActive = true,防止后续初始化覆盖');
+
+                // 使用全局函数初始化字段显示
+                console.log('[checkFoxAuthCallback] 调用 initializeFieldDisplay() 显示 FOX ESS 字段');
+                initializeFieldDisplay();
+
+                // 显示授权状态
+                setTimeout(() => {
+                    updateFoxAuthStatus(!!code);
+
+                    // 清理 URL 参数
+                    const cleanUrl = window.location.origin + window.location.pathname;
+                    window.history.replaceState({}, document.title, cleanUrl);
+
+                    console.log('[checkFoxAuthCallback] URL参数已清理');
+                }, 500);
+            } else {
+                console.log('[checkFoxAuthCallback] 无授权回调参数');
+            }
+        }
+
+        // 更新 FOX ESS 授权状态
+        function updateFoxAuthStatus(isSuccess) {
+            const foxAuthBtn = document.getElementById('foxAuthBtn');
+            const foxAuthStatus = document.getElementById('foxAuthStatus');
+            const foxAuthStatusPass = document.getElementById('foxAuthStatusPass');
+            const foxAuthStatusFail = document.getElementById('foxAuthStatusFail');
+            const foxReAuthBtn = document.getElementById('foxReAuthBtn');
+
+            // 隐藏验证按钮
+            foxAuthBtn.classList.add('hidden');
+
+            // 显示状态容器
+            foxAuthStatus.classList.remove('hidden');
+
+            if (isSuccess) {
+                // 显示通过状态
+                foxAuthStatusPass.classList.remove('hidden');
+                foxAuthStatusFail.classList.add('hidden');
+            } else {
+                // 显示未通过状态
+                foxAuthStatusPass.classList.add('hidden');
+                foxAuthStatusFail.classList.remove('hidden');
+            }
+
+            // 显示重新验证按钮
+            foxReAuthBtn.classList.remove('hidden');
+
+            // 更新语言显示
+            updateLanguageText();
+        }
+
+        // FOX ESS 授权处理函数 - 跳转到授权页面
+        function handleFoxAuth() {
+            // 保存当前页面地址
+            const currentPageUrl = window.location.href;
+
+            // 构建授权URL
+            const authUrl = `https://www.foxesscloud.com/public/auth/index.html?response_type=code&client_id=8121e124270b42d6a698ccb149125882&redirect_uri=${encodeURIComponent(currentPageUrl)}&scope=data_access device_control`;
+
+            // 设置sessionStorage标记,表示即将进行FOX ESS授权
+            sessionStorage.setItem('foxAuthPending', 'true');
+            console.log('[handleFoxAuth] 设置foxAuthPending标记,跳转到授权页面');
+
+            // 在当前窗口跳转到授权页面
+            window.location.href = authUrl;
+        }
+
+        // FOX ESS 重新验证处理函数
+        function handleFoxReAuth() {
+            const foxAuthBtn = document.getElementById('foxAuthBtn');
+            const foxAuthStatus = document.getElementById('foxAuthStatus');
+            const foxReAuthBtn = document.getElementById('foxReAuthBtn');
+
+            // 重置状态
+            foxAuthBtn.classList.remove('hidden');
+            foxAuthStatus.classList.add('hidden');
+            foxReAuthBtn.classList.add('hidden');
+        }
+
         // 打开提示模态框
         function openHintModal(type) {
             console.log('Opening hint modal for type:', type);
