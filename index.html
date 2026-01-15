@@ -441,6 +441,7 @@
                         <option value="Alpha">Alpha</option>
                         <option value="GROWATT">GROWATT</option>
                         <option value="WHES">WHES</option>
+                        <option value="Sungrow">Sungrow</option>
                     </select>
                 </div>
                 <div class="min-w-0 overflow-hidden">
@@ -935,6 +936,9 @@
                     batteryCapacityField.style.display = 'block';
                 } else if (this.value === 'WHES') {
                     console.log('[品牌切换事件] 显示 WHES 字段');
+                    batteryCapacityField.style.display = 'block';
+                } else if (this.value === 'Sungrow') {
+                    console.log('[品牌切换事件] 显示 Sungrow 字段');
                     batteryCapacityField.style.display = 'block';
                 } else {
                     console.log('[品牌切换事件] 显示默认字段 (ipotisedge)');
@@ -1708,6 +1712,14 @@
                                 </label>
                                 <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${data.batteryCapacity || '--'}</div>
                             </div>
+                            ` : data.batteryBrand === 'Sungrow' ? `
+                            <div>
+                                <label class="label-apple">
+                                    <span class="lang-text" data-lang="en">Battery Capacity (kWh)</span>
+                                    <span class="lang-text" data-lang="zh">电池容量 (kWh)</span>
+                                </label>
+                                <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${data.batteryCapacity || '--'}</div>
+                            </div>
                             ` : `
                             <div>
                                 <label class="label-apple">
@@ -1717,6 +1729,7 @@
                                 <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${data.batteryAccount || '--'}</div>
                             </div>
                             `}
+                            ${(data.batteryBrand !== 'WHES' && data.batteryBrand !== 'Sungrow' && data.batteryBrand !== 'GROWATT') ? `
                             <div>
                                 <label class="label-apple">
                                     <span class="lang-text" data-lang="en">Battery Size</span>
@@ -1724,6 +1737,7 @@
                                 </label>
                                 <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${data.batterySize || '--'}</div>
                             </div>
+                            ` : ''}
                         </div>
                     </div>
                 </div>
@@ -2166,6 +2180,14 @@
                             </label>
                             <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batteryCapacity || '--'}</div>
                         </div>
+                        ` : result.batteryBrand === 'Sungrow' ? `
+                        <div>
+                            <label class="label-apple">
+                                <span class="lang-text" data-lang="en">Battery Capacity (kWh)</span>
+                                <span class="lang-text" data-lang="zh">电池容量 (kWh)</span>
+                            </label>
+                            <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batteryCapacity || '--'}</div>
+                        </div>
                         ` : `
                         <div>
                             <label class="label-apple">
@@ -2175,6 +2197,7 @@
                             <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batteryAccount || '--'}</div>
                         </div>
                         `}
+                        ${(result.batteryBrand !== 'WHES' && result.batteryBrand !== 'Sungrow' && result.batteryBrand !== 'GROWATT') ? `
                         <div>
                             <label class="label-apple">
                                 <span class="lang-text" data-lang="en">Battery Capacity (Ah)</span>
@@ -2182,6 +2205,7 @@
                             </label>
                             <div class="font-medium text-lg border-b border-dashed border-gray-400 pb-1 min-h-[2rem]">${result.batterySize || '--'}</div>
                         </div>
+                        ` : ''}
                     </div>
                 </div>
                 </div>
@@ -2605,6 +2629,9 @@
             } else if (brand === 'WHES') {
                 console.log('[initializeFieldDisplay] 显示 WHES 字段');
                 batteryCapacityField.style.display = 'block';
+            } else if (brand === 'Sungrow') {
+                console.log('[initializeFieldDisplay] 显示 Sungrow 字段');
+                batteryCapacityField.style.display = 'block';
             } else {
                 console.log('[initializeFieldDisplay] 显示默认字段 (ipotisedge)');
                 batteryAccountField.style.display = 'block';
@@ -2887,6 +2914,22 @@
                     },
                     'batteryCapacity': {
                         images: ['WHES-电池-1.jpg', 'WHES-电池-2.jpg'],
+                        title: {
+                            en: 'Battery Capacity Location Example',
+                            zh: '电池容量位置示例'
+                        }
+                    }
+                },
+                'Sungrow': {
+                    'inverterSN': {
+                        images: ['Sungrow-sn.png'],
+                        title: {
+                            en: 'Inverter SN Location Example',
+                            zh: '逆变器SN位置示例'
+                        }
+                    },
+                    'batteryCapacity': {
+                        images: ['Sungrow-电池容量.png'],
                         title: {
                             en: 'Battery Capacity Location Example',
                             zh: '电池容量位置示例'
