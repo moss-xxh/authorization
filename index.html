@@ -2905,27 +2905,53 @@
             }
         }
 
-        // 显示Sungrow发送成功的临时提示
+        // 显示Sungrow发送成功的对话框弹窗
         function showSungrowToast() {
             // 根据当前语言显示对应文字
             var lang = getCurrentLanguage();
+            var title = lang === 'zh' ? '发送成功' : 'Sent Successfully';
             var msg = lang === 'zh'
-                ? '✓ 已发送至邮箱，请前往邮箱点击确认授权'
-                : '✓ Sent to email, please check your inbox and click to confirm authorization';
+                ? '已发送至邮箱，请前往邮箱点击确认授权'
+                : 'Sent to email, please check your inbox and click to confirm authorization';
+            var btnText = lang === 'zh' ? '我知道了' : 'OK';
 
-            // 创建 toast 元素
-            var toast = document.createElement('div');
-            toast.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transition-opacity duration-300';
-            toast.innerText = msg;
-            document.body.appendChild(toast);
+            // 创建遮罩层
+            var overlay = document.createElement('div');
+            overlay.id = 'sungrowModal';
+            overlay.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
 
-            // 5秒后淡出并移除
-            setTimeout(function() {
-                toast.style.opacity = '0';
-                setTimeout(function() {
-                    toast.remove();
-                }, 300);
-            }, 5000);
+            // 创建对话框
+            overlay.innerHTML = '<div class="bg-white rounded-xl shadow-2xl p-6 mx-4 max-w-md w-full">' +
+                '<div class="flex items-center justify-between mb-4">' +
+                    '<div class="flex items-center">' +
+                        '<div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">' +
+                            '<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+                                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>' +
+                            '</svg>' +
+                        '</div>' +
+                        '<h3 class="text-lg font-semibold text-gray-900">' + title + '</h3>' +
+                    '</div>' +
+                    '<button onclick="closeSungrowModal()" class="text-gray-400 hover:text-gray-600 transition-colors">' +
+                        '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+                            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>' +
+                        '</svg>' +
+                    '</button>' +
+                '</div>' +
+                '<p class="text-gray-600 mb-6">' + msg + '</p>' +
+                '<button onclick="closeSungrowModal()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors">' +
+                    btnText +
+                '</button>' +
+            '</div>';
+
+            document.body.appendChild(overlay);
+        }
+
+        // 关闭Sungrow对话框
+        function closeSungrowModal() {
+            var modal = document.getElementById('sungrowModal');
+            if (modal) {
+                modal.remove();
+            }
         }
 
         // 开始Sungrow倒计时
