@@ -456,10 +456,17 @@
                             </svg>
                         </button>
                     </label>
-                    <input type="text" id="inverterSN" name="inverterSN" class="input-apple"
-                           data-placeholder-en="Enter inverter serial number"
-                           data-placeholder-zh="请输入逆变器序列号"
-                           placeholder="Enter inverter serial number">
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="inverterSN" name="inverterSN" class="input-apple flex-1"
+                               data-placeholder-en="Enter inverter serial number"
+                               data-placeholder-zh="请输入逆变器序列号"
+                               placeholder="Enter inverter serial number">
+                        <!-- Sungrow 发送按钮 - 仅Sungrow品牌显示 -->
+                        <button type="button" id="sungrowAuthBtn" class="px-4 bg-gray-400 text-white text-sm font-medium rounded-lg transition-colors duration-200 whitespace-nowrap cursor-not-allowed hidden" style="height: 52px; min-width: 100px;" onclick="handleSungrowAuth()" disabled>
+                            <span class="lang-text" data-lang="en">Send</span>
+                            <span class="lang-text" data-lang="zh">发送</span>
+                        </button>
+                    </div>
                 </div>
                 <div id="checkCodeField" class="min-w-0 overflow-hidden" style="display: none;">
                     <label class="label-apple" for="checkCode">
@@ -614,6 +621,16 @@
                            data-placeholder-en="e.g., 10.5"
                            data-placeholder-zh="如: 10.5"
                            placeholder="e.g., 10.5">
+                </div>
+                <!-- Sungrow 授权确认复选框 - 仅Sungrow品牌显示 -->
+                <div id="sungrowAuthConfirmField" class="min-w-0 overflow-hidden hidden">
+                    <label class="flex items-center cursor-pointer" style="height: 52px; margin-top: 28px;">
+                        <input type="checkbox" id="sungrowAuthConfirm" name="sungrowAuthConfirm" class="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer">
+                        <span class="ml-3 text-sm text-gray-700">
+                            <span class="lang-text" data-lang="en">I have clicked to authorize</span>
+                            <span class="lang-text" data-lang="zh">我已点击授权</span>
+                        </span>
+                    </label>
                 </div>
             </div>
         </div>
@@ -896,6 +913,8 @@
             const apiTokenField = document.getElementById('apiTokenField');
             const modelNameField = document.getElementById('modelNameField');
             const batteryCapacityField = document.getElementById('batteryCapacityField');
+            const sungrowAuthBtn = document.getElementById('sungrowAuthBtn');
+            const sungrowAuthConfirmField = document.getElementById('sungrowAuthConfirmField');
 
             batteryBrandSelect.addEventListener('change', function() {
                 console.log('[品牌切换事件] 触发,当前品牌:', this.value);
@@ -910,6 +929,17 @@
                 apiTokenField.style.display = 'none';
                 modelNameField.style.display = 'none';
                 batteryCapacityField.style.display = 'none';
+
+                // 隐藏Sungrow按钮和复选框
+                if (sungrowAuthBtn) {
+                    sungrowAuthBtn.classList.add('hidden');
+                }
+                if (sungrowAuthConfirmField) {
+                    sungrowAuthConfirmField.classList.add('hidden');
+                }
+
+                // 重置Sungrow授权状态
+                resetSungrowAuthStatus();
 
                 // Clear hidden field values
                 document.getElementById('apiKey').value = '';
@@ -940,6 +970,16 @@
                 } else if (this.value === 'Sungrow') {
                     console.log('[品牌切换事件] 显示 Sungrow 字段');
                     batteryCapacityField.style.display = 'block';
+                    // 显示Sungrow发送按钮
+                    if (sungrowAuthBtn) {
+                        sungrowAuthBtn.classList.remove('hidden');
+                    }
+                    // 显示Sungrow授权确认复选框
+                    if (sungrowAuthConfirmField) {
+                        sungrowAuthConfirmField.classList.remove('hidden');
+                    }
+                    // 初始化Sungrow按钮状态
+                    updateSungrowAuthBtnState();
                 } else {
                     console.log('[品牌切换事件] 显示默认字段 (ipotisedge)');
                     batteryAccountField.style.display = 'block';
@@ -948,6 +988,17 @@
 
                 console.log('[品牌切换事件] 完成 - foxAuthField.display:', foxAuthField.style.display, 'batteryAccountField.display:', batteryAccountField.style.display);
             });
+
+            // 监听 Inverter SN 输入框变化，实时更新 Sungrow 发送按钮状态
+            const inverterSNInput = document.getElementById('inverterSN');
+            if (inverterSNInput) {
+                inverterSNInput.addEventListener('input', function() {
+                    // 只有在 Sungrow 品牌时才更新按钮状态
+                    if (batteryBrandSelect.value === 'Sungrow') {
+                        updateSungrowAuthBtnState();
+                    }
+                });
+            }
 
             // 执行字段初始化(使用全局函数)
             // 只有在非授权回调时才初始化,避免覆盖授权回调中的设置
@@ -2598,6 +2649,8 @@
             const apiTokenField = document.getElementById('apiTokenField');
             const modelNameField = document.getElementById('modelNameField');
             const batteryCapacityField = document.getElementById('batteryCapacityField');
+            const sungrowAuthBtn = document.getElementById('sungrowAuthBtn');
+            const sungrowAuthConfirmField = document.getElementById('sungrowAuthConfirmField');
 
             const brand = batteryBrandSelect.value;
             console.log('[initializeFieldDisplay] 读取到的当前品牌:', brand);
@@ -2611,6 +2664,13 @@
             apiTokenField.style.display = 'none';
             modelNameField.style.display = 'none';
             batteryCapacityField.style.display = 'none';
+            // 隐藏Sungrow发送按钮和复选框
+            if (sungrowAuthBtn) {
+                sungrowAuthBtn.classList.add('hidden');
+            }
+            if (sungrowAuthConfirmField) {
+                sungrowAuthConfirmField.classList.add('hidden');
+            }
 
             // 根据品牌显示对应字段
             if (brand === 'FOX ESS') {
@@ -2632,6 +2692,16 @@
             } else if (brand === 'Sungrow') {
                 console.log('[initializeFieldDisplay] 显示 Sungrow 字段');
                 batteryCapacityField.style.display = 'block';
+                // 显示Sungrow发送按钮
+                if (sungrowAuthBtn) {
+                    sungrowAuthBtn.classList.remove('hidden');
+                }
+                // 显示Sungrow授权确认复选框
+                if (sungrowAuthConfirmField) {
+                    sungrowAuthConfirmField.classList.remove('hidden');
+                }
+                // 初始化Sungrow按钮状态
+                updateSungrowAuthBtnState();
             } else {
                 console.log('[initializeFieldDisplay] 显示默认字段 (ipotisedge)');
                 batteryAccountField.style.display = 'block';
@@ -2783,6 +2853,214 @@
             foxAuthStatus.classList.add('hidden');
             foxReAuthBtn.classList.add('hidden');
         }
+
+        // Sungrow 倒计时相关变量
+        var sungrowCountdownTimer = null;
+        var sungrowCountdownSeconds = 0;
+        var SUNGROW_COUNTDOWN_TIME = 60; // 倒计时秒数，可在此修改
+
+        // Sungrow 授权处理函数 - 发送授权请求
+        function handleSungrowAuth() {
+            const inverterSN = document.getElementById('inverterSN').value.trim();
+
+            if (!inverterSN) {
+                console.log('[handleSungrowAuth] SN为空,不执行');
+                return;
+            }
+
+            // 获取按钮
+            var btn = document.getElementById('sungrowAuthBtn');
+
+            if (btn) {
+                // 禁用按钮并变灰
+                btn.disabled = true;
+                btn.style.backgroundColor = '#9CA3AF';
+                btn.style.cursor = 'not-allowed';
+
+                // 倒计时
+                var countdown = 60;
+                btn.innerText = 'Resend (' + countdown + 's)';
+
+                // 启动倒计时定时器
+                window.sungrowTimer = setInterval(function() {
+                    countdown--;
+                    if (countdown <= 0) {
+                        clearInterval(window.sungrowTimer);
+                        window.sungrowTimer = null;
+                        btn.disabled = false;
+                        btn.style.backgroundColor = '#2563EB';
+                        btn.style.cursor = 'pointer';
+                        btn.innerText = 'Resend';
+                    } else {
+                        btn.innerText = 'Resend (' + countdown + 's)';
+                    }
+                }, 1000);
+
+                // 显示 toast（放在最后，即使出错也不影响倒计时）
+                try {
+                    showSungrowToast();
+                } catch(e) {
+                    console.error('Toast error:', e);
+                }
+            }
+        }
+
+        // 显示Sungrow发送成功的临时提示
+        function showSungrowToast() {
+            // 根据当前语言显示对应文字
+            var lang = getCurrentLanguage();
+            var msg = lang === 'zh'
+                ? '✓ 已发送至邮箱，请前往邮箱点击确认授权'
+                : '✓ Sent to email, please check your inbox and click to confirm authorization';
+
+            // 创建 toast 元素
+            var toast = document.createElement('div');
+            toast.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transition-opacity duration-300';
+            toast.innerText = msg;
+            document.body.appendChild(toast);
+
+            // 5秒后淡出并移除
+            setTimeout(function() {
+                toast.style.opacity = '0';
+                setTimeout(function() {
+                    toast.remove();
+                }, 300);
+            }, 5000);
+        }
+
+        // 开始Sungrow倒计时
+        function startSungrowCountdown(seconds) {
+            console.log('[startSungrowCountdown] 开始倒计时, seconds:', seconds);
+            const sungrowAuthBtn = document.getElementById('sungrowAuthBtn');
+            console.log('[startSungrowCountdown] sungrowAuthBtn:', sungrowAuthBtn);
+
+            if (!sungrowAuthBtn) {
+                console.error('[startSungrowCountdown] 按钮不存在!');
+                return;
+            }
+
+            sungrowCountdownSeconds = seconds;
+
+            // 禁用按钮并显示倒计时
+            sungrowAuthBtn.disabled = true;
+            sungrowAuthBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+            sungrowAuthBtn.classList.add('bg-gray-400', 'cursor-not-allowed');
+            console.log('[startSungrowCountdown] 按钮已禁用, 调用 updateSungrowCountdownText');
+            updateSungrowCountdownText();
+
+            // 清除之前的定时器
+            if (sungrowCountdownTimer) {
+                clearInterval(sungrowCountdownTimer);
+            }
+
+            // 开始倒计时
+            sungrowCountdownTimer = setInterval(function() {
+                sungrowCountdownSeconds--;
+
+                if (sungrowCountdownSeconds <= 0) {
+                    // 倒计时结束
+                    clearInterval(sungrowCountdownTimer);
+                    sungrowCountdownTimer = null;
+
+                    // 恢复按钮状态
+                    sungrowAuthBtn.disabled = false;
+                    sungrowAuthBtn.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                    sungrowAuthBtn.classList.add('bg-blue-600', 'hover:bg-blue-700');
+
+                    // 恢复按钮文字为"重新发送"
+                    sungrowAuthBtn.innerHTML = `
+                        <span class="lang-text" data-lang="en">Resend</span>
+                        <span class="lang-text" data-lang="zh">重新发送</span>
+                    `;
+                    updateLanguageText();
+                } else {
+                    updateSungrowCountdownText();
+                }
+            }, 1000);
+        }
+
+        // 更新Sungrow按钮倒计时文字
+        function updateSungrowCountdownText() {
+            console.log('[updateSungrowCountdownText] 更新倒计时文字, seconds:', sungrowCountdownSeconds);
+            const sungrowAuthBtn = document.getElementById('sungrowAuthBtn');
+            if (!sungrowAuthBtn) {
+                console.error('[updateSungrowCountdownText] 按钮不存在!');
+                return;
+            }
+            sungrowAuthBtn.innerHTML = `
+                <span class="lang-text" data-lang="en">Resend (${sungrowCountdownSeconds}s)</span>
+                <span class="lang-text" data-lang="zh">重新发送 (${sungrowCountdownSeconds}s)</span>
+            `;
+            console.log('[updateSungrowCountdownText] innerHTML 已更新');
+            updateLanguageText();
+        }
+
+        // 更新Sungrow授权按钮状态 - 根据SN是否填写
+        function updateSungrowAuthBtnState() {
+            const inverterSN = document.getElementById('inverterSN').value.trim();
+            const sungrowAuthBtn = document.getElementById('sungrowAuthBtn');
+
+            if (!sungrowAuthBtn) return;
+
+            if (inverterSN) {
+                // SN已填写,启用按钮
+                sungrowAuthBtn.disabled = false;
+                sungrowAuthBtn.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                sungrowAuthBtn.classList.add('bg-blue-600', 'hover:bg-blue-700');
+            } else {
+                // SN未填写,禁用按钮
+                sungrowAuthBtn.disabled = true;
+                sungrowAuthBtn.classList.add('bg-gray-400', 'cursor-not-allowed');
+                sungrowAuthBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+            }
+        }
+
+        // 重置Sungrow授权状态
+        function resetSungrowAuthStatus() {
+            const sungrowAuthBtn = document.getElementById('sungrowAuthBtn');
+            const sungrowAuthConfirm = document.getElementById('sungrowAuthConfirm');
+
+            // 清除倒计时定时器
+            if (sungrowCountdownTimer) {
+                clearInterval(sungrowCountdownTimer);
+                sungrowCountdownTimer = null;
+            }
+
+            // 如果按钮不存在，直接返回
+            if (!sungrowAuthBtn) return;
+
+            // 重置复选框
+            if (sungrowAuthConfirm) {
+                sungrowAuthConfirm.checked = false;
+            }
+
+            // 恢复按钮文字为"发送"
+            sungrowAuthBtn.innerHTML = `
+                <span class="lang-text" data-lang="en">Send</span>
+                <span class="lang-text" data-lang="zh">发送</span>
+            `;
+
+            // 更新按钮状态
+            updateSungrowAuthBtnState();
+
+            // 更新语言显示
+            if (typeof updateLanguageText === 'function') {
+                updateLanguageText();
+            }
+        }
+
+        // 监听Inverter SN输入变化,更新Sungrow按钮状态
+        document.addEventListener('DOMContentLoaded', function() {
+            const inverterSNInput = document.getElementById('inverterSN');
+            if (inverterSNInput) {
+                inverterSNInput.addEventListener('input', function() {
+                    const currentBrand = document.getElementById('batteryBrand').value;
+                    if (currentBrand === 'Sungrow') {
+                        updateSungrowAuthBtnState();
+                    }
+                });
+            }
+        });
 
         // 打开提示模态框
         function openHintModal(type) {
