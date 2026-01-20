@@ -2911,8 +2911,9 @@
             var lang = getCurrentLanguage();
             var title = lang === 'zh' ? '发送成功' : 'Sent Successfully';
             var msg = lang === 'zh'
-                ? '<strong>Sungrow</strong>會發送Email，請你在邮件中点击<strong>確認</strong>'
-                : '<strong>Sungrow</strong> will send you an email, please click <strong>confirm</strong> in the email';
+                ? '<strong>Sungrow</strong>會發送Email，請你在邮件中点击<strong class="text-blue-600">確認</strong>'
+                : '<strong>Sungrow</strong> will send you an email, please click <strong class="text-blue-600">confirm</strong> in the email';
+            var imgHint = lang === 'zh' ? '示例图片：' : 'Example:';
             var btnText = lang === 'zh' ? '我知道了' : 'OK';
 
             // 创建遮罩层
@@ -2937,7 +2938,14 @@
                         '</svg>' +
                     '</button>' +
                 '</div>' +
-                '<p class="text-gray-600 mb-6">' + msg + '</p>' +
+                '<p class="text-gray-600 mb-4">' + msg + '</p>' +
+                '<div class="mb-4">' +
+                    '<p class="text-sm text-gray-500 mb-2">' + imgHint + '</p>' +
+                    '<div class="overflow-y-auto space-y-2" style="max-height: 300px;">' +
+                        '<img src="阳光提示1.png" alt="Sungrow Example 1" class="w-full rounded-lg border border-gray-200">' +
+                        '<img src="阳光提示2.png" alt="Sungrow Example 2" class="w-full rounded-lg border border-gray-200">' +
+                    '</div>' +
+                '</div>' +
                 '<button onclick="closeSungrowModal()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors">' +
                     btnText +
                 '</button>' +
